@@ -8,9 +8,9 @@ namespace LynexHome.Core.Model
 {
     public enum WallType
     {
-        Single,
-        Double,
-        Tripple,
-        Retaining
+        Single = 1,
+        Double = 2,
+        Tripple = 3,
+        Retaining = 4
     }
 }

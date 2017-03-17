@@ -7,7 +7,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace LynexHome.Core.Model
 {
-    public class UserRole : IdentityUserRole
+    public partial class UserRole : IdentityUserRole
     {
     }
 }

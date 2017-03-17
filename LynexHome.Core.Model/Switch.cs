@@ -6,20 +6,24 @@ using System.Threading.Tasks;
 
 namespace LynexHome.Core.Model
 {
-    public class Switch : BaseEntity
+    public partial class Switch : BaseEntity
     {
-        public virtual string Name { get; set; }
+        public string Name { get; set; }
 
-        public virtual bool Status { get; set; }
+        public bool Status { get; set; }
 
-        public virtual bool X { get; set; }
+        public bool X { get; set; }
 
-        public virtual bool Y { get; set; }
+        public bool Y { get; set; }
 
-        public virtual SwitchType Type { get; set; }
+        public SwitchType Type { get; set; }
 
-        public virtual DateTime CreatedDateTime { get; set; }
+        public DateTime CreatedDateTime { get; set; }
 
-        public virtual DateTime UpdatedDateTime { get; set; }
+        public DateTime UpdatedDateTime { get; set; }
+
+        public string SiteId { get; set; }
+
+        public virtual Site Site { get; set; }
     }
 }

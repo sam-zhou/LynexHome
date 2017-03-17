@@ -7,5 +7,5 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace LynexHome.Core.Model
 {
-    public class UserClaim : IdentityUserClaim { }
+    public partial class UserClaim : IdentityUserClaim { }
 }

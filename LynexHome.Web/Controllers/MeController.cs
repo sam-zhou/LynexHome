@@ -1,6 +1,10 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using System.Web.Http;
-using LynexHome.Web.Models;
+using System.Web.Http.Results;
+using LynexHome.Core;
+using LynexHome.Core.Model;
+using LynexHome.Repository.Interface;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 
@@ -9,34 +13,44 @@ namespace LynexHome.Web.Controllers
     [Authorize]
     public class MeController : ApiController
     {
-        private ApplicationUserManager _userManager;
+        private readonly LynexUserManager _userManager;
+        private readonly ISiteRepository _siteRepository;
 
-        public MeController()
+
+        public MeController(LynexUserManager userManager, ISiteRepository siteRepository)
         {
+            _userManager = userManager;
+            _siteRepository = siteRepository;
         }
 
-        public MeController(ApplicationUserManager userManager)
-        {
-            UserManager = userManager;
-        }
-
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
 
         // GET api/Me
-        public GetViewModel Get()
+        public bool Get(string name)
         {
-            var user = UserManager.FindById(User.Identity.GetUserId());
-            return new GetViewModel() { Phone = user.Phone };
+            
+            var site = new Site
+            {
+                Address = "11 Braceby Close",
+                Country = "Australia",
+                CreatedDateTime = DateTime.UtcNow,
+                Name = name,
+                Postcode = "6155",
+                State = "WA",
+                Suburb = "Willetton",
+                UpdatedDateTime = DateTime.UtcNow,
+            };
+
+
+
+
+            _siteRepository.AddSite(site, User.Identity.GetUserId());
+
+
+
+            return true;
+
+
+
         }
     }
 }

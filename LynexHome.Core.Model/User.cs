@@ -11,12 +11,12 @@ using Microsoft.AspNet.Identity.EntityFramework;
 namespace LynexHome.Core.Model
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
-    public class User : IdentityUser<string, UserLogin, UserRole, UserClaim>
+    public partial class User : IdentityUser<string, UserLogin, UserRole, UserClaim>
     {
         public User()
         {
             Id = Guid.NewGuid().ToString();
-            Sites= new List<Site>();
+            Sites= new HashSet<Site>();
         }
 
         public User(string id)

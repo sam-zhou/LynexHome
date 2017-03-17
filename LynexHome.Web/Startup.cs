@@ -1,4 +1,5 @@
 ﻿using LynexHome.Web;
+using LynexHome.Web.IoC;
 using Microsoft.Owin;
 using Owin;
 

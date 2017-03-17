@@ -1,3 +1,4 @@
+using Lynex.Extension.Enum;
 using LynexHome.Core.Model;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -19,10 +20,15 @@ namespace LynexHome.Core.Migrations
 
         protected override void Seed(LynexDbContext context)
         {
-
+            
             
             using (var dbContext = new LynexDbContext())
             {
+                var enumToLookup = new EnumToLookup();
+                enumToLookup.NameFieldLength = 25;
+                enumToLookup.TableNamePrefix = string.Empty;
+                enumToLookup.Apply(dbContext);
+
                 using (var roleStore = new RoleStore<Role, string, UserRole>(dbContext))
                 {
                     using (var roleManager = new RoleManager<Role>(roleStore))
@@ -49,7 +55,7 @@ namespace LynexHome.Core.Migrations
 
                 using (var userStore = new LynexUserStore(dbContext))
                 {
-                    using (var userManager = new UserManager<User>(userStore))
+                    using (var userManager = new LynexUserManager(userStore))
                     {
                         var user = new User("0efc7c0b-e378-4fc7-9e48-af184f78ee03")
                         {

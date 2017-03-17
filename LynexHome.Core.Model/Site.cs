@@ -6,29 +6,38 @@ using System.Threading.Tasks;
 
 namespace LynexHome.Core.Model
 {
-    public class Site : BaseEntity
+    public partial class Site : BaseEntity
     {
         public Site()
         {
-            Switches = new List<Switch>();
+            Switches = new HashSet<Switch>();
+            Walls = new HashSet<Wall>();
         }
 
-        public virtual string Name { get; set; }
+        public string Name { get; set; }
 
-        public virtual string Address { get; set; }
+        public string Address { get; set; }
 
-        public virtual string Suburb { get; set; }
+        public string Suburb { get; set; }
 
-        public virtual string State { get; set; }
+        public string State { get; set; }
 
-        public virtual string Postcode { get; set; }
+        public string Postcode { get; set; }
 
-        public virtual string Country { get; set; }
+        public string Country { get; set; }
 
-        public virtual SiteMap SiteMap { get; set; }
+        
 
-        public virtual DateTime CreatedDateTime { get; set; }
+        public DateTime UpdatedDateTime { get; set; }
+
+        public DateTime CreatedDateTime { get; set; }
+
+        public virtual ICollection<Wall> Walls { get; set; }
 
         public virtual ICollection<Switch> Switches { get; set; }
+
+        public string UserId { get; set; }
+
+        public virtual User User { get; set; }
     }
 }

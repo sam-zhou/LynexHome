@@ -6,20 +6,24 @@ using System.Threading.Tasks;
 
 namespace LynexHome.Core.Model
 {
-    public class Wall : BaseEntity
+    public partial class Wall : BaseEntity
     {
-        public virtual int StartX { get; set; }
+        public int StartX { get; set; }
 
-        public virtual int StartY { get; set; }
+        public int StartY { get; set; }
 
-        public virtual int EndX { get; set; }
+        public int EndX { get; set; }
 
-        public virtual int EndY { get; set; }
+        public int EndY { get; set; }
 
-        public virtual WallType Type { get; set; }
+        public WallType Type { get; set; }
 
-        public virtual DateTime CreatedDateTime { get; set; }
+        public DateTime CreatedDateTime { get; set; }
 
-        public virtual DateTime UpdatedDateTime { get; set; }
+        public DateTime UpdatedDateTime { get; set; }
+
+        public string SiteId { get; set; }
+
+        public virtual Site Site { get; set; }
     }
 }
