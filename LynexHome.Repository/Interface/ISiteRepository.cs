@@ -9,6 +9,10 @@ namespace LynexHome.Repository.Interface
 {
     public interface ISiteRepository
     {
-        void AddSite(Site site, string id);
+        void AddSite(Site site, string userId);
+
+        void UpdateSite(Site site);
+
+        void DeleteSite(string siteId);
     }
 }

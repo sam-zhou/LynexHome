@@ -1,0 +1,9 @@
+﻿@media screen and (max-width: 1280px) { /* Specific to this particular image */
+#home-bg {
+  background: url('/Images/home-bg.jpg') no-repeat 0 center fixed; 
+    -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+}

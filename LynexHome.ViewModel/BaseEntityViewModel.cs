@@ -8,13 +8,18 @@ using LynexHome.Core.Model;
 
 namespace LynexHome.ViewModel
 {
-    public class BaseEntityViewModel<TEntity, TKey> where TEntity : BaseEntity<TKey>
+    public abstract class BaseEntityViewModel<TEntity>
     {
 
-        public BaseEntityViewModel(TEntity data)
+        protected BaseEntityViewModel()
         {
-            var convertProperties = TypeDescriptor.GetProperties(typeof(TEntity)).Cast<PropertyDescriptor>().ToList();
-            var entityProperties = TypeDescriptor.GetProperties(GetType()).Cast<PropertyDescriptor>().ToList();
+            
+        }
+
+        protected BaseEntityViewModel(TEntity data)
+        {
+            var entityProperties = TypeDescriptor.GetProperties(typeof(TEntity)).Cast<PropertyDescriptor>().ToList();
+            var convertProperties = TypeDescriptor.GetProperties(GetType()).Cast<PropertyDescriptor>().ToList();
 
             
 
@@ -27,13 +32,6 @@ namespace LynexHome.ViewModel
                     convertProperty.SetValue(this, Convert.ChangeType(entityProperty.GetValue(data), convertProperty.PropertyType));
                 }
             }
-        }
-    }
-
-    public class BaseEntityViewModel<TEntity> : BaseEntityViewModel<TEntity, string> where TEntity : BaseEntity
-    {
-        public BaseEntityViewModel(TEntity data) : base(data)
-        {
         }
     }
 }

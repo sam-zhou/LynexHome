@@ -58,12 +58,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interface\ISwitchRepository.cs" />
+    <Compile Include="Interface\IWallRepository.cs" />
     <Compile Include="Interface\ISiteRepository.cs" />
     <Compile Include="BaseRepository.cs" />
+    <Compile Include="SwitchRepository.cs" />
+    <Compile Include="WallRepository.cs" />
     <Compile Include="SiteRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Lynex.Common\Lynex.Common.csproj">
+      <Project>{a37b3ab5-139c-40ba-b83c-d2290eb39307}</Project>
+      <Name>Lynex.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LynexHome.Core.Model\LynexHome.Core.Model.csproj">
       <Project>{59cfd304-7fcd-4ec9-a9b8-ea988f21c444}</Project>
       <Name>LynexHome.Core.Model</Name>
