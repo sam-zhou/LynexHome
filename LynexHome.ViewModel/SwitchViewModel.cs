@@ -18,9 +18,11 @@ namespace LynexHome.ViewModel
 
         public bool Status { get; set; }
 
-        public bool X { get; set; }
+        public int X { get; set; }
 
-        public bool Y { get; set; }
+        public int Y { get; set; }
+
+        public int Order { get; set; }
 
         public SwitchType Type { get; set; }
 

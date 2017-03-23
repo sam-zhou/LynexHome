@@ -75,8 +75,41 @@ namespace LynexHome.Core.Migrations
                     }
                 }
 
+                var site = new Site("5735824c-93cc-4016-b6b3-26f7947bb58e")
+                {
+                    UserId = "0efc7c0b-e378-4fc7-9e48-af184f78ee03",
+                    Address = "11 Braceby Close",
+                    Country = "Australia",
+                    CreatedDateTime = DateTime.UtcNow,
+                    Name = "Willetton",
+                    Postcode = "6155",
+                    State = "Western Australia",
+                    Suburb = "Willetton",
+                    UpdatedDateTime = DateTime.UtcNow,
+                };
 
-                
+                dbContext.Set<Site>().Add(site);
+                dbContext.SaveChanges();
+
+                for (var i = 1; i <= 6; i++)
+                {
+                    var theSwitch = new Switch
+                    {
+                        SiteId = "5735824c-93cc-4016-b6b3-26f7947bb58e",
+                        CreatedDateTime = DateTime.UtcNow,
+                        Name = "Switch " + i,
+                        Status = true,
+                        Type = i % 2 ==0 ? SwitchType.Normal : SwitchType.PowerMonitoring,
+                        UpdatedDateTime = DateTime.UtcNow,
+                        X = 0,
+                        Y = 0,
+                        Order = i,
+                    };
+                    dbContext.Set<Switch>().Add(theSwitch);
+                }
+                dbContext.SaveChanges();
+
+
             }
 
         }

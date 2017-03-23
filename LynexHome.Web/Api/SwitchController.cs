@@ -6,6 +6,7 @@ using System.Web.Http;
 using LynexHome.Core;
 using LynexHome.Core.Model;
 using LynexHome.Repository.Interface;
+using LynexHome.Service;
 using LynexHome.ViewModel;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
@@ -18,13 +19,15 @@ namespace LynexHome.Web.Api
         private readonly LynexUserManager _userManager;
         private readonly ISiteRepository _siteRepository;
         private readonly IAuthenticationManager _anthenticationManager;
+        private readonly ISwitchService _switchService;
 
 
-        public SwitchController(LynexUserManager userManager, ISiteRepository siteRepository, IAuthenticationManager anthenticationManager)
+        public SwitchController(LynexUserManager userManager, ISiteRepository siteRepository, IAuthenticationManager anthenticationManager, ISwitchService switchService)
         {
             _userManager = userManager;
             _siteRepository = siteRepository;
             _anthenticationManager = anthenticationManager;
+            _switchService = switchService;
         }
 
         [HttpGet]
@@ -37,23 +40,15 @@ namespace LynexHome.Web.Api
 
             var user = _userManager.FindById(userid);
 
-            if (user != null && user.Sites.Any())
+            if (user != null)
             {
-                var results = new List<SwitchViewModel>();
-
-                foreach (var site in user.Sites)
-                {
-                    foreach (var theSwitch in site.Switches)
-                    {
-                        results.Add(new SwitchViewModel(theSwitch));
-                    }
-                }
+                var switches = _switchService.GetSwitchesForUserId(userid);
 
                 var obj = new
                 {
                     Success = true,
                     Message = "",
-                    Results = results
+                    Results = switches
                 };
 
                 return Ok(obj);
@@ -75,7 +70,7 @@ namespace LynexHome.Web.Api
                 CreatedDateTime = DateTime.UtcNow,
                 Name = name,
                 Postcode = "6155",
-                State = "WA",
+                State = "Western Australia",
                 Suburb = "Willetton",
                 UpdatedDateTime = DateTime.UtcNow,
             };

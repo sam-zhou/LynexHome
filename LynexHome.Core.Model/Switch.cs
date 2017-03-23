@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,11 +13,13 @@ namespace LynexHome.Core.Model
 
         public bool Status { get; set; }
 
-        public bool X { get; set; }
+        public int X { get; set; }
 
-        public bool Y { get; set; }
+        public int Y { get; set; }
 
         public SwitchType Type { get; set; }
+
+        public int Order { get; set; }
 
         public DateTime CreatedDateTime { get; set; }
 

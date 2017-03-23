@@ -8,7 +8,6 @@ using Lynex.Notification.Email;
 using Lynex.Notification.SMS;
 using LynexHome.Core.Helper;
 using LynexHome.Core.Model;
-using LynexHome.Service;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;

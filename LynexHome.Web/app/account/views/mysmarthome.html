@@ -2,8 +2,16 @@
     <!--<img src="/Images/home-bg.jpg" alt="">-->
     
     
-    <div ng-controller="smarthomeController">
-        {{text}}
+    <div class="switch-container container" ng-controller="smarthomeController">
+        <div class="col-md-6" ng-repeat="switch in switches">
+            <div class="switch-box" ng-class="switchClass(switch.status)">
+                <div class="switch-name">{{switch.name}}</div>
+
+            </div>
+
+            
+
+        </div>
     </div>
 
 </div>

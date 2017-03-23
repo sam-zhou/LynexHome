@@ -17,6 +17,13 @@ namespace LynexHome.Repository
         {
         }
 
+        public IQueryable<Switch> GetUserSwitches(string userId)
+        {
+            var output = DbContext.Set<Switch>().Where(q => q.Site.UserId == userId);
+            
+            return output;
+        } 
+
         public void AddSwitch(Switch theSwitch, string siteId)
         {
             var site = DbContext.Set<Site>().Find(siteId);

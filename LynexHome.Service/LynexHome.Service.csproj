@@ -55,20 +55,19 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Notification\Lynex.Notification.Common\Lynex.Notification.Common.csproj">
-      <Project>{e9bae4d8-fcbd-43b0-a4be-5dd762fbb659}</Project>
-      <Name>Lynex.Notification.Common</Name>
+    <ProjectReference Include="..\LynexHome.Core.Model\LynexHome.Core.Model.csproj">
+      <Project>{59cfd304-7fcd-4ec9-a9b8-ea988f21c444}</Project>
+      <Name>LynexHome.Core.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Notification\Lynex.Notification.Email\Lynex.Notification.Email.csproj">
-      <Project>{f36f3d6f-a168-44b7-8bd3-67cdf3ecc1d4}</Project>
-      <Name>Lynex.Notification.Email</Name>
+    <ProjectReference Include="..\LynexHome.Repository\LynexHome.Repository.csproj">
+      <Project>{f263235e-667c-42ca-ab04-f48ac157cb4d}</Project>
+      <Name>LynexHome.Repository</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Notification\Lynex.Notification.SMS\Lynex.Notification.SMS.csproj">
-      <Project>{c466da70-9fa4-4537-a9ae-5453282dd156}</Project>
-      <Name>Lynex.Notification.SMS</Name>
+    <ProjectReference Include="..\LynexHome.ViewModel\LynexHome.ViewModel.csproj">
+      <Project>{6497b135-6f05-4031-bc7b-349a8f3f333d}</Project>
+      <Name>LynexHome.ViewModel</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

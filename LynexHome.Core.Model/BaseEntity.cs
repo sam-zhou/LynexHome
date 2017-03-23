@@ -13,9 +13,12 @@ namespace LynexHome.Core.Model
 
     public class BaseEntity : BaseEntity<string>
     {
-        public BaseEntity()
+        public BaseEntity(bool autoId = true)
         {
-            Id = Guid.NewGuid().ToString();
+            if (autoId)
+            {
+                Id = Guid.NewGuid().ToString();
+            }
         } 
     }
 }

@@ -3,9 +3,22 @@
 
         $scope.text = "111111111";
 
+        $scope.loading = true;
+
+        $scope.switchClass = function(value) {
+            if (value) {
+                return "on";
+            }
+            return "off";
+        }
 
         switchService.getSwitches().then(function(data) {
-            console.log(data);
+            if (data.success) {
+                $scope.switches = data.results;
+                console.log(data);
+            }
+
+            $scope.loading = false;
         });
 
     }

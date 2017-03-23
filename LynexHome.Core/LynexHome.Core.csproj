@@ -93,9 +93,9 @@
     <Compile Include="LynexSignInManager.cs" />
     <Compile Include="LynexUserManager.cs" />
     <Compile Include="LynexUserStore.cs" />
-    <Compile Include="Migrations\201703170534286_InitialCreate.cs" />
-    <Compile Include="Migrations\201703170534286_InitialCreate.Designer.cs">
-      <DependentUpon>201703170534286_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201703231134142_InitialCreate.cs" />
+    <Compile Include="Migrations\201703231134142_InitialCreate.Designer.cs">
+      <DependentUpon>201703231134142_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs">
       <SubType>Code</SubType>
@@ -115,10 +115,6 @@
       <Project>{59cfd304-7fcd-4ec9-a9b8-ea988f21c444}</Project>
       <Name>LynexHome.Core.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LynexHome.Service\LynexHome.Service.csproj">
-      <Project>{4d1044a5-de36-4e18-946e-d44f197af6b7}</Project>
-      <Name>LynexHome.Service</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Notification\Lynex.Notification.Common\Lynex.Notification.Common.csproj">
       <Project>{e9bae4d8-fcbd-43b0-a4be-5dd762fbb659}</Project>
       <Name>Lynex.Notification.Common</Name>
@@ -137,8 +133,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201703170534286_InitialCreate.resx">
-      <DependentUpon>201703170534286_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201703231134142_InitialCreate.resx">
+      <DependentUpon>201703231134142_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -9,6 +9,8 @@ namespace LynexHome.Repository.Interface
 {
     public interface ISwitchRepository
     {
+        IQueryable<Switch> GetUserSwitches(string userId);
+
         void AddSwitch(Switch theSwitch, string siteId);
 
         void UpdateSwitch(Switch theSwitch);

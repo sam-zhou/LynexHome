@@ -8,6 +8,11 @@ namespace LynexHome.Core.Model
 {
     public partial class Site : BaseEntity
     {
+        public Site(string id):base(false)
+        {
+            Id = id;
+        }
+
         public Site()
         {
             Switches = new HashSet<Switch>();
@@ -25,8 +30,6 @@ namespace LynexHome.Core.Model
         public string Postcode { get; set; }
 
         public string Country { get; set; }
-
-        
 
         public DateTime UpdatedDateTime { get; set; }
 

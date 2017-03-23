@@ -13,7 +13,7 @@ namespace LynexHome.Core.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201703170534286_InitialCreate"; }
+            get { return "201703231134142_InitialCreate"; }
         }
         
         string IMigrationMetadata.Source
