@@ -273,7 +273,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Api\MeController.cs" />
+    <Compile Include="Api\SwitchController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -296,7 +296,11 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="admin_favicon.ico" />
+    <Content Include="app\account\controllers\smarthomeController.js" />
+    <Content Include="app\account\services\switchService.js" />
     <Content Include="app\common\controllers\navigationController.js" />
+    <Content Include="app\common\directives\footer.directive.js" />
     <Content Include="app\common\directives\navigation.directive.js" />
     <Content Include="app\common\services\apiService.js" />
     <Content Include="app\common\modules\lynexServices.js" />
@@ -304,6 +308,8 @@
     <Content Include="app\common\services\userService.js" />
     <Content Include="app\common\controllers\loginPartialController.js" />
     <Content Include="app\common\views\loginPartial.html" />
+    <Content Include="app\common\views\footer.html" />
+    <Content Include="app\account\views\mysmarthome.html" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
     <Content Include="Content\1280.css" />
@@ -332,6 +338,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Images\home-bg.jpg" />
+    <Content Include="Images\logo.png" />
     <Content Include="Scripts\ai.1.0.7-build00691.js" />
     <Content Include="Scripts\ai.1.0.7-build00691.min.js" />
     <Content Include="Scripts\angular-animate.js" />
@@ -1160,7 +1167,6 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="app\common\modules\lynex.js" />
     <Content Include="app\common\views\navigation.html" />
-    <Content Include="app\common\views\home.html" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -1202,6 +1208,7 @@
     <Content Include="Scripts\version.json" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="app\account\directives\" />
     <Folder Include="app\login\controllers\" />
     <Folder Include="app\login\directives\" />
     <Folder Include="app\login\views\" />

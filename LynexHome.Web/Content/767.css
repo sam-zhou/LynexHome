@@ -1,3 +1,28 @@
 ﻿@media screen and (max-width: 767px) { /* Specific to this particular image */
+    .res-767-hide, .res-767-hide-inline {
+        display: none !important;
+    }
 
+    .res-767-show {
+        display: inherit !important;
+    }
+
+    .res-767-show-inline {
+        display: inline !important;
+    }
+
+    .navbar-default .navbar-nav > li > a {
+        font-size: 14px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+    
+    #navbar {
+    text-align: left;
+}
+
+    .navbar-nav {
+    display: block;
+    float: none;
+}
 }

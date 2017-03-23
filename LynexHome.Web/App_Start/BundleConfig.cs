@@ -35,7 +35,13 @@ namespace LynexHome.Web
                 "~/app/common/directives/*.js",
 
                 "~/app/login/controllers/*.js",
-                "~/app/login/directives/*.js"
+                "~/app/login/directives/*.js",
+
+
+
+                "~/app/account/controllers/*.js",
+                "~/app/account/directives/*.js",
+                "~/app/account/services/*.js"
                 
                 
                 ));

@@ -1,27 +1,6 @@
-﻿<!--<div>
-    <div ng-switch on="isUserLoggedIn()">
-        <div ng-switch-when="false">
-            <form class="navbar-form pull-right">
-                <input type="text" class="input-medium" placeholder="User Name" ng-model="login.userName">
-                <input type="password" class="input-medium" placeholder="Password" ng-model="login.password">
-                <button id="loginButton" class="btn" ng-click="login()">Login</button>
-                <button id="registerButton" class="btn" ng-click="register()">Register</button>
-            </form>
-        </div>
-        <div ng-switch-when="true">
-            <div class="navbar-text pull-right">
-                Welcome, {{currentUser.FirstName}}
-                {{currentUser.LastName}} <span gravatar-image data-email="currentUser.Email" data-size="40"></span>
-                <button class="btn" ng-click="logout()">Logout</button>
-            </div>
-        </div>
-    </div>
-</div>-->
-
-
-<ul class="nav navbar-nav navbar-right" ng-switch on="isUserLoggedIn()">
+﻿<ul class="nav navbar-nav navbar-right" ng-switch on="isUserLoggedIn()">
     <li class="dropdown" ng-switch-when="true">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span title="User" class="glyphicon glyphicon-user" aria-hidden="true"></span> <span class="caret"></span></a>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span title="User" class="glyphicon glyphicon-user" aria-hidden="true"></span> <span class="res-767-show-inline">My Account</span> <span class="caret"></span></a>
         <ul class="dropdown-menu">
             <li class="dropdown-header">{{user.email}}</li>
             <li><a href="#"><span title="Logout" class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;My Smart Home</a></li>
