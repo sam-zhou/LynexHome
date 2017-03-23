@@ -3,13 +3,13 @@
 // Define Routing for app
 lynex.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
     $routeProvider.
-        when('/home', {
-            templateUrl: '/app/common/views/home.html',
+        when('/mysmarthome', {
+            templateUrl: '/app/account/views/mysmarthome.html',
             authRequired: true
         }).
         
         otherwise({
-            redirectTo: '/home'
+            redirectTo: '/mysmarthome'
         });
 
     // this sends the lovely ".ASPXAUTH" cookie.

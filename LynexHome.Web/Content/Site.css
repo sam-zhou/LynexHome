@@ -1,23 +1,166 @@
-﻿body {
-    
+﻿@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,300,400,700);
+
+body {
+    margin: 0;
+    outline: none;
+    padding: 0;
+    text-decoration: none;
+    font-family: open sans,"Hiragino Sans GB","Microsoft Yahei","\5b8b\4f53";
+}
+
+h1, h2, h3, h4, h5, label {
+    text-transform: uppercase;
+    font-family: open sans,"Hiragino Sans GB","Microsoft Yahei","\5b8b\4f53";
+    font-weight: 300;
+}
+
+ul, li {
+    list-style: none;
+    padding-left: 0;
+}
+
+a:link, a:visited, a {
+    color: #555;
+    text-decoration: none;
+}
+
+
+.res-767-hide-inline {
+    display: inline !important;
+}
+
+.res-767-hide {
+    display: inherit !important;
+}
+
+.res-767-show, .res-767-show-inline {
+    display: none !important;
+}
+
+
+
+/* Navigation */
+
+.navbar {
+    margin-bottom: 0;
 }
 
 .navbar-default {
     border: none;
     /*border-color: #2f7d00;*/ 
-    -webkit-box-shadow: 0px 3px 5px 0px rgba(47,125,0,1);
-    -moz-box-shadow: 0px 3px 5px 0px rgba(47,125,0,1);
-    box-shadow: 0px 3px 5px 0px rgba(47,125,0,1);
+    background-color: rgba(255,255,255,1);
+    -webkit-box-shadow: 0 2px 3px rgba(0,0,0,0.15);
+    -moz-box-shadow: 0 2px 3px rgba(0,0,0,0.15);
+    box-shadow: 0 2px 3px rgba(0,0,0,0.15);
 }
 
-/*.navbar-default {
-  background-color: #5FC325;
-    border: none;
-  border-color: #2f7d00;
-  -webkit-box-shadow: 0px 3px 5px 0px rgba(47,125,0,1);
--moz-box-shadow: 0px 3px 5px 0px rgba(47,125,0,1);
-box-shadow: 0px 3px 5px 0px rgba(47,125,0,1);
+.responsive-header-logo {
+        background: #fff;
+        display: block;
+    position: relative;
+    float: left;
 }
+
+.responsive-header-logo a.logo {
+    width: auto;
+    text-indent: 0;
+    display: block;
+    color: #fff;
+    font-size: 20px;
+    text-transform: uppercase;
+    height: 43px;
+    width: 110px;
+    overflow: hidden;
+    cursor: pointer;
+    margin-top: 7px;
+    padding: 0;
+    background-color: #5FC325;
+}
+
+
+.responsive-header-logo a.logo img {
+    height: 40px;
+    width: 110px;
+    
+}
+
+.navbar-nav {
+    width: auto;
+    display: inline-block;
+    float:none;
+}
+
+.navbar-nav > li > a {
+    padding-top: 15px;
+    padding-bottom: 14px;
+}
+
+.navbar-default .navbar-nav > li > a {
+    font-size: 18px;
+    font-family: open sans,"Hiragino Sans GB","Microsoft Yahei","\5b8b\4f53";
+    text-transform: uppercase;
+    color: #555;
+    font-weight: lighter;
+}
+
+.header-logo {
+    padding: 20px 0;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+    background-color: #fff; 
+}
+
+.header-logo a.logo {
+    text-indent: 0;
+    display: block;
+    color: #fff;
+    font-size: 20px;
+    text-transform: uppercase;
+    overflow: hidden;
+    width: 199px;
+    cursor: pointer;
+    padding: 0;
+    margin: 0 auto;
+    background-color: #5FC325;
+}
+
+.highlight-header {
+    color: #a52a2a !important;
+    font-weight: 600 !important;
+}
+
+.dropdown-toggle span {
+    display: inline-block;
+}
+
+#navbar {
+    text-align: center;
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+    color: #555;
+    background-color: #ffffff;
+    border-bottom: 4px solid #5FC325;
+}
+
+
+footer {
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    width: 100%;
+    background-color: #f5f5f5;
+    text-align: center;
+    z-index: 5;
+    height: 41px;
+}
+
+footer ul {
+    width: auto;
+    display: inline-block;
+}
+/*
   .navbar-default .navbar-brand {
     color: #fff; }
     .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
