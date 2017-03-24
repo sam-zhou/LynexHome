@@ -13,6 +13,8 @@ namespace LynexHome.Service
     public interface ISwitchService : IService
     {
         List<SwitchViewModel> GetSwitchesForUserId(string userId);
+
+        bool UpdateStatus(string userId, string switchId, bool status);
     }
 
     public class SwitchService : ISwitchService
@@ -37,6 +39,11 @@ namespace LynexHome.Service
 
             return output;
 
+        }
+
+        public bool UpdateStatus(string userId, string switchId, bool status)
+        {
+            return _switchRepository.UpdateStatus(userId, switchId, status);
         }
     }
 }

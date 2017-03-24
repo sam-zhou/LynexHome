@@ -1,4 +1,15 @@
 ﻿@media screen and (max-width: 767px) { /* Specific to this particular image */
+    #home-bg {
+        top: 50px;
+        height: calc(100% - 50px);
+    }
+
+    .switch-container {
+        margin-top: 0;
+        
+    }
+
+
     .res-767-hide, .res-767-hide-inline {
         display: none !important;
     }

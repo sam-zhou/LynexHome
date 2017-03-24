@@ -37,6 +37,29 @@ a:link, a:visited, a {
     display: none !important;
 }
 
+.loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #2F7D00; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+}
+
+@-moz-keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@-webkit-keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
 
 
 /* Navigation */
@@ -216,8 +239,9 @@ footer ul {
 .switch-container {
     background: #fff;
     margin-top: 20px;
-    height: 100%;
+    height: calc(100% - 40px);
     padding-top: 20px;
+    overflow-y: auto;
 }
 
 .switch-box {
@@ -227,6 +251,7 @@ footer ul {
     color: #fff;
     cursor: pointer;
     background: #808080;
+    position: relative;
 }
 
 
@@ -242,4 +267,32 @@ footer ul {
     text-align: center;
     padding-top: 30px;
     
+}
+
+
+.switch-box .add-new-switch {
+    width: 100%;
+    font-family: open sans,"Hiragino Sans GB","Microsoft Yahei","\5b8b\4f53";
+    font-size: 40px;
+    text-transform: uppercase;
+    text-align: center;
+    padding-top: 20px;
+}
+
+.switch-box-busy-wrapper {
+    width: 100%;
+    height: 100%;
+    background-color:  rgba(255, 255, 255, .5);
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.switch-box .loader {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    left: calc(50% - 40px);
+    top: 10px;
+    opacity: 0.5
 }

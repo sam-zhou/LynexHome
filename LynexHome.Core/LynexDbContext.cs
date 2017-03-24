@@ -59,9 +59,9 @@ namespace LynexHome.Core
             role.HasMany(r => r.Users).WithRequired().HasForeignKey(ur => ur.RoleId);
         }
 
-        public static LynexDbContext Create()
-        {
-            return new LynexDbContext();
-        }
+        //public static LynexDbContext Create()
+        //{
+        //    return new LynexDbContext();
+        //}
     }
 }

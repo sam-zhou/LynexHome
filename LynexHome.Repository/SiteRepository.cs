@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,15 +11,16 @@ using LynexHome.Repository.Interface;
 
 namespace LynexHome.Repository
 {
-    public class SiteRepository:BaseRepository, ISiteRepository
+    public class SiteRepository: BaseRepository<Site>, ISiteRepository
     {
-        public SiteRepository(LynexDbContext dbContext) : base(dbContext)
+        public SiteRepository(DbContext dbContext)
+            : base(dbContext)
         {
         }
 
         public void AddSite(Site site, string userId)
         {
-            var user = DbContext.Users.Find(userId);
+            var user = DbContext.Set<User>().Find(userId);
 
             if (user != null)
             {

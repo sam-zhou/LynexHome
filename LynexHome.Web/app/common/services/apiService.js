@@ -11,7 +11,7 @@
                 url: uri + '/' + controller + "/" + action,
                 method: "POST",
                 cache: false,
-                data: JSON.stringify(data),
+                data: data,
             }).then(function (response) {
                 return response.data;
             });

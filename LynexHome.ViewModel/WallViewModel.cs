@@ -13,6 +13,8 @@ namespace LynexHome.ViewModel
         {
         }
 
+        public string Id { get; set; }
+
         public int StartX { get; set; }
 
         public int StartY { get; set; }

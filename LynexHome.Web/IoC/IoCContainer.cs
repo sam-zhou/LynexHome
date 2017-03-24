@@ -18,8 +18,6 @@ namespace LynexHome.Web.IoC
         public static void Setup()
         {
 
-
-
             Container = new WindsorContainer().Install(FromAssembly.This());
             GlobalConfiguration.Configuration.DependencyResolver = new WindsorDependencyResolver(Container);
             var controllerFactory = new WindsorControllerFactory(Container.Kernel);

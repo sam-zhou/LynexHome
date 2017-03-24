@@ -11,6 +11,8 @@ namespace LynexHome.Web
     {
         public void Configuration(IAppBuilder app)
         {
+            IoCContainer.Setup();
+            
             ConfigureAuth(app);
         }
     }

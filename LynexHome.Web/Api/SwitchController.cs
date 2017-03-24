@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Http;
+using LynexHome.ApiModel;
 using LynexHome.Core;
 using LynexHome.Core.Model;
 using LynexHome.Repository.Interface;
@@ -31,7 +33,6 @@ namespace LynexHome.Web.Api
         }
 
         [HttpGet]
-        // GET api/Me
         public IHttpActionResult Get()
         {
 
@@ -59,7 +60,6 @@ namespace LynexHome.Web.Api
         }
 
 
-        // GET api/Me
         public IHttpActionResult AddNew(string name)
         {
             
@@ -92,6 +92,23 @@ namespace LynexHome.Web.Api
 
 
 
+        }
+
+        [HttpPost]
+        public IHttpActionResult UpdateStatus(SwitchStatusModel model)
+        {
+            Thread.Sleep(2000);
+
+            var result = _switchService.UpdateStatus(User.Identity.GetUserId(), model.SwitchId, model.Status);
+
+            var obj = new
+            {
+                Success = true,
+                Message = "",
+                Result = result,
+            };
+
+            return Ok(obj);
         }
     }
 }

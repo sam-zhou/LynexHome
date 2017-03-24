@@ -98,7 +98,7 @@ namespace LynexHome.Core.Migrations
                         SiteId = "5735824c-93cc-4016-b6b3-26f7947bb58e",
                         CreatedDateTime = DateTime.UtcNow,
                         Name = "Switch " + i,
-                        Status = true,
+                        Status = i % 2 != 0,
                         Type = i % 2 ==0 ? SwitchType.Normal : SwitchType.PowerMonitoring,
                         UpdatedDateTime = DateTime.UtcNow,
                         X = 0,

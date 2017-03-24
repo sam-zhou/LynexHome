@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,9 +11,9 @@ using LynexHome.Repository.Interface;
 
 namespace LynexHome.Repository
 {
-    public class WallRepository:BaseRepository, IWallRepository
+    public class WallRepository:BaseRepository<Wall>, IWallRepository
     {
-        public WallRepository(LynexDbContext dbContext)
+        public WallRepository(DbContext dbContext)
             : base(dbContext)
         {
         }

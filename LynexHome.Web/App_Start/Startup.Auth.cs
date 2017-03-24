@@ -43,11 +43,11 @@ namespace LynexHome.Web
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
         {
-            //// Configure the db context, user manager and signin manager to use a single instance per request
-            app.CreatePerOwinContext(LynexDbContext.Create);
-            app.CreatePerOwinContext<LynexUserManager>(LynexUserManager.Create);
-            app.CreatePerOwinContext<LynexSignInManager>(LynexSignInManager.Create);
-            IoCContainer.Setup();
+            ////// Configure the db context, user manager and signin manager to use a single instance per request
+            //app.CreatePerOwinContext(LynexDbContext.Create);
+            //app.CreatePerOwinContext<LynexUserManager>(LynexUserManager.Create);
+            //app.CreatePerOwinContext<LynexSignInManager>(LynexSignInManager.Create);
+            
             // Enable the application to use a cookie to store information for the signed in user
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
