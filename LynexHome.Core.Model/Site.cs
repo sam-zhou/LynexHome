@@ -19,6 +19,8 @@ namespace LynexHome.Core.Model
             Walls = new HashSet<Wall>();
         }
 
+        public bool IsDefault { get; set; }
+
         public string Name { get; set; }
 
         public string Address { get; set; }

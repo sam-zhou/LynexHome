@@ -81,6 +81,7 @@ namespace LynexHome.Core.Migrations
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
+                        IsDefault = c.Boolean(nullable: false),
                         Name = c.String(),
                         Address = c.String(),
                         Suburb = c.String(),
@@ -119,10 +120,10 @@ namespace LynexHome.Core.Migrations
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
-                        StartX = c.Int(nullable: false),
-                        StartY = c.Int(nullable: false),
-                        EndX = c.Int(nullable: false),
-                        EndY = c.Int(nullable: false),
+                        X = c.Int(nullable: false),
+                        Y = c.Int(nullable: false),
+                        Length = c.Double(nullable: false),
+                        Angle = c.Int(nullable: false),
                         Type = c.Int(nullable: false),
                         CreatedDateTime = c.DateTime(nullable: false),
                         UpdatedDateTime = c.DateTime(nullable: false),

@@ -7,7 +7,7 @@ using LynexHome.Core.Model;
 
 namespace LynexHome.Repository.Interface
 {
-    public interface IWallRepository
+    public interface IWallRepository : IRepository<Wall>
     {
         void AddWall(Wall wall, string siteId);
 

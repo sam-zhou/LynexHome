@@ -1,15 +1,18 @@
-﻿var lynex = angular.module('lynex', ['ngTouch', 'ngRoute', 'ngCookies', 'ngSanitize', 'ngAnimate', 'common', 'lynex.services']);
+﻿var lynex = angular.module('lynex', ['ngTouch', 'ngDragDrop', 'ngRoute', 'ngCookies', 'ngSanitize', 'ngAnimate', 'common', 'lynex.services']);
 
 // Define Routing for app
 lynex.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
     $routeProvider.
-        when('/mysmarthome', {
-            templateUrl: '/app/account/views/mysmarthome.html',
+        when('/controlcenter', {
+            templateUrl: '/app/account/views/main.html',
             authRequired: true
         }).
-        
+        when('/map', {
+            templateUrl: '/app/account/views/map.html',
+            authRequired: true
+        }).
         otherwise({
-            redirectTo: '/mysmarthome'
+            redirectTo: '/controlcenter'
         });
 
     // this sends the lovely ".ASPXAUTH" cookie.
@@ -55,7 +58,7 @@ lynex.config(['$httpProvider', function ($httpProvider) {
 }]);
 
 
-lynex.run(['$rootScope', '$location', '$route', 'userService', function ($rootScope, $location, $route, userService) {
+lynex.run(['$rootScope', '$location', '$route', 'userService', '$window', function ($rootScope, $location, $route, userService, $window) {
 
     var preventNavigation = false;
     var preventNavigationUrl = null;
@@ -102,8 +105,17 @@ lynex.run(['$rootScope', '$location', '$route', 'userService', function ($rootSc
                     newRoute.resolve.isAuthenticated = userService.userAuthenticatedCheck;
                 }
             }
+
+            if ($window.innerWidth <= 767 && $location.path() == "/map") {
+                $rootScope.hideFooter = true;
+            } else {
+                $rootScope.hideFooter = false;
+            }
+
         }
 
+
+        
 
     });
 

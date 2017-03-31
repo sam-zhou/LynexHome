@@ -15,13 +15,13 @@ namespace LynexHome.ViewModel
 
         public string Id { get; set; }
 
-        public int StartX { get; set; }
+        public int X { get; set; }
 
-        public int StartY { get; set; }
+        public int Y { get; set; }
 
-        public int EndX { get; set; }
+        public double Length { get; set; }
 
-        public int EndY { get; set; }
+        public int Angle { get; set; }
 
         public WallType Type { get; set; }
 

@@ -8,7 +8,9 @@ namespace LynexHome.Web
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                "~/Scripts/jquery-1.10.2.js"));
+                "~/Scripts/jquery-1.10.2.js",
+                "~/Scripts/jquery-ui-1.10.2.js",
+                "~/Scripts/jquery.ui.touch-punch.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                 "~/Scripts/jquery.unobtrusive*",
@@ -25,10 +27,13 @@ namespace LynexHome.Web
                 "~/Scripts/angular-cookies.js",
                 "~/Scripts/angular-sanitize.js",
                 "~/Scripts/angular-touch.js",
+                "~/Scripts/angular-dragdrop.min.js",
                 "~/Scripts/angular-ui/ui-bootstrap-tpls.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
+                "~/Scripts/fabric.js",
+                //"~/Scripts/fabric.require.js",
                 "~/app/common/modules/*.js",
                 "~/app/common/services/*.js",
                 "~/app/common/controllers/*.js",
@@ -64,8 +69,8 @@ namespace LynexHome.Web
                  "~/Content/1280.css",
                  "~/Content/1024.css",
                  "~/Content/767.css",
-                 "~/Content/480.css"
-                 
+                 "~/Content/480.css",
+                 "~/Content/font-awesome.css"
                  
                  ));
 

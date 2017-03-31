@@ -7,9 +7,9 @@ using LynexHome.Core.Model;
 
 namespace LynexHome.Repository.Interface
 {
-    public interface ISwitchRepository
+    public interface ISwitchRepository : IRepository<Switch>
     {
-        IQueryable<Switch> GetUserSwitches(string userId);
+        IList<Switch> GetSwitches(string userId, string siteId);
 
         void AddSwitch(Switch theSwitch, string siteId);
 
@@ -18,5 +18,7 @@ namespace LynexHome.Repository.Interface
         void DeleteSwitch(string switchId);
 
         bool UpdateStatus(string userId, string switchId, bool status);
+
+        bool UpdateOrder(string userId, string switchId, int order);
     }
 }

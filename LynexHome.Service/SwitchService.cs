@@ -12,9 +12,11 @@ namespace LynexHome.Service
 {
     public interface ISwitchService : IService
     {
-        List<SwitchViewModel> GetSwitchesForUserId(string userId);
+        List<SwitchViewModel> GetSwitches(string userId, string siteId);
 
         bool UpdateStatus(string userId, string switchId, bool status);
+
+        bool UpdateOrder(string userId, string switchId, int order);
     }
 
     public class SwitchService : ISwitchService
@@ -26,9 +28,9 @@ namespace LynexHome.Service
             _switchRepository = switchRepository;
         }
 
-        public List<SwitchViewModel> GetSwitchesForUserId(string userId)
+        public List<SwitchViewModel> GetSwitches(string userId, string siteId)
         {
-            var results = _switchRepository.GetUserSwitches(userId);
+            var results = _switchRepository.GetSwitches(userId, siteId);
 
             var output = new List<SwitchViewModel>();
 
@@ -44,6 +46,11 @@ namespace LynexHome.Service
         public bool UpdateStatus(string userId, string switchId, bool status)
         {
             return _switchRepository.UpdateStatus(userId, switchId, status);
+        }
+
+        public bool UpdateOrder(string userId, string switchId, int order)
+        {
+            return _switchRepository.UpdateOrder(userId, switchId, order);
         }
     }
 }

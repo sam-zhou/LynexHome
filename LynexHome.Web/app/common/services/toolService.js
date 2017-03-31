@@ -461,6 +461,18 @@
             return newdate;
         }
 
+        var closest  = function (num, arr) {
+            var curr = arr[0];
+            var diff = Math.abs(num - curr);
+            for (var val = 0; val < arr.length; val++) {
+                var newdiff = Math.abs(num - arr[val]);
+                if (newdiff < diff) {
+                    diff = newdiff;
+                    curr = arr[val];
+                }
+            }
+            return curr;
+        }
 
         var tools = {
             Base64: base64,
@@ -468,17 +480,18 @@
             GetAgeString: getAgeString,
             GetAge: getAge,
             GetDateFromFormat: getDateFromFormat,
-            log: function (msg) {
+            log: function(msg) {
                 if (settings.isDebug) {
                     console.log(msg);
                 }
             },
-            emptyPromise: function (data) {
+            emptyPromise: function(data) {
                 var d = $q.defer();
                 d.resolve(data);
                 return d.promise;
-            }
-        }
+            },
+            closest: closest
+    }
 
         return tools;
     }

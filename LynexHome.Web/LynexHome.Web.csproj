@@ -233,6 +233,7 @@
   <ItemGroup>
     <Compile Include="Api\AuthenticationController.cs" />
     <Compile Include="Api\AccountController.cs" />
+    <Compile Include="Api\SiteController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -294,19 +295,26 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="admin_favicon.ico" />
-    <Content Include="app\account\controllers\smarthomeController.js" />
+    <Content Include="app\account\controllers\mapController.js" />
+    <Content Include="app\account\controllers\mainController.js" />
+    <Content Include="app\account\controllers\siteController.js" />
+    <Content Include="app\account\directives\siteMap.js" />
+    <Content Include="app\account\services\siteService.js" />
     <Content Include="app\account\services\switchService.js" />
+    <Content Include="app\account\views\siteSelector.html" />
+    <Content Include="app\account\views\map.html" />
     <Content Include="app\common\controllers\navigationController.js" />
-    <Content Include="app\common\directives\footer.directive.js" />
+    <Content Include="app\common\directives\foot.directive.js" />
     <Content Include="app\common\directives\navigation.directive.js" />
     <Content Include="app\common\services\apiService.js" />
     <Content Include="app\common\modules\lynexServices.js" />
+    <Content Include="app\common\services\canvasService.js" />
     <Content Include="app\common\services\toolService.js" />
     <Content Include="app\common\services\userService.js" />
     <Content Include="app\common\controllers\loginPartialController.js" />
     <Content Include="app\common\views\loginPartial.html" />
     <Content Include="app\common\views\footer.html" />
-    <Content Include="app\account\views\mysmarthome.html" />
+    <Content Include="app\account\views\main.html" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
     <Content Include="Content\1280.css" />
@@ -321,6 +329,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\font-awesome.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\tether-theme-arrows-dark.css" />
     <Content Include="Content\tether-theme-arrows-dark.min.css" />
@@ -332,6 +341,7 @@
     <Content Include="Content\tether.min.css" />
     <Content Include="Content\ui-bootstrap-csp.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Images\home-bg.jpg" />
@@ -345,6 +355,7 @@
     <Content Include="Scripts\angular-cookies.js" />
     <Content Include="Scripts\angular-cookies.min.js" />
     <Content Include="Scripts\angular-csp.css" />
+    <Content Include="Scripts\angular-dragdrop.min.js" />
     <Content Include="Scripts\angular-loader.js" />
     <Content Include="Scripts\angular-loader.min.js" />
     <Content Include="Scripts\angular-message-format.js" />
@@ -417,7 +428,14 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="app\common\directives\loginPartial.directive.js" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\fabric.js" />
+    <Content Include="Scripts\fabric.require.js" />
     <Content Include="Scripts\i18n\angular-locale_af-na.js" />
     <Content Include="Scripts\i18n\angular-locale_af-za.js" />
     <Content Include="Scripts\i18n\angular-locale_af.js" />
@@ -1149,6 +1167,8 @@
     <Content Include="Scripts\i18n\angular-locale_zu.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-ui-1.10.2.js" />
+    <Content Include="Scripts\jquery.ui.touch-punch.js" />
     <Content Include="Scripts\knockout-2.3.0.debug.js" />
     <Content Include="Scripts\knockout-2.3.0.js" />
     <Content Include="Scripts\knockout.validation.debug.js" />
@@ -1205,7 +1225,6 @@
     <Content Include="Scripts\version.json" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="app\account\directives\" />
     <Folder Include="app\login\controllers\" />
     <Folder Include="app\login\directives\" />
     <Folder Include="app\login\views\" />

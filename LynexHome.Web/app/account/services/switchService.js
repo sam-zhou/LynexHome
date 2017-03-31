@@ -3,12 +3,12 @@
     
 
     var switchService = {
-        getSwitches: function () {
+        getSwitches: function(siteId) {
 
-            return api.getData("switch", "get");
+            return api.postData("switch", "get", { SiteId: siteId });
         },
 
-        updateStatus: function (switchId, status) {
+        updateStatus: function(switchId, status) {
 
             var updateStatus = {
                 SwitchId: switchId,
@@ -16,6 +16,16 @@
             };
 
             return api.postData("switch", "updateStatus", updateStatus);
+        },
+
+        updateOrder: function(switchId, order) {
+
+            var updateOrder = {
+                SwitchId: switchId,
+                Order: order
+            };
+
+            return api.postData("switch", "updateOrder", updateOrder);
         }
     }
 

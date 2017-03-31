@@ -11,9 +11,11 @@ namespace LynexHome.ViewModel
     {
         public SiteViewModel(Site data) : base(data)
         {
-            Walls = new List<WallViewModel>();
-            Switches = new List<SwitchViewModel>();
+            WallViewModels = new List<WallViewModel>();
+            SwitchViewModels = new List<SwitchViewModel>();
         }
+
+        public bool IsDefault { get; set; }
 
         public string Id { get; set; }
 
@@ -31,8 +33,8 @@ namespace LynexHome.ViewModel
 
         public DateTime CreatedDateTime { get; set; }
 
-        public IList<WallViewModel> Walls { get; set; }
+        public IList<WallViewModel> WallViewModels { get; set; }
 
-        public IList<SwitchViewModel> Switches { get; set; } 
+        public IList<SwitchViewModel> SwitchViewModels { get; set; } 
     }
 }

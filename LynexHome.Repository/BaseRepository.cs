@@ -14,6 +14,7 @@ namespace LynexHome.Repository
     public interface IRepository<T> : IRepository where T : class
     {
         IQueryable<T> GetAll();
+        T Get(object identity);
         IQueryable<T> FindBy(Expression<Func<T, bool>> predicate);
         void Add(T entity);
         void Delete(T entity);
@@ -34,6 +35,11 @@ namespace LynexHome.Repository
 
             IQueryable<T> query = DbContext.Set<T>();
             return query;
+        }
+
+        public T Get(object identity)
+        {
+            return DbContext.Set<T>().Find(identity);
         }
 
         public IQueryable<T> FindBy(Expression<Func<T, bool>> predicate)

@@ -1,0 +1,58 @@
+﻿<div id="home-bg">
+    <!--<img src="/Images/home-bg.jpg" alt="">-->
+    
+    
+    <div class="switch-container container" ng-controller="mainController" data-drop="true" ng-model='switches' jqyoui-droppable="{multiple:true}">
+        <div class="col-md-12 loader-container" ng-hide="!loading">
+            <div class="loader"></div>
+        </div>
+        <div class="col-md-12 home-select" ng-hide="loading">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default">{{getSiteName()}}</button>
+                <button type="button" class="btn btn-default dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" ng-repeat="site in sites" href="javascript:void(0)" ng-click="selectSite(site)">{{site.name}}</a>
+                </div>
+
+            </div>
+
+            <button class="btn btn-default" ng-click="gotoMap()">Map</button>
+            <button class="btn btn-default" ng-if="!selectedSite.isDefault" ng-click="setDefault()">Set As Default</button>
+        </div>
+        <div class="col-md-6" ng-repeat="switch in switches" ng-model="switches" data-jqyoui-options="{revert: 'invalid'}"
+             jqyoui-droppable="{index: {{$index}}, onDrop:'dropCallback(switch, $index)', multiple: true}"
+             jqyoui-draggable="{index: {{$index}}, deepCopy: true, placeholder: true, insertInline: true, animate:true, direction:'jqyouiDirection', onStop: 'dragStopCallback(switch, $index)'}" data-drop="true" data-drag="true" data-direction="{{item.jqyouiDirection}}">
+            <div class="switch-box" ng-class="{'on':switch.status, 'busy':switch.isBusy}" ng-click="clickSwitch(switch)">
+                <div class="switch-name">{{switch.name}}</div>
+
+                <div class="switch-box-busy-wrapper" ng-show="switch.isBusy">
+                    <div class="loader">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6" ng-hide="loading">
+            <div class="switch-box" ng-click="addNewSwitch(switch)">
+                <div class="switch-name add-new-switch">+</div>
+                <div class="new-switch-box-wrapper">
+
+                </div>
+
+
+                <div class="switch-box-busy-wrapper" ng-show="newSwitch.isBusy">
+                    <div class="loader">
+
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+</div>

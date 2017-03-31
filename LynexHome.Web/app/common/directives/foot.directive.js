@@ -1,4 +1,4 @@
-﻿common.directive('footer', function () {
+﻿common.directive('foot', function () {
     var directive = {};
 
     directive.restrict = 'E';

@@ -36,4 +36,16 @@
     display: block;
     float: none;
 }
+
+    #map-canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+    .canvas-container {
+    position: absolute !important;
+    left: 0;
+    top: 0;
+}
 }
