@@ -9,6 +9,12 @@ namespace LynexHome.ViewModel
 {
     public class SiteViewModel:BaseEntityViewModel<Site>
     {
+        public SiteViewModel()
+        {
+            WallViewModels = new List<WallViewModel>();
+            SwitchViewModels = new List<SwitchViewModel>();
+        }
+
         public SiteViewModel(Site data) : base(data)
         {
             WallViewModels = new List<WallViewModel>();
@@ -35,6 +41,6 @@ namespace LynexHome.ViewModel
 
         public IList<WallViewModel> WallViewModels { get; set; }
 
-        public IList<SwitchViewModel> SwitchViewModels { get; set; } 
+        public IList<SwitchViewModel> SwitchViewModels { get; set; }
     }
 }

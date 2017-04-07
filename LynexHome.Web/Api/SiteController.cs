@@ -20,12 +20,14 @@ namespace LynexHome.Web.Api
     {
         private readonly LynexUserManager _userManager;
         private readonly ISiteService _siteService;
+        private readonly IWallService _wallService;
 
 
-        public SiteController(LynexUserManager userManager, ISiteService siteService)
+        public SiteController(LynexUserManager userManager, ISiteService siteService, IWallService wallService)
         {
             _userManager = userManager;
             _siteService = siteService;
+            _wallService = wallService;
         }
 
         [HttpGet]
@@ -79,6 +81,99 @@ namespace LynexHome.Web.Api
             {
                 Success = true,
                 Message = "",
+            };
+
+            return Ok(obj);
+        }
+
+        [HttpPost]
+        public IHttpActionResult SaveMap(SiteViewModel model)
+        {
+            foreach (var wall in model.WallViewModels)
+            {
+                if (wall.IsDirty)
+                {
+                    if (!wall.IsDelete)
+                    {
+                        if (wall.Id != null)
+                        {
+                            if (!wall.Length.Equals(0))
+                            {
+                                _wallService.UpdateWall(
+                                    new WallUpdateModel
+                                    {
+                                        Angle = wall.Angle,
+                                        Length = wall.Length,
+                                        SiteId = wall.SiteId,
+                                        WallId = wall.Id,
+                                        X = wall.X,
+                                        Y = wall.Y,
+                                        Type = wall.Type,
+                                    }, User.Identity.GetUserId());
+                            }
+                            else
+                            {
+                                var deleteModel = new WallUpdateModel
+                                {
+                                    SiteId = wall.SiteId,
+                                    WallId = wall.Id
+                                };
+                                _wallService.DeleteWall(deleteModel, User.Identity.GetUserId());
+                            }
+                        }
+                        else if(wall.Length > 0)
+                        {
+                            _wallService.CreateWall(new WallUpdateModel
+                            {
+                                Angle = wall.Angle,
+                                Length = wall.Length,
+                                SiteId = wall.SiteId,
+                                WallId = wall.Id,
+                                X = wall.X,
+                                Y = wall.Y,
+                                Type = wall.Type,
+                            });
+                        }
+                    }
+                    else
+                    {
+                        if (wall.Id != null)
+                        {
+                            var deleteModel = new WallUpdateModel
+                            {
+                                SiteId = wall.SiteId,
+                                WallId = wall.Id
+                            };
+                            _wallService.DeleteWall(deleteModel, User.Identity.GetUserId());
+                        }
+                    }
+                }
+            }
+
+            var result = _siteService.GetSite(model.Id, User.Identity.GetUserId());
+
+            var obj = new
+            {
+                Success = true,
+                Message = "",
+                Result = result
+            };
+
+            return Ok(obj);
+        }
+
+        [HttpPost]
+        public IHttpActionResult DeleteWall(WallUpdateModel model)
+        {
+            _wallService.DeleteWall(model, User.Identity.GetUserId());
+
+            var result = _siteService.GetSite(model.SiteId, User.Identity.GetUserId());
+
+            var obj = new
+            {
+                Success = true,
+                Message = "",
+                Result = result
             };
 
             return Ok(obj);

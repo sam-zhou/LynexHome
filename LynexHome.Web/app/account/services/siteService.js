@@ -1,15 +1,13 @@
-﻿lynex.factory("siteService", ["$http", 'settings', 'apiService', '$rootScope', function ($http, settings, api, $rootScope) {
-
-    var site = null;
+﻿lynex.factory("siteService", ["$http", 'settings', 'apiService', '$rootScope', 'dataStorageService', function ($http, settings, api, $rootScope, dataStorageService) {
 
     var siteService = {
         setSelectedSite: function(selectedSite) {
-            site = selectedSite;
+            dataStorageService.setSelectedSite(selectedSite);
             //$rootScope.$broadcast('selectedSite', selectedSite);
         },
 
         getSelectedSite: function() {
-            return site;
+            return dataStorageService.getSelectedSite();
         },
 
         getSites: function() {
@@ -26,6 +24,46 @@
 
             return api.postData("site", "getSite", { SiteId: siteId });
         },
+
+        saveMap: function (siteId, walls) {
+
+            var param = {
+                Id: siteId,
+                WallViewModels: [
+                ]
+            };
+
+            angular.forEach(walls, function(value, key) {
+
+                if (value.isDirty) {
+                    param.WallViewModels.push({
+                        X: Math.round(value.x),
+                        Y: Math.round(value.y),
+                        Length: value.length,
+                        Angle: value.angle,
+                        Id: value.id,
+                        SiteId: siteId,
+                        IsDirty: true,
+                        IsDelete: value.isDelete,
+                        Type: value.type
+                    });
+                }
+
+
+            });
+
+
+            return api.postData("site", "saveMap", param);
+        },
+
+        deleteWall: function (wallId, siteId) {
+            var deleteWallModel = {
+                WallId: wallId,
+                SiteId: siteId
+            };
+
+            return api.postData("site", "DeleteWall", deleteWallModel);
+        }
     }
 
 

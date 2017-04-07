@@ -32,6 +32,8 @@ namespace LynexHome.Web
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
+                "~/Scripts/jstorage.js",
+                "~/Scripts/event.js",
                 "~/Scripts/fabric.js",
                 //"~/Scripts/fabric.require.js",
                 "~/app/common/modules/*.js",
@@ -39,8 +41,8 @@ namespace LynexHome.Web
                 "~/app/common/controllers/*.js",
                 "~/app/common/directives/*.js",
 
-                "~/app/login/controllers/*.js",
-                "~/app/login/directives/*.js",
+                //"~/app/login/controllers/*.js",
+                //"~/app/login/directives/*.js",
 
 
 

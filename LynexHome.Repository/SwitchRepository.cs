@@ -53,29 +53,23 @@ namespace LynexHome.Repository
             
         }
 
-        public bool UpdateStatus(string userId, string switchId, bool status)
+
+        public bool UpdateStatus(string switchId, bool status)
         {
             var theSwitch = DbContext.Set<Switch>().Find(switchId);
 
             if (theSwitch != null)
             {
-                if (theSwitch.Site.UserId == userId)
+                if (theSwitch.Status != status)
                 {
-                    if (theSwitch.Status != status)
-                    {
-                        theSwitch.Status = status;
-                        DbContext.Entry(theSwitch).State = EntityState.Modified;
-                        DbContext.Set<Switch>().Attach(theSwitch);
+                    theSwitch.Status = status;
+                    DbContext.Entry(theSwitch).State = EntityState.Modified;
+                    DbContext.Set<Switch>().Attach(theSwitch);
 
-                        DbContext.Entry(theSwitch).Property("Status").IsModified = true;
-                        DbContext.SaveChanges();
-                    }
-                    return status;
+                    DbContext.Entry(theSwitch).Property("Status").IsModified = true;
+                    DbContext.SaveChanges();
                 }
-                else
-                {
-                    throw new LynexException(string.Format("User {0} does not permission to operate Switch {1}", userId, switchId));
-                }
+                return status;
                 
             }
             else

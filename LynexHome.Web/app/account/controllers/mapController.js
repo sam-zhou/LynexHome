@@ -1,8 +1,12 @@
-﻿lynex.controller('mapController', ['$scope', '$location', '$route', 'switchService', 'userService', 'siteService', 'toolService', 'canvasService',
-    function ($scope, $location, $route, switchService, userService, siteService, tools, canvasService) {
+﻿lynex.controller('mapController', ['$scope', '$location', '$route', 'switchService', 'userService', 'siteService', 'toolService', 'canvasService', '$window',
+    function ($scope, $location, $route, switchService, userService, siteService, tools, canvasService, $window) {
         $scope.loading = true;
 
-        canvasService.setDrawType("hand");
+        canvasService.setDrawType('mouse');
+
+        $scope.isDropDown = function() {
+            return $window.innerWidth > 767;
+        }
 
         $scope.isDrawType = function (type) {
             return canvasService.getDrawType() === type;
@@ -13,7 +17,7 @@
         }
 
         $scope.save = function() {
-            
+            canvasService.save();
         }
 
         $scope.zoomIn = function() {
@@ -33,7 +37,7 @@
 
             var selectedSite = siteService.getSelectedSite();
 
-            if (selectedSite == null) {
+            if (selectedSite === undefined || selectedSite === null) {
                 siteService.getSites().then(function(data) {
                     if (data.success) {
                         $scope.sites = data.results;
@@ -53,8 +57,17 @@
                     $scope.loading = false;
                 });
             } else {
-                canvasService.drawMap(selectedSite);
-                $scope.loading = false;
+                //console.log("Seleceted Site");
+                //console.log(selectedSite);
+                siteService.getSite(selectedSite.id).then(function(data) {
+                    if (data.success) {
+                        selectedSite = data.result;
+                        canvasService.drawMap(selectedSite);
+                        $scope.loading = false;
+                    }
+                });
+                
+                
             }
         }
 

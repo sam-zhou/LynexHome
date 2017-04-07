@@ -1,14 +1,14 @@
 ﻿<ul class="nav navbar-nav navbar-right" ng-switch on="isUserLoggedIn()">
     <li class="dropdown" ng-switch-when="true">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span title="User" class="glyphicon glyphicon-user" aria-hidden="true"></span> <span class="res-767-show-inline">My Account</span></a>
+        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span title="User" class="glyphicon glyphicon-user" aria-hidden="true"></span> <span class="res-767-show-inline">My Account</span></a>
         <ul class="dropdown-menu">
             <li class="dropdown-header">{{user.email}}</li>
-            <li><a href="#"><span title="Logout" class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;My Smart Home</a></li>
-            <li><a href="#"><span title="Logout" class="glyphicon glyphicon-saved" aria-hidden="true"></span>&nbsp;Subscription</a></li>
+            <li><a href="javascript:void(0)"><span title="Logout" class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;My Smart Home</a></li>
+            <li><a href="javascript:void(0)"><span title="Logout" class="glyphicon glyphicon-saved" aria-hidden="true"></span>&nbsp;Subscription</a></li>
             
             <li role="separator" class="divider"></li>
-            <li><a href="#"><span title="Logout" class="glyphicon glyphicon-wrench" aria-hidden="true"></span>&nbsp;Account Settings</a></li>
-            <li><a href="#" ng-click="logout()"><span title="Logout" class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Logout</a></li>
+            <li><a href="javascript:void(0)"><span title="Logout" class="glyphicon glyphicon-wrench" aria-hidden="true"></span>&nbsp;Account Settings</a></li>
+            <li><a href="javascript:void(0)" ng-click="logout()"><span title="Logout" class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Logout</a></li>
             
         </ul>
     </li>

@@ -81,19 +81,22 @@ namespace LynexHome.Core.Migrations
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
+                        SerialNumber = c.String(nullable: false, maxLength: 128),
+                        Secret = c.String(),
                         IsDefault = c.Boolean(nullable: false),
                         Name = c.String(),
                         Address = c.String(),
                         Suburb = c.String(),
-                        State = c.String(),
-                        Postcode = c.String(),
-                        Country = c.String(),
+                        State = c.String(maxLength: 30),
+                        Postcode = c.String(maxLength: 4),
+                        Country = c.String(maxLength: 20),
                         UpdatedDateTime = c.DateTime(nullable: false),
                         CreatedDateTime = c.DateTime(nullable: false),
                         UserId = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Users", t => t.UserId)
+                .Index(t => t.SerialNumber, unique: true, name: "IX_Site_SerialNumber")
                 .Index(t => t.UserId);
             
             CreateTable(
@@ -101,11 +104,12 @@ namespace LynexHome.Core.Migrations
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
-                        Name = c.String(),
+                        Name = c.String(nullable: false, maxLength: 50),
                         Status = c.Boolean(nullable: false),
                         X = c.Int(nullable: false),
                         Y = c.Int(nullable: false),
                         Type = c.Int(nullable: false),
+                        Mac = c.String(maxLength: 20),
                         Order = c.Int(nullable: false),
                         CreatedDateTime = c.DateTime(nullable: false),
                         UpdatedDateTime = c.DateTime(nullable: false),
@@ -147,6 +151,7 @@ namespace LynexHome.Core.Migrations
             DropIndex("dbo.Walls", new[] { "SiteId" });
             DropIndex("dbo.Switches", new[] { "SiteId" });
             DropIndex("dbo.Sites", new[] { "UserId" });
+            DropIndex("dbo.Sites", "IX_Site_SerialNumber");
             DropIndex("dbo.UserLogins", new[] { "UserId" });
             DropIndex("dbo.UserClaims", new[] { "UserId" });
             DropIndex("dbo.Users", "UserNameIndex");

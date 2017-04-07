@@ -234,6 +234,8 @@
     <Compile Include="Api\AuthenticationController.cs" />
     <Compile Include="Api\AccountController.cs" />
     <Compile Include="Api\SiteController.cs" />
+    <Compile Include="Api\RaspberryPiController.cs" />
+    <Compile Include="Api\WallController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -299,6 +301,7 @@
     <Content Include="app\account\controllers\mainController.js" />
     <Content Include="app\account\controllers\siteController.js" />
     <Content Include="app\account\directives\siteMap.js" />
+    <Content Include="app\account\services\wallService.js" />
     <Content Include="app\account\services\siteService.js" />
     <Content Include="app\account\services\switchService.js" />
     <Content Include="app\account\views\siteSelector.html" />
@@ -309,6 +312,7 @@
     <Content Include="app\common\services\apiService.js" />
     <Content Include="app\common\modules\lynexServices.js" />
     <Content Include="app\common\services\canvasService.js" />
+    <Content Include="app\common\services\dataStorageService.js" />
     <Content Include="app\common\services\toolService.js" />
     <Content Include="app\common\services\userService.js" />
     <Content Include="app\common\controllers\loginPartialController.js" />
@@ -367,6 +371,7 @@
     <Content Include="Scripts\angular-parse-ext.min.js" />
     <Content Include="Scripts\angular-resource.js" />
     <Content Include="Scripts\angular-resource.min.js" />
+    <Content Include="Scripts\angular-route - Copy.js" />
     <Content Include="Scripts\angular-route.js" />
     <Content Include="Scripts\angular-route.min.js" />
     <Content Include="Scripts\angular-sanitize.js" />
@@ -433,7 +438,20 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\OpenSans-Bold.ttf" />
+    <Content Include="fonts\OpenSans-BoldItalic.ttf" />
+    <Content Include="fonts\OpenSans-ExtraBold.ttf" />
+    <Content Include="fonts\OpenSans-ExtraBoldItalic.ttf" />
+    <Content Include="fonts\OpenSans-Italic.ttf" />
+    <Content Include="fonts\OpenSans-Light.ttf" />
+    <Content Include="fonts\OpenSans-LightItalic.ttf" />
+    <Content Include="fonts\OpenSans-Regular.ttf" />
+    <Content Include="fonts\OpenSans-Semibold.ttf" />
+    <Content Include="fonts\OpenSans-SemiboldItalic.ttf" />
+    <None Include="Properties\PublishProfiles\shome2017.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\event.js" />
+    <Content Include="Scripts\fabric - Copy.js" />
     <Content Include="Scripts\fabric.js" />
     <Content Include="Scripts\fabric.require.js" />
     <Content Include="Scripts\i18n\angular-locale_af-na.js" />
@@ -1169,6 +1187,7 @@
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.2.js" />
     <Content Include="Scripts\jquery.ui.touch-punch.js" />
+    <Content Include="Scripts\jstorage.js" />
     <Content Include="Scripts\knockout-2.3.0.debug.js" />
     <Content Include="Scripts\knockout-2.3.0.js" />
     <Content Include="Scripts\knockout.validation.debug.js" />

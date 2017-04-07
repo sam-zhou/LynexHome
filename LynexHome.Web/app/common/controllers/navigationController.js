@@ -5,5 +5,7 @@
 
             return viewLocation === $location.path();
         };
+
+        $scope.isMapMode = $location.path() == "/map";
     }
 ]);

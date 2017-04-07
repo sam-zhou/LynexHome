@@ -17,7 +17,7 @@ namespace LynexHome.Repository.Interface
 
         void DeleteSwitch(string switchId);
 
-        bool UpdateStatus(string userId, string switchId, bool status);
+        bool UpdateStatus(string switchId, bool status);
 
         bool UpdateOrder(string userId, string switchId, int order);
     }

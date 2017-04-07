@@ -9,6 +9,11 @@ namespace LynexHome.ViewModel
 {
     public class WallViewModel:BaseEntityViewModel<Wall>
     {
+        public WallViewModel()
+        {
+            
+        }
+
         public WallViewModel(Wall data) : base(data)
         {
         }
@@ -28,5 +33,11 @@ namespace LynexHome.ViewModel
         public DateTime CreatedDateTime { get; set; }
 
         public DateTime UpdatedDateTime { get; set; }
+
+        public string SiteId { get; set; }
+
+        public bool IsDirty { get; set; }
+
+        public bool IsDelete { get; set; }
     }
 }

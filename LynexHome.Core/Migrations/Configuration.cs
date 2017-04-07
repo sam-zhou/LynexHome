@@ -1,3 +1,4 @@
+using Lynex.Extension;
 using Lynex.Extension.Enum;
 using LynexHome.Core.Model;
 using Microsoft.AspNet.Identity;
@@ -59,6 +60,22 @@ namespace LynexHome.Core.Migrations
                     {
                         var user = new User("0efc7c0b-e378-4fc7-9e48-af184f78ee03")
                         {
+                            Email = "test@lynex.com.au",
+                            EmailConfirmed = true,
+                            Phone = "0430501022",
+                            PhoneNumber = "0430501022",
+                            PhoneNumberConfirmed = true,
+                            AccessFailedCount = 0,
+                            LockoutEnabled = false,
+                            UserName = "test@lynex.com.au",
+                            SecurityStamp = "7668b7bc-7a5d-4b3b-8388-f2e5c59f3d43",
+                            PasswordHash = "ABJ1bxk+trJ6PTk4iCBSq/WLDVmhI455FFxZbcXHtH1Xw2NyTKHsJmrWQ1Mbl7S4SQ=="
+                        };
+                        userManager.Create(user);
+                        userManager.AddToRole(user.Id, "Administrator");
+
+                        var user2 = new User("b1f9c2ce-ad49-4251-9f33-f0dc8a2080c9")
+                        {
                             Email = "samzhou.it@gmail.com",
                             EmailConfirmed = true,
                             Phone = "0430501022",
@@ -67,11 +84,11 @@ namespace LynexHome.Core.Migrations
                             AccessFailedCount = 0,
                             LockoutEnabled = false,
                             UserName = "samzhou.it@gmail.com",
-                            SecurityStamp = "c5c18a28-6ca4-43d7-8a71-c1af36c937ae",
+                            SecurityStamp = "6c5d586d-8390-4d96-9db7-f06bb2c6a6df",
                             PasswordHash = "ANNNzqwEGjePRrU/8VbqSXnJynL/wP51zG+1Ilf424Pu9nYvLWmfa0owBFtj99fywQ=="
                         };
-                        userManager.Create(user);
-                        userManager.AddToRole(user.Id, "Administrator");
+                        userManager.Create(user2);
+                        userManager.AddToRole(user2.Id, "Administrator");
                     }
                 }
 
@@ -87,6 +104,8 @@ namespace LynexHome.Core.Migrations
                     State = "Western Australia",
                     Suburb = "Willetton",
                     UpdatedDateTime = DateTime.UtcNow,
+                    SerialNumber = "RuHqYCQezwdrBmueo8ni",
+                    Secret = "Zex6FTRzmp5UDResRDbtgr7ZtrZuzPTdWQvWnyD6jWy4FsVFNzaQZZawWSSfrAACfL9DCYKxGaNAChp53ADidNVbjebEugBNCawW"
                 };
 
                 dbContext.Set<Site>().Add(site);
@@ -103,6 +122,8 @@ namespace LynexHome.Core.Migrations
                     State = "Western Australia",
                     Suburb = "Canning Vale",
                     UpdatedDateTime = DateTime.UtcNow,
+                    SerialNumber = "hcShsFBNtWgP95enHcSM",
+                    Secret = "MWFX6PvK7TZVXLZ75SWBmzmYpr74VoP7b4etbRe7mizXbzfjiz7B9wnFCpDNDuZJ2XY2dNgJonH8vpmGAGnGQLQEyMfRkxmysXzL"
                 };
 
                 dbContext.Set<Site>().Add(site2);
@@ -120,9 +141,29 @@ namespace LynexHome.Core.Migrations
                     State = "Western Australia",
                     Suburb = "Perth",
                     UpdatedDateTime = DateTime.UtcNow,
+                    SerialNumber = "yP93qCe9ZeiRNNNa5ZBK",
+                    Secret = "HgUGCx4sfSpvBvcAhX9p7GKHQc8wpYGg5tSWhtHn4xjQQebEQvQmAg5EWtkuVSSPvqN7EmP7EjnveZtfMJeAEi83u47wc9DKrrD6"
                 };
 
                 dbContext.Set<Site>().Add(site3);
+
+                var site4 = new Site("bba331f0-33a1-4a08-bdec-ea8257e807a9")
+                {
+                    IsDefault = true,
+                    UserId = "b1f9c2ce-ad49-4251-9f33-f0dc8a2080c9",
+                    Address = "11 Braceby Close",
+                    Country = "Australia",
+                    CreatedDateTime = DateTime.UtcNow,
+                    Name = "Willetton",
+                    Postcode = "6155",
+                    State = "Western Australia",
+                    Suburb = "Willetton",
+                    UpdatedDateTime = DateTime.UtcNow,
+                    SerialNumber = "oVCZ49N7jDr6VgrnYHGF",
+                    Secret = "pShhgsaTuXQpyB7g8eKT7i5J3oWJGtkyTD5dBxuPEHvs3wsBzscMW4spNTZnqLDXe2fEP2nVsjUxrATNC3VetJRgBNmR64vK4dMd"
+                };
+
+                dbContext.Set<Site>().Add(site4);
 
                 dbContext.SaveChanges();
 
@@ -139,6 +180,7 @@ namespace LynexHome.Core.Migrations
                         X = 0,
                         Y = 0,
                         Order = i - 1,
+                        Mac = StringExtension.GenerateMACAddress(),
                     };
                     dbContext.Set<Switch>().Add(theSwitch);
                 }
@@ -157,6 +199,7 @@ namespace LynexHome.Core.Migrations
                         X = 0,
                         Y = 0,
                         Order = i - 1,
+                        Mac = StringExtension.GenerateMACAddress(),
                     };
                     dbContext.Set<Switch>().Add(theSwitch);
                 }
@@ -175,6 +218,25 @@ namespace LynexHome.Core.Migrations
                         X = 0,
                         Y = 0,
                         Order = i - 1,
+                        Mac = StringExtension.GenerateMACAddress(),
+                    };
+                    dbContext.Set<Switch>().Add(theSwitch);
+                }
+
+                for (var i = 1; i <= 6; i++)
+                {
+                    var theSwitch = new Switch
+                    {
+                        SiteId = "bba331f0-33a1-4a08-bdec-ea8257e807a9",
+                        CreatedDateTime = DateTime.UtcNow,
+                        Name = "Switch " + i,
+                        Status = i % 2 != 0,
+                        Type = i % 2 == 0 ? SwitchType.Normal : SwitchType.PowerMonitoring,
+                        UpdatedDateTime = DateTime.UtcNow,
+                        X = 0,
+                        Y = 0,
+                        Order = i - 1,
+                        Mac = StringExtension.GenerateMACAddress(),
                     };
                     dbContext.Set<Switch>().Add(theSwitch);
                 }
@@ -185,11 +247,11 @@ namespace LynexHome.Core.Migrations
                     SiteId = "5735824c-93cc-4016-b6b3-26f7947bb58e",
                     CreatedDateTime = DateTime.UtcNow,
                     UpdatedDateTime = DateTime.UtcNow,
-                    X = 20,
-                    Y = 20,
-                    Angle = 90,
-                    Length = 200,
-                    Type = WallType.Double
+                    X = 94,
+                    Y = 252,
+                    Angle = 270,
+                    Length = 194,
+                    Type = WallType.Single
                 };
                 dbContext.Set<Wall>().Add(wall1);
 
@@ -198,10 +260,10 @@ namespace LynexHome.Core.Migrations
                     SiteId = "5735824c-93cc-4016-b6b3-26f7947bb58e",
                     CreatedDateTime = DateTime.UtcNow,
                     UpdatedDateTime = DateTime.UtcNow,
-                    X = 20,
-                    Y = 20,
+                    X = 448,
+                    Y = -100,
                     Angle = 0,
-                    Length = 200,
+                    Length = 104,
                     Type = WallType.Double
                 };
                 dbContext.Set<Wall>().Add(wall2);
@@ -211,27 +273,149 @@ namespace LynexHome.Core.Migrations
                     SiteId = "5735824c-93cc-4016-b6b3-26f7947bb58e",
                     CreatedDateTime = DateTime.UtcNow,
                     UpdatedDateTime = DateTime.UtcNow,
-                    X = 20,
-                    Y = 220,
-                    Angle = 45,
-                    Length = 282.84271247,
-                    Type = WallType.Double
+                    X = 1200,
+                    Y = 432,
+                    Angle = 0,
+                    Length = 319.145802349033,
+                    Type = WallType.Single
                 };
                 dbContext.Set<Wall>().Add(wall3);
 
-                var wall4 = new Wall
+                
+                dbContext.Set<Wall>().Add(new Wall
                 {
                     SiteId = "5735824c-93cc-4016-b6b3-26f7947bb58e",
                     CreatedDateTime = DateTime.UtcNow,
                     UpdatedDateTime = DateTime.UtcNow,
-                    X = 230,
-                    Y = 230,
-                    Angle = 135,
-                    Length = 282.84271247,
+                    X = 703,
+                    Y = 947,
+                    Angle = 90,
+                    Length = 276.828999999999,
                     Type = WallType.Double
-                };
-                dbContext.Set<Wall>().Add(wall4);
+                });
 
+                dbContext.Set<Wall>().Add(new Wall
+                {
+                    SiteId = "5735824c-93cc-4016-b6b3-26f7947bb58e",
+                    CreatedDateTime = DateTime.UtcNow,
+                    UpdatedDateTime = DateTime.UtcNow,
+                    X = 699,
+                    Y = 748,
+                    Angle = 360,
+                    Length = 204.493579850322,
+                    Type = WallType.Single
+                });
+
+                dbContext.Set<Wall>().Add(new Wall
+                {
+                    SiteId = "5735824c-93cc-4016-b6b3-26f7947bb58e",
+                    CreatedDateTime = DateTime.UtcNow,
+                    UpdatedDateTime = DateTime.UtcNow,
+                    X = 95,
+                    Y = 5,
+                    Angle = 270,
+                    Length = 359.000000000007,
+                    Type = WallType.Double
+                });
+                dbContext.Set<Wall>().Add(new Wall
+                {
+                    SiteId = "5735824c-93cc-4016-b6b3-26f7947bb58e",
+                    CreatedDateTime = DateTime.UtcNow,
+                    UpdatedDateTime = DateTime.UtcNow,
+                    X = 1201,
+                    Y = 749,
+                    Angle = 90,
+                    Length = 500.963381096862,
+                    Type = WallType.Single
+                });
+                dbContext.Set<Wall>().Add(new Wall
+                {
+                    SiteId = "5735824c-93cc-4016-b6b3-26f7947bb58e",
+                    CreatedDateTime = DateTime.UtcNow,
+                    UpdatedDateTime = DateTime.UtcNow,
+                    X = 1204,
+                    Y = 432,
+                    Angle = 90,
+                    Length = 504.662845174875,
+                    Type = WallType.Double
+                });
+                dbContext.Set<Wall>().Add(new Wall
+                {
+                    SiteId = "5735824c-93cc-4016-b6b3-26f7947bb58e",
+                    CreatedDateTime = DateTime.UtcNow,
+                    UpdatedDateTime = DateTime.UtcNow,
+                    X = 433,
+                    Y = 747,
+                    Angle = 90,
+                    Length = 339.065299167577,
+                    Type = WallType.Double
+                });
+                dbContext.Set<Wall>().Add(new Wall
+                {
+                    SiteId = "5735824c-93cc-4016-b6b3-26f7947bb58e",
+                    CreatedDateTime = DateTime.UtcNow,
+                    UpdatedDateTime = DateTime.UtcNow,
+                    X = 92,
+                    Y = 437,
+                    Angle = 270,
+                    Length = 610.679000000001,
+                    Type = WallType.Single
+                });
+                dbContext.Set<Wall>().Add(new Wall
+                {
+                    SiteId = "5735824c-93cc-4016-b6b3-26f7947bb58e",
+                    CreatedDateTime = DateTime.UtcNow,
+                    UpdatedDateTime = DateTime.UtcNow,
+                    X = 704,
+                    Y = -100,
+                    Angle = 90,
+                    Length = 254.048950002483,
+                    Type = WallType.Double
+                });
+                dbContext.Set<Wall>().Add(new Wall
+                {
+                    SiteId = "5735824c-93cc-4016-b6b3-26f7947bb58e",
+                    CreatedDateTime = DateTime.UtcNow,
+                    UpdatedDateTime = DateTime.UtcNow,
+                    X = 426,
+                    Y = 747,
+                    Angle = 0,
+                    Length = 205.186,
+                    Type = WallType.Double
+                });
+                dbContext.Set<Wall>().Add(new Wall
+                {
+                    SiteId = "5735824c-93cc-4016-b6b3-26f7947bb58e",
+                    CreatedDateTime = DateTime.UtcNow,
+                    UpdatedDateTime = DateTime.UtcNow,
+                    X = 286,
+                    Y = -1,
+                    Angle = 0,
+                    Length = 251.294,
+                    Type = WallType.Single
+                });
+                dbContext.Set<Wall>().Add(new Wall
+                {
+                    SiteId = "5735824c-93cc-4016-b6b3-26f7947bb58e",
+                    CreatedDateTime = DateTime.UtcNow,
+                    UpdatedDateTime = DateTime.UtcNow,
+                    X = 99,
+                    Y = 753,
+                    Angle = 180,
+                    Length = 753.35,
+                    Type = WallType.Double
+                });
+                dbContext.Set<Wall>().Add(new Wall
+                {
+                    SiteId = "5735824c-93cc-4016-b6b3-26f7947bb58e",
+                    CreatedDateTime = DateTime.UtcNow,
+                    UpdatedDateTime = DateTime.UtcNow,
+                    X = 705,
+                    Y = 438,
+                    Angle = 180,
+                    Length = 539.66,
+                    Type = WallType.Double
+                });
                 dbContext.SaveChanges();
 
 

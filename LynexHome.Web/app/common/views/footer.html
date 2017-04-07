@@ -1,4 +1,4 @@
-﻿<footer ng-controller="navigationController" ng-hide="hideFooter">
+﻿<footer ng-controller="navigationController" ng-class="{'mapMode':isMapMode}">
     <div>
         <ul class="nav nav-pills">
             <li ng-class="{'active' : isActive('/termsofuse')}"><a href="#/termsofuse"><span class="glyphicon glyphicon-check"></span><span class="res-767-hide-inline">&nbsp; Terms of Use</span></a></li>

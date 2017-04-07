@@ -14,21 +14,42 @@
 
         var init = function () {
 
-            
-
+            var selectedSite = siteService.getSelectedSite();
+            console.log("selectedSite:");
+            console.log(selectedSite);
             siteService.getSites().then(function (data) {
                 if (data.success) {
                     $scope.sites = data.results;
-                    angular.forEach($scope.sites, function (value, key) {
-                        value.isBusy = false;
-                        value.edit = false;
 
-                        if (value.isDefault) {
-                            $scope.selectedSite = value;
-                            $scope.switches = value.switchViewModels;
-                        }
+                    if (selectedSite !== null && selectedSite !== undefined) {
+                        angular.forEach($scope.sites, function (value, key) {
+                            value.isBusy = false;
+                            value.edit = false;
 
-                    });
+                            if (selectedSite.id == value.id) {
+                                console.log(value);
+
+                                $scope.selectedSite = value;
+                                $scope.switches = value.switchViewModels;
+                            }
+
+
+                        });
+                    }
+                    
+
+                    if ($scope.selectedSite === undefined || $scope.selectedSite === null) {
+                        angular.forEach($scope.sites, function (value, key) {
+                            value.isBusy = false;
+                            value.edit = false;
+
+                            if (value.isDefault) {
+                                $scope.selectedSite = value;
+                                $scope.switches = value.switchViewModels;
+                            }
+
+                        });
+                    }
                 }
 
                 $scope.loading = false;

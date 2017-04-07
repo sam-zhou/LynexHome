@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Crypto\RSAParametersSerializable.cs" />
     <Compile Include="DataContracts\TokenStatus.cs" />
     <Compile Include="DynamicTypeInfo.cs" />
     <Compile Include="Exception\ApiControllerExtension.cs" />

@@ -39,10 +39,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DecryptedSwitchStatusModel.cs" />
+    <Compile Include="EncryptMessageModel.cs" />
+    <Compile Include="KeyPairGenerateModel.cs" />
+    <Compile Include="EncryptedSwitchStatusModel.cs" />
     <Compile Include="QuerySiteModel.cs" />
     <Compile Include="SwitchOrderModel.cs" />
     <Compile Include="SwitchStatusModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SwitchEnquireModel.cs" />
+    <Compile Include="WallUpdateModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LynexHome.Core.Model\LynexHome.Core.Model.csproj">
+      <Project>{59cfd304-7fcd-4ec9-a9b8-ea988f21c444}</Project>
+      <Name>LynexHome.Core.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

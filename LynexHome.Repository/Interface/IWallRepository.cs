@@ -9,7 +9,7 @@ namespace LynexHome.Repository.Interface
 {
     public interface IWallRepository : IRepository<Wall>
     {
-        void AddWall(Wall wall, string siteId);
+        Wall AddWall(Wall wall, string siteId);
 
         void UpdateWall(Wall wall);
 

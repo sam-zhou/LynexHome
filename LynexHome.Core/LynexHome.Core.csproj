@@ -93,9 +93,9 @@
     <Compile Include="LynexSignInManager.cs" />
     <Compile Include="LynexUserManager.cs" />
     <Compile Include="LynexUserStore.cs" />
-    <Compile Include="Migrations\201703280440381_InitialCreate.cs" />
-    <Compile Include="Migrations\201703280440381_InitialCreate.Designer.cs">
-      <DependentUpon>201703280440381_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201704060613114_InitialCreate.cs" />
+    <Compile Include="Migrations\201704060613114_InitialCreate.Designer.cs">
+      <DependentUpon>201704060613114_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs">
       <SubType>Code</SubType>
@@ -110,6 +110,10 @@
     <ProjectReference Include="..\Lynex.Extension.Enum\Lynex.Extension.Enum.csproj">
       <Project>{9b6fec77-b525-4c39-82e4-1b39731806ad}</Project>
       <Name>Lynex.Extension.Enum</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lynex.Extension\Lynex.Extension.csproj">
+      <Project>{d80bf225-16d4-4ee4-987b-87fb82c1e470}</Project>
+      <Name>Lynex.Extension</Name>
     </ProjectReference>
     <ProjectReference Include="..\LynexHome.Core.Model\LynexHome.Core.Model.csproj">
       <Project>{59cfd304-7fcd-4ec9-a9b8-ea988f21c444}</Project>
@@ -133,8 +137,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201703280440381_InitialCreate.resx">
-      <DependentUpon>201703280440381_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201704060613114_InitialCreate.resx">
+      <DependentUpon>201704060613114_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

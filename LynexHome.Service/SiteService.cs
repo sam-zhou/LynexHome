@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Lynex.Common.Exception;
+using Lynex.Extension;
 using LynexHome.Repository.Interface;
 using LynexHome.Service.Interface;
 using LynexHome.ViewModel;
@@ -16,6 +17,10 @@ namespace LynexHome.Service
         List<SiteViewModel> GetSitesForUserId(string userId);
 
         SiteViewModel GetSite(string siteId, string userId);
+
+        SimplifiedSiteModel GetSiteBySerialNumber(string siteId, string encryptedSerialNumber);
+
+        string GetSecret(string siteId);
 
         void SetDefault(string siteId, string userId);
     }
@@ -39,17 +44,14 @@ namespace LynexHome.Service
             {
                 var siteViewModel = new SiteViewModel(site);
 
-                if (site.IsDefault)
+                foreach (var @switch in site.Switches)
                 {
-                    foreach (var @switch in site.Switches)
-                    {
-                        siteViewModel.SwitchViewModels.Add(new SwitchViewModel(@switch));
-                    }
+                    siteViewModel.SwitchViewModels.Add(new SwitchViewModel(@switch));
+                }
 
-                    foreach (var wall in site.Walls)
-                    {
-                        siteViewModel.WallViewModels.Add(new WallViewModel(wall));
-                    }
+                foreach (var wall in site.Walls)
+                {
+                    siteViewModel.WallViewModels.Add(new WallViewModel(wall));
                 }
 
                 output.Add(siteViewModel);
@@ -83,6 +85,42 @@ namespace LynexHome.Service
                 }
                 return output;
             }
+        }
+
+        public SimplifiedSiteModel GetSiteBySerialNumber(string siteId, string serialNumber)
+        {
+            var site = _siteRepository.Get(siteId);
+
+            if (site != null)
+            {
+                if (site.SerialNumber != serialNumber)
+                {
+                    throw new LynexException(string.Format("Site {0} serial number does not match", siteId));
+                }
+                else
+                {
+                    var model = new SimplifiedSiteModel(site);
+
+                    foreach (var @switch in site.Switches)
+                    {
+                        model.SwitchViewModels.Add(new SimplifiedSwitchModel(@switch));
+                    }
+
+                    return model;
+                }
+            }
+            throw new LynexException(string.Format("Site {0} does not exist",siteId));
+        }
+
+        public string GetSecret(string siteId)
+        {
+            var site = _siteRepository.Get(siteId);
+
+            if (site != null)
+            {
+                return site.Secret;
+            }
+            throw new LynexException(string.Format("Site {0} does not exist", siteId));
         }
 
         public void SetDefault(string siteId, string userId)

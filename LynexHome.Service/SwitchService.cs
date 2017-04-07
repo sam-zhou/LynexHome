@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Lynex.Common.Exception;
 using LynexHome.Repository.Interface;
 using LynexHome.Service.Interface;
 using LynexHome.ViewModel;
@@ -15,6 +16,8 @@ namespace LynexHome.Service
         List<SwitchViewModel> GetSwitches(string userId, string siteId);
 
         bool UpdateStatus(string userId, string switchId, bool status);
+
+        bool UpdateStatus(string switchId, string siteId, string serialNumber, bool status);
 
         bool UpdateOrder(string userId, string switchId, int order);
     }
@@ -45,7 +48,31 @@ namespace LynexHome.Service
 
         public bool UpdateStatus(string userId, string switchId, bool status)
         {
-            return _switchRepository.UpdateStatus(userId, switchId, status);
+            var @switch = _switchRepository.Get(switchId);
+
+            if (@switch.Site.UserId != userId)
+            {
+                throw new LynexException(string.Format("User {0} does not have permission over Switch {1}", userId, switchId));
+            }
+
+            return _switchRepository.UpdateStatus(switchId, status);
+        }
+
+        public bool UpdateStatus(string switchId, string siteId, string serialNumber, bool status)
+        {
+            var @switch = _switchRepository.Get(switchId);
+
+            if (@switch.Site.Id != siteId)
+            {
+                throw new LynexException(string.Format("Site {0} does not have permission over Switch {1}", siteId, switchId));
+            }
+
+            if (@switch.Site.SerialNumber != serialNumber)
+            {
+                throw new LynexException(string.Format("Site {0} serial number does not match", siteId));
+            }
+
+            return _switchRepository.UpdateStatus(switchId, status);
         }
 
         public bool UpdateOrder(string userId, string switchId, int order)

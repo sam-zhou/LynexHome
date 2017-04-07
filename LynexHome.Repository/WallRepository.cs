@@ -18,7 +18,7 @@ namespace LynexHome.Repository
         {
         }
 
-        public void AddWall(Wall wall, string siteId)
+        public Wall AddWall(Wall wall, string siteId)
         {
             var site = DbContext.Set<Site>().Find(siteId);
 
@@ -26,6 +26,7 @@ namespace LynexHome.Repository
             {
                 site.Walls.Add(wall);
                 DbContext.SaveChanges();
+                return wall;
             }
             else
             {
@@ -40,7 +41,20 @@ namespace LynexHome.Repository
 
             if (existWall != null)
             {
-
+                existWall.X = wall.X;
+                existWall.Y = wall.Y;
+                existWall.Length = wall.Length;
+                existWall.Angle = wall.Angle;
+                existWall.Type = wall.Type;
+                existWall.UpdatedDateTime = DateTime.UtcNow;
+                DbContext.Entry(existWall).State = EntityState.Modified;
+                DbContext.Set<Wall>().Attach(existWall);
+                DbContext.Entry(existWall).Property("UpdatedDateTime").IsModified = true;
+                DbContext.Entry(existWall).Property("X").IsModified = true;
+                DbContext.Entry(existWall).Property("Y").IsModified = true;
+                DbContext.Entry(existWall).Property("Length").IsModified = true;
+                DbContext.Entry(existWall).Property("Angle").IsModified = true;
+                DbContext.Entry(existWall).Property("Type").IsModified = true;
                 DbContext.SaveChanges();
             }
             else

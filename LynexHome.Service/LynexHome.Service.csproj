@@ -36,6 +36,10 @@
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.4, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -45,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CryptoService.cs" />
     <Compile Include="SiteService.cs" />
     <Compile Include="Interface\IService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -58,6 +63,14 @@
     <ProjectReference Include="..\Lynex.Common\Lynex.Common.csproj">
       <Project>{a37b3ab5-139c-40ba-b83c-d2290eb39307}</Project>
       <Name>Lynex.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lynex.Extension\Lynex.Extension.csproj">
+      <Project>{d80bf225-16d4-4ee4-987b-87fb82c1e470}</Project>
+      <Name>Lynex.Extension</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LynexHome.ApiModel\LynexHome.ApiModel.csproj">
+      <Project>{6bc9126f-ac76-41de-b903-0dfb85e6076b}</Project>
+      <Name>LynexHome.ApiModel</Name>
     </ProjectReference>
     <ProjectReference Include="..\LynexHome.Core.Model\LynexHome.Core.Model.csproj">
       <Project>{59cfd304-7fcd-4ec9-a9b8-ea988f21c444}</Project>

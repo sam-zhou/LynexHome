@@ -106,11 +106,11 @@ lynex.run(['$rootScope', '$location', '$route', 'userService', '$window', functi
                 }
             }
 
-            if ($window.innerWidth <= 767 && $location.path() == "/map") {
-                $rootScope.hideFooter = true;
-            } else {
-                $rootScope.hideFooter = false;
-            }
+            //if ($window.innerWidth <= 767 && $location.path() == "/map") {
+            //    $rootScope.hideFooter = true;
+            //} else {
+            //    $rootScope.hideFooter = false;
+            //}
 
         }
 

@@ -1,5 +1,5 @@
-﻿common.controller('loginPartialController', ['$scope', '$location', '$route', 'userService', 'toolService',
-    function ($scope, $location, $route, userService, tools) {
+﻿common.controller('loginPartialController', ['$scope', '$location', '$route', 'userService', 'toolService', 'dataStorageService',
+    function ($scope, $location, $route, userService, tools, dataStorageService) {
         var isAuthenticated = false;
 
         userService.GetUser().then(function (data) {
@@ -14,6 +14,7 @@
         }
 
         $scope.logout = function() {
+            dataStorageService.clearSensitiveData();
             userService.logout();
         }
         
