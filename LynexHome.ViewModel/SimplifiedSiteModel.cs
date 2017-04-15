@@ -12,7 +12,6 @@ namespace LynexHome.ViewModel
         public SimplifiedSiteModel()
         {
             SwitchViewModels = new List<SimplifiedSwitchModel>();
-
         }
 
         public SimplifiedSiteModel(Site data)
