@@ -167,24 +167,111 @@ namespace LynexHome.Core.Migrations
 
                 dbContext.SaveChanges();
 
-                for (var i = 1; i <= 1; i++)
+                var switch1 = new Switch
                 {
-                    var theSwitch = new Switch
-                    {
-                        SiteId = "5735824c-93cc-4016-b6b3-26f7947bb58e",
-                        CreatedDateTime = DateTime.UtcNow,
-                        Name = "Switch " + i,
-                        Status = i % 2 != 0,
-                        Type = i % 2 ==0 ? SwitchType.Normal : SwitchType.PowerMonitoring,
-                        UpdatedDateTime = DateTime.UtcNow,
-                        X = 0,
-                        Y = 0,
-                        Order = i - 1,
-                        ChipId = "ESP10499465"//StringExtension.GenerateMACAddress(),
-                    };
-                    dbContext.Set<Switch>().Add(theSwitch);
-                }
+                    SiteId = "5735824c-93cc-4016-b6b3-26f7947bb58e",
+                    CreatedDateTime = DateTime.UtcNow,
+                    Name = "Switch 1",
+                    Status = false,
+                    Type = SwitchType.PowerMonitoring,
+                    UpdatedDateTime = DateTime.UtcNow,
+                    X = 0,
+                    Y = 0,
+                    Order = 1,
+                    ChipId = "ESP10499465"//StringExtension.GenerateMACAddress(),
+                };
+                dbContext.Set<Switch>().Add(switch1);
 
+                var switch2 = new Switch
+                {
+                    SiteId = "5735824c-93cc-4016-b6b3-26f7947bb58e",
+                    CreatedDateTime = DateTime.UtcNow,
+                    Name = "Switch 2",
+                    Status = false,
+                    Type = SwitchType.PowerMonitoring,
+                    UpdatedDateTime = DateTime.UtcNow,
+                    X = 0,
+                    Y = 0,
+                    Order = 2,
+                    ChipId = "ESP10498757"//StringExtension.GenerateMACAddress(),
+                };
+                dbContext.Set<Switch>().Add(switch2);
+
+                var switch3 = new Switch
+                {
+                    SiteId = "5735824c-93cc-4016-b6b3-26f7947bb58e",
+                    CreatedDateTime = DateTime.UtcNow,
+                    Name = "Switch 3",
+                    Status = false,
+                    Type = SwitchType.PowerMonitoring,
+                    UpdatedDateTime = DateTime.UtcNow,
+                    X = 0,
+                    Y = 0,
+                    Order = 3,
+                    ChipId = "ESP10472361"//StringExtension.GenerateMACAddress(),
+                };
+                dbContext.Set<Switch>().Add(switch3);
+
+                var switch4 = new Switch
+                {
+                    SiteId = "5735824c-93cc-4016-b6b3-26f7947bb58e",
+                    CreatedDateTime = DateTime.UtcNow,
+                    Name = "Switch 4",
+                    Status = false,
+                    Type = SwitchType.PowerMonitoring,
+                    UpdatedDateTime = DateTime.UtcNow,
+                    X = 0,
+                    Y = 0,
+                    Order = 4,
+                    ChipId = "ESP10499464"//StringExtension.GenerateMACAddress(),
+                };
+                dbContext.Set<Switch>().Add(switch4);
+
+                var switch5 = new Switch
+                {
+                    SiteId = "5735824c-93cc-4016-b6b3-26f7947bb58e",
+                    CreatedDateTime = DateTime.UtcNow,
+                    Name = "Switch 5",
+                    Status = false,
+                    Type = SwitchType.PowerMonitoring,
+                    UpdatedDateTime = DateTime.UtcNow,
+                    X = 0,
+                    Y = 0,
+                    Order = 5,
+                    ChipId = "ESP10499179"//StringExtension.GenerateMACAddress(),
+                };
+                dbContext.Set<Switch>().Add(switch5);
+
+                var switch6 = new Switch
+                {
+                    SiteId = "5735824c-93cc-4016-b6b3-26f7947bb58e",
+                    CreatedDateTime = DateTime.UtcNow,
+                    Name = "Switch 6",
+                    Status = false,
+                    Type = SwitchType.PowerMonitoring,
+                    UpdatedDateTime = DateTime.UtcNow,
+                    X = 0,
+                    Y = 0,
+                    Order = 6,
+                    ChipId = "ESP10500253"//StringExtension.GenerateMACAddress(),
+                };
+                dbContext.Set<Switch>().Add(switch6);
+
+
+                var switch7 = new Switch
+                {
+                    SiteId = "5735824c-93cc-4016-b6b3-26f7947bb58e",
+                    CreatedDateTime = DateTime.UtcNow,
+                    Name = "SV 1",
+                    Status = false,
+                    Type = SwitchType.PowerMonitoring,
+                    UpdatedDateTime = DateTime.UtcNow,
+                    X = 0,
+                    Y = 0,
+                    Order = 7,
+                    ChipId = "ESP10488107"//StringExtension.GenerateMACAddress(),
+                };
+                dbContext.Set<Switch>().Add(switch7);
 
                 for (var i = 1; i <= 4; i++)
                 {
