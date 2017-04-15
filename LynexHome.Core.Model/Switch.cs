@@ -28,7 +28,7 @@ namespace LynexHome.Core.Model
         public SwitchType Type { get; set; }
 
         [StringLength(20)]
-        public string Mac { get; set; }
+        public string ChipId { get; set; }
 
 
         public int Order { get; set; }

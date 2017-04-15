@@ -109,7 +109,7 @@ namespace LynexHome.Core.Migrations
                         X = c.Int(nullable: false),
                         Y = c.Int(nullable: false),
                         Type = c.Int(nullable: false),
-                        Mac = c.String(maxLength: 20),
+                        ChipId = c.String(maxLength: 20),
                         Order = c.Int(nullable: false),
                         CreatedDateTime = c.DateTime(nullable: false),
                         UpdatedDateTime = c.DateTime(nullable: false),

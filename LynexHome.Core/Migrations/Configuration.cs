@@ -105,7 +105,7 @@ namespace LynexHome.Core.Migrations
                     Suburb = "Willetton",
                     UpdatedDateTime = DateTime.UtcNow,
                     SerialNumber = "RuHqYCQezwdrBmueo8ni",
-                    Secret = "Zex6FTRzmp5UDResRDbtgr7ZtrZuzPTdWQvWnyD6jWy4FsVFNzaQZZawWSSfrAACfL9DCYKxGaNAChp53ADidNVbjebEugBNCawW"
+                    Secret = "{\"D\":\"Z7At6fVvJdIX8QUS5s6qKo1K6YRrikZDCBtmZtFNvsLVDvmB5LNNtQ/TjrcxbmJCxcZCNudlnPSdK298QZFxc3asGpLtPkT9z2zjFOaQA9wpNtvQK7BTP/56QJQP6ioxGfEvilEXVXw+2ERkniu5zgOj5MdLy/T31JTUL6iCIJKsK6x2+pu0QbqCJPnQiZk+GvRB4/Y9VEvtUZl9xJQxuTkR/fYLXRL1sKbOxtWvf1Mimm62T1EH1GmR7cZvKkqdtLKrb/8/gehlcaWZ8ms0rfUWeEJUB1mPvqsCVjH5rvS1rX08j5gPyZtolpRqSoYjvFhk+3y6FQ6EOBX93RHVoQ==\",\"DP\":\"TniHOfpjiWIuvEY46jdEgXfpycz5qwOBvkT59H551kAZvNjthCi3qaIhwpL+Eitfwe0ReqJKD/UYyojfq/6IDV+2UrKcitgd1f4E6dX5NIzQQ1cLN9Xga6hBPfosq12zZPHLUoHxQRtcNb305+EFHiHmEoYxfQl69RJBM3X3iZE=\",\"DQ\":\"KR8L8vC8XiAFSg25dFmVrMxPmWT66+YmJKwanN2XV1bw3uajy5EFE0BjP74Ggt1IvnZm/PftBPQHNRRpF5VaQ5npaV6OVW1qDA2gdAOCU4tOh5Hnge1eN3r7bIwZ7S23ZhHBwvIYv3AHrjU9Ek25hqKMZ1B+A9Ghw22kNLB5BB0=\",\"Exponent\":\"AQAB\",\"InverseQ\":\"FjYzuUqQ4/EFTsWB2upii23mu5r0bEZ579TKNdbzVeSQkGcbI7tTRI4TrOWo07WkiAiJHe4XJtPxc/yj+vjzGhqqxjaaLWMK18qTwPY6OSOavwRZLEqdl/2kVslwZni8JTON18LY9itRM7uaY5lmmDUI7PNpyibbhJo9q0uBJYI=\",\"Modulus\":\"mMxzNRkfAUGaa1CX8VGlsM07alr3mBMYbRWbOEz5/CtsrA8h70GMomHw97iTn6kn0/tTaOUUrEOu7bRZUiKLLlswV8Q5uyfukoNuSKR5bQUFGaZ1/WO11nAcdCcH0vmN8gZ9eRZiXfOx5sWA+SJ8YXN0H9DwlglhrRQZg8WA05bZ5jbAcfzeF3+rfkL+3b7CnZic2Yupk9zrR1uxQnD3qNKR2dlXCtSibb4JVzJ4CNSySqWvP0Q6fB0IBHnqLgJbE7lDRhLveW6IP6wcAZDxGFJ7fWys4Q2CGd0iCjviBHWDtkCWOaB57xTbR5Su7/mNhYWie14cuuWji9DiToNgZw==\",\"P\":\"yx4toDmRKT1nu7MrJeNAbK1VzxxqpoovMiCezDnbv9XGwt2Yk1wejxasPNXVZ3Ca9DBItxZcx+fnKegZh2XzE8O8R+DZuXPEfOOwM+DZNZ5lk5VA/f+9XSjJZJaZeucatap75y4iTpvniuVx6zYIduUteS7Nyor8S3sLFsBch/E=\",\"Q\":\"wJR9dPtEgb63x0Wdw9VNpRSt0eks6JE3CsLZkI80qnbpdZ5cmxIyDl5ww4t5haYiiJnD/FJIwFItdiH+GOyIaghcQnEMedSZG3iQVF6CvrjNhpymLPHqpg3iECmubyUlf3Q78UoVUl8u+3GEQQekwiHvbGyKq7vB5PziJqX9hdc=\"}"
                 };
 
                 dbContext.Set<Site>().Add(site);
@@ -167,7 +167,7 @@ namespace LynexHome.Core.Migrations
 
                 dbContext.SaveChanges();
 
-                for (var i = 1; i <= 6; i++)
+                for (var i = 1; i <= 1; i++)
                 {
                     var theSwitch = new Switch
                     {
@@ -180,7 +180,7 @@ namespace LynexHome.Core.Migrations
                         X = 0,
                         Y = 0,
                         Order = i - 1,
-                        Mac = StringExtension.GenerateMACAddress(),
+                        ChipId = "ESP10499465"//StringExtension.GenerateMACAddress(),
                     };
                     dbContext.Set<Switch>().Add(theSwitch);
                 }
@@ -199,7 +199,7 @@ namespace LynexHome.Core.Migrations
                         X = 0,
                         Y = 0,
                         Order = i - 1,
-                        Mac = StringExtension.GenerateMACAddress(),
+                        ChipId = StringExtension.GenerateMACAddress(),
                     };
                     dbContext.Set<Switch>().Add(theSwitch);
                 }
@@ -218,7 +218,7 @@ namespace LynexHome.Core.Migrations
                         X = 0,
                         Y = 0,
                         Order = i - 1,
-                        Mac = StringExtension.GenerateMACAddress(),
+                        ChipId = StringExtension.GenerateMACAddress(),
                     };
                     dbContext.Set<Switch>().Add(theSwitch);
                 }
@@ -236,7 +236,7 @@ namespace LynexHome.Core.Migrations
                         X = 0,
                         Y = 0,
                         Order = i - 1,
-                        Mac = StringExtension.GenerateMACAddress(),
+                        ChipId = StringExtension.GenerateMACAddress(),
                     };
                     dbContext.Set<Switch>().Add(theSwitch);
                 }
