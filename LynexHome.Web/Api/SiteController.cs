@@ -33,7 +33,7 @@ namespace LynexHome.Web.Api
         [HttpGet]
         public IHttpActionResult Get()
         {
-            Thread.Sleep(2000);
+            //Thread.Sleep(2000);
 
             var userid = User.Identity.GetUserId();
 
@@ -52,7 +52,7 @@ namespace LynexHome.Web.Api
         [HttpPost]
         public IHttpActionResult GetSite(QuerySiteModel model)
         {
-            Thread.Sleep(2000);
+            //Thread.Sleep(2000);
 
             var userid = User.Identity.GetUserId();
 
@@ -71,7 +71,7 @@ namespace LynexHome.Web.Api
         [HttpPost]
         public IHttpActionResult SetAsDefault(QuerySiteModel model)
         {
-            Thread.Sleep(2000);
+            //Thread.Sleep(2000);
 
             var userid = User.Identity.GetUserId();
 

@@ -1,0 +1,55 @@
+﻿<div id="home-bg" ng-controller="mapController">
+    <!--<img src="/Images/home-bg.jpg" alt="">-->
+
+
+    <div class="switch-container container" data-drop="true" ng-model='switches' jqyoui-droppable="{multiple:true}">
+        <div class="loader-container" ng-hide="!loading">
+            <div class="loader"></div>
+        </div>
+        <!--<div class="col-md-12 home-select" ng-hide="loading">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default">{{getSiteName()}}</button>
+                    <button type="button" class="btn btn-default dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" ng-repeat="site in sites" href="javascript:void(0)" ng-click="selectSite(site)">{{site.name}}</a>
+                    </div>
+
+                </div>
+
+                <button class="btn btn-default" ng-click="gotoMap()">Map</button>
+                <button class="btn btn-default" ng-if="!selectedSite.isDefault" ng-click="setDefault()">Set As Default</button>
+            </div>-->
+        <canvas width="500" height="300" id="map-canvas" site-map stroke-style="#000000" selected-stroke-style="#5FC325"></canvas>
+        <div class="draw-control">
+            <ul class="nav nav-pills navbar-left">
+                <li ng-class="{'active' : isDrawType('mouse')}">
+                    <a title="Hand" href="javascript:void(0)" ng-click="setDrawType('mouse')">
+                        <i class="fa fa-mouse-pointer" aria-hidden="true"></i>
+                    </a>
+                </li>
+                <li ng-class="{'active' : isDrawType('wall') || isDrawType('doublewall') || isDrawType('switch'), 'dropdown':isDropDown(), 'dropup': !isDropDown()}">
+                    <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                        <i class="fa fa-pencil" aria-hidden="true" ng-hide="isDrawType('wall') || isDrawType('doublewall') || isDrawType('switch')"></i>
+                        <i class="fa fa-minus" aria-hidden="true" ng-show="isDrawType('wall')"></i>
+                        <i class="fa fa-pause" aria-hidden="true" ng-show="isDrawType('doublewall')"></i>
+                        <i class="fa fa-power-off" aria-hidden="true" ng-show="isDrawType('switch')"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li ng-class="{'active' : isDrawType('wall')}"><a href="javascript:void(0)" title="Wall" ng-click="setDrawType('wall')"><i class="fa fa-minus" aria-hidden="true"></i></a></li>
+                        <li ng-class="{'active' : isDrawType('doublewall')}"><a href="javascript:void(0)" title="Double Wall" ng-click="setDrawType('doublewall')"><i class="fa fa-pause" aria-hidden="true"></i></a></li>
+                        <li ng-class="{'active' : isDrawType('switch')}"><a href="javascript:void(0)" title="Switch" ng-click="setDrawType('switch')"><i class="fa fa-power-off" aria-hidden="true"></i></a></li>
+                    </ul>
+                </li>
+
+
+                <li><a href="javascript:void(0)" title="Delete" ng-click="deleteSelection()"><i class="fa fa-trash-o" aria-hidden="true"></i></a></li>
+                <li><a href="javascript:void(0)" title="Zoom In" ng-click="zoomIn()"><i class="fa fa-search-plus" aria-hidden="true"></i></a></li>
+                <li><a href="javascript:void(0)" title="Zoom Out" ng-click="zoomOut()"><i class="fa fa-search-minus" aria-hidden="true"></i></a></li>
+                <li><a href="javascript:void(0)" title="Save" ng-click="save()"><i class="fa fa-floppy-o" aria-hidden="true"></i></a></li>
+            </ul>
+        </div>
+    </div>
+    
+</div>

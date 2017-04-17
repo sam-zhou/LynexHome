@@ -32,5 +32,7 @@ namespace LynexHome.ViewModel
         public DateTime CreatedDateTime { get; set; }
 
         public DateTime UpdatedDateTime { get; set; }
+
+        public string SiteId { get; set; }
     }
 }

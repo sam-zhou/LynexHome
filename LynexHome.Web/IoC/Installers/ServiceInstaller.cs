@@ -4,6 +4,7 @@ using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using log4net;
 using LynexHome.Service.Interface;
+using LynexHome.Web.WebScokets;
 
 namespace LynexHome.Web.IoC.Installers
 {
@@ -23,6 +24,8 @@ namespace LynexHome.Web.IoC.Installers
                             .LifestyleTransient()
                 );
 
+
+            container.Register(Component.For<WebSocketHandlerManager>().Instance(new WebSocketHandlerManager()).LifestyleSingleton());
             //container.Register(Component.For<AuthenticateFilter>());
             //container.Register(Component.For<IDosageService>().ImplementedBy<DosageService>().LifestylePerWebRequest());
             //container.Register(Component.For<IUserService>().ImplementedBy<UserService>().LifestylePerWebRequest());

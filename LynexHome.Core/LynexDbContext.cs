@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure.Annotations;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LynexHome.Core.Model;
+using LynexHome.Core.Model.Attributes;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace LynexHome.Core
@@ -24,6 +26,8 @@ namespace LynexHome.Core
             {
                 throw new ArgumentNullException("modelBuilder");
             }
+
+            modelBuilder.Conventions.Add(new AttributeToColumnAnnotationConvention<SqlDefaultValueAttribute, string>("SqlDefaultValue", (p, attributes) => attributes.Single().DefaultValue));
 
             // Needed to ensure subclasses share the same table
             var user = modelBuilder.Entity<User>()
@@ -43,6 +47,7 @@ namespace LynexHome.Core
                 .HasKey(r => new { r.UserId, r.RoleId })
                 .ToTable("UserRoles");
 
+
             modelBuilder.Entity<UserLogin>()
                 .HasKey(l => new { l.LoginProvider, l.ProviderKey, l.UserId })
                 .ToTable("UserLogins");
@@ -57,6 +62,8 @@ namespace LynexHome.Core
                 .HasMaxLength(256)
                 .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute("RoleNameIndex") { IsUnique = true }));
             role.HasMany(r => r.Users).WithRequired().HasForeignKey(ur => ur.RoleId);
+
+            
         }
 
         //public static LynexDbContext Create()

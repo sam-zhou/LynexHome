@@ -2,14 +2,20 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LynexHome.Core.Model.Attributes;
 
 namespace LynexHome.Core.Model
 {
     public partial class Switch : BaseEntity
     {
+        public Switch()
+        {
+            SwitchEvents = new HashSet<SwitchEvent>();
+        }
 
         [Required]
         [StringLength(50)]
@@ -33,15 +39,19 @@ namespace LynexHome.Core.Model
 
         public int Order { get; set; }
 
-        [Required]
+        [Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [SqlDefaultValue("GETUTCDATE()")]
         public DateTime CreatedDateTime { get; set; }
 
-        [Required]
+        [Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [SqlDefaultValue("GETUTCDATE()")]
         public DateTime UpdatedDateTime { get; set; }
 
 
         public string SiteId { get; set; }
 
         public virtual Site Site { get; set; }
+
+        public virtual ICollection<SwitchEvent> SwitchEvents { get; set; }
     }
 }

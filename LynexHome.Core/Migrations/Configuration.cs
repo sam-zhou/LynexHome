@@ -1,3 +1,7 @@
+using System.Collections.Generic;
+using System.Data.Entity.Infrastructure.Annotations;
+using System.Data.Entity.Migrations.Model;
+using System.Data.Entity.SqlServer;
 using Lynex.Extension;
 using Lynex.Extension.Enum;
 using LynexHome.Core.Model;
@@ -16,7 +20,7 @@ namespace LynexHome.Core.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
-
+            SetSqlGenerator("System.Data.SqlClient", new CustomSqlServerMigrationSqlGenerator());
         }
 
         protected override void Seed(LynexDbContext context)
@@ -273,6 +277,51 @@ namespace LynexHome.Core.Migrations
                 };
                 dbContext.Set<Switch>().Add(switch7);
 
+                var switch8 = new Switch
+                {
+                    SiteId = "5735824c-93cc-4016-b6b3-26f7947bb58e",
+                    CreatedDateTime = DateTime.UtcNow,
+                    Name = "SV 2",
+                    Status = false,
+                    Type = SwitchType.PowerMonitoring,
+                    UpdatedDateTime = DateTime.UtcNow,
+                    X = 0,
+                    Y = 0,
+                    Order = 8,
+                    ChipId = "ESP10488288"//StringExtension.GenerateMACAddress(),
+                };
+                dbContext.Set<Switch>().Add(switch8);
+
+                var switch9 = new Switch
+                {
+                    SiteId = "5735824c-93cc-4016-b6b3-26f7947bb58e",
+                    CreatedDateTime = DateTime.UtcNow,
+                    Name = "SV 3",
+                    Status = false,
+                    Type = SwitchType.PowerMonitoring,
+                    UpdatedDateTime = DateTime.UtcNow,
+                    X = 0,
+                    Y = 0,
+                    Order = 9,
+                    ChipId = "ESP10488107"//StringExtension.GenerateMACAddress(),
+                };
+                dbContext.Set<Switch>().Add(switch9);
+
+                var switch10 = new Switch
+                {
+                    SiteId = "5735824c-93cc-4016-b6b3-26f7947bb58e",
+                    CreatedDateTime = DateTime.UtcNow,
+                    Name = "SV 4",
+                    Status = false,
+                    Type = SwitchType.PowerMonitoring,
+                    UpdatedDateTime = DateTime.UtcNow,
+                    X = 0,
+                    Y = 0,
+                    Order = 10,
+                    ChipId = "ESP10488107"//StringExtension.GenerateMACAddress(),
+                };
+                dbContext.Set<Switch>().Add(switch10);
+
                 for (var i = 1; i <= 4; i++)
                 {
                     var theSwitch = new Switch
@@ -508,6 +557,42 @@ namespace LynexHome.Core.Migrations
 
             }
 
+        }
+
+        internal class CustomSqlServerMigrationSqlGenerator : SqlServerMigrationSqlGenerator
+        {
+            protected override void Generate(AddColumnOperation addColumnOperation)
+            {
+                SetAnnotatedColumn(addColumnOperation.Column);
+
+                base.Generate(addColumnOperation);
+            }
+
+            protected override void Generate(CreateTableOperation createTableOperation)
+            {
+                SetAnnotatedColumn(createTableOperation.Columns);
+
+                base.Generate(createTableOperation);
+            }
+
+
+            private void SetAnnotatedColumn(IEnumerable<ColumnModel> columns)
+            {
+                foreach (var columnModel in columns)
+                {
+                    SetAnnotatedColumn(columnModel);
+                }
+            }
+
+
+            private void SetAnnotatedColumn(ColumnModel column)
+            {
+                AnnotationValues values;
+                if (column.Annotations.TryGetValue("SqlDefaultValue", out values))
+                {
+                    column.DefaultValueSql = (string)values.NewValue;
+                }
+            }
         }
     }
 }

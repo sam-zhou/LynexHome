@@ -1,0 +1,19 @@
+﻿@section SPAViews {
+    @Html.Partial("_Home")
+}
+@section Scripts{
+    
+    @if (@HttpContext.Current.IsDebuggingEnabled)
+    {
+        @Scripts.Render("~/bundles/angular")
+        @Scripts.Render("~/bundles/app")
+    }
+    else
+    {
+        @Scripts.Render("~/bundles/angular?v=" + ViewContext.Controller.GetType().Assembly.GetName().Version)
+        @Scripts.Render("~/bundles/app?v=" + ViewContext.Controller.GetType().Assembly.GetName().Version)
+    }
+    
+
+    
+}

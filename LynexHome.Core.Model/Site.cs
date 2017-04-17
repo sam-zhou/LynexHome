@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LynexHome.Core.Model.Attributes;
 
 namespace LynexHome.Core.Model
 {
@@ -19,6 +20,7 @@ namespace LynexHome.Core.Model
         {
             Switches = new HashSet<Switch>();
             Walls = new HashSet<Wall>();
+            SwitchEvents = new HashSet<SwitchEvent>();
         }
 
         [Index("IX_Site_SerialNumber", IsClustered = false, IsUnique = true)]
@@ -45,13 +47,19 @@ namespace LynexHome.Core.Model
         [StringLength(20)]
         public string Country { get; set; }
 
+        [Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [SqlDefaultValue("GETUTCDATE()")]
         public DateTime UpdatedDateTime { get; set; }
 
+        [Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [SqlDefaultValue("GETUTCDATE()")]
         public DateTime CreatedDateTime { get; set; }
 
         public virtual ICollection<Wall> Walls { get; set; }
 
         public virtual ICollection<Switch> Switches { get; set; }
+
+        public virtual ICollection<SwitchEvent> SwitchEvents { get; set; }
 
         public string UserId { get; set; }
 

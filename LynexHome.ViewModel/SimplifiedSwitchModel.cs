@@ -22,5 +22,7 @@ namespace LynexHome.ViewModel
         public SwitchType Type { get; set; }
 
         public string ChipId { get; set; }
+
+        public string SiteId { get; set; }
     }
 }

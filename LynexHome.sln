@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LynexHome.Web", "LynexHome.Web\LynexHome.Web.csproj", "{18963C3C-0871-4A96-AFF6-7322FBB9231A}"
 EndProject
@@ -39,6 +39,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lynex.Extension", "Lynex.Extension\Lynex.Extension.csproj", "{D80BF225-16D4-4EE4-987B-87FB82C1E470}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LynexHome.Test", "LynexHome.Test\LynexHome.Test.csproj", "{067456C0-086C-46A8-B37F-1405717B7BFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LynexHome.Api", "LynexHome.Api\LynexHome.Api.csproj", "{E13982C6-08E3-4B42-BB43-F8457A0CC02C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -102,6 +104,10 @@ Global
 		{067456C0-086C-46A8-B37F-1405717B7BFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{067456C0-086C-46A8-B37F-1405717B7BFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{067456C0-086C-46A8-B37F-1405717B7BFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E13982C6-08E3-4B42-BB43-F8457A0CC02C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E13982C6-08E3-4B42-BB43-F8457A0CC02C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E13982C6-08E3-4B42-BB43-F8457A0CC02C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E13982C6-08E3-4B42-BB43-F8457A0CC02C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

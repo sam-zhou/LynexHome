@@ -10,8 +10,10 @@ using LynexHome.Core.Model;
 using LynexHome.Repository.Interface;
 using LynexHome.Service;
 using LynexHome.ViewModel;
+using LynexHome.Web.WebScokets;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using Newtonsoft.Json;
 
 namespace LynexHome.Web.Api
 {
@@ -33,7 +35,7 @@ namespace LynexHome.Web.Api
         [HttpPost]
         public IHttpActionResult Get(QuerySiteModel model)
         {
-            Thread.Sleep(2000);
+            //Thread.Sleep(2000);
             var userid = User.Identity.GetUserId();
 
             var switches = _switchService.GetSwitches(userid, model.SiteId).OrderBy(q => q.Order);
@@ -50,9 +52,18 @@ namespace LynexHome.Web.Api
         [HttpPost]
         public IHttpActionResult UpdateStatus(SwitchStatusModel model)
         {
-            Thread.Sleep(2000);
+            //Thread.Sleep(2000);
 
             var result = _switchService.UpdateStatus(User.Identity.GetUserId(), model.SwitchId, model.Status);
+
+            var @switch = _switchService.GetSimplifiedSwitch(User.Identity.GetUserId(), model.SwitchId);
+
+            var client = WsHandler.GetWebSocketCollectionBySiteId(@switch.SiteId);
+            if (client != null)
+            {
+                client.Broadcast(JsonConvert.SerializeObject(@switch));
+            }
+            
 
             var obj = new
             {
@@ -67,7 +78,7 @@ namespace LynexHome.Web.Api
         [HttpPost]
         public IHttpActionResult UpdateOrder(SwitchOrderModel model)
         {
-            Thread.Sleep(2000);
+            //Thread.Sleep(2000);
 
             var result = _switchService.UpdateOrder(User.Identity.GetUserId(), model.SwitchId, model.Order);
 
