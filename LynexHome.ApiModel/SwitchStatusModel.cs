@@ -10,6 +10,8 @@ namespace LynexHome.ApiModel
     {
         public string SwitchId { get; set; }
 
+        public string ChipId { get; set; }
+
         public bool Status { get; set; }
     }
 }
