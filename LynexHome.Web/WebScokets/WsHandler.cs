@@ -89,61 +89,54 @@ namespace LynexHome.Web.WebScokets
 
         public override void OnMessage(string message)
         {
+            var switchUpdatedModel = JsonConvert.DeserializeObject<SwitchUpdatedModel>(message);
 
-            dynamic model = JObject.Parse(message);
-
-            var dictionary = (IDictionary<string, object>) model;
-
-            if (dictionary.ContainsKey("EncryptedSerialNumber") && dictionary.ContainsKey("SiteId"))
+            if (switchUpdatedModel.ChipId != null)
             {
-                if (dictionary.ContainsKey("ChipId") && dictionary.ContainsKey("Status"))
+                ProcessSwitchUpdate(switchUpdatedModel);
+            }
+            else
+            {
+                var siteStatusModel = JsonConvert.DeserializeObject<SiteStatusModel>(message);
+
+                if (siteStatusModel.Switches != null && siteStatusModel.Switches.Any())
                 {
-                    ProcessSwitchUpdate(model);
-                }
-                else if (dictionary.ContainsKey("Switches"))
-                {
-                    ProcessSiteStatus(model);
+                    ProcessSiteStatus(siteStatusModel);
                 }
             }
-            
+
         }
 
         private void ProcessSiteStatus(SiteStatusModel model)
         {
-
-            foreach (var chatClient in ChatClients)
+            using (var dbContext = new LynexDbContext())
             {
-                if (chatClient is WsHandler)
-                {
-                    var wsHandler = (WsHandler) chatClient;
+                var cryptoService = new CryptoService();
 
-                    if (!wsHandler.IsRaspberryPi)
+                var site = dbContext.Set<Site>().Find(model.SiteId);
+
+                if (site != null)
+                {
+                    var decryptedSerialNumber = cryptoService.Decrypt(model.EncryptedSerialNumber, site.Secret);
+
+                    if (decryptedSerialNumber == site.SerialNumber)
                     {
-                        wsHandler.Send(JsonConvert.SerializeObject(model.Switches));
+                        foreach (var chatClient in ChatClients)
+                        {
+                            if (chatClient is WsHandler)
+                            {
+                                var wsHandler = (WsHandler)chatClient;
+
+                                if (!wsHandler.IsRaspberryPi)
+                                {
+                                    wsHandler.Send(JsonConvert.SerializeObject(model.Switches));
+                                }
+                            }
+
+                        }
                     }
                 }
-                
-            }
-            //using (var dbContext =new LynexDbContext())
-            //{
-            //    var cryptoService = new CryptoService();
-
-            //    var site = dbContext.Set<Site>().Find(model.SiteId);
-
-            //    if (site != null)
-            //    {
-            //        var decryptedSerialNumber = cryptoService.Decrypt(model.EncryptedSerialNumber, site.Secret);
-
-            //        if (decryptedSerialNumber == site.SerialNumber)
-            //        {
-            //            foreach (dynamic @switch in model.Switches)
-            //            {
-
-            //            }
-            //        }
-            //    }
-            //}
-            
+            }            
         }
 
         private void ProcessSwitchUpdate(SwitchUpdatedModel model)
