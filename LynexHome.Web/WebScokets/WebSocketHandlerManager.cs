@@ -4,35 +4,40 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Web.WebSockets;
 
 namespace LynexHome.Web.WebScokets
 {
-    public class WebSocketHandlerManager
+    public class WebSocketSessionCollection
     {
-        private ConcurrentDictionary<string, WsHandler> _wsHandlers;
+        private Dictionary<string, WebSocketSessionManager> _webSocketSessionManagers;
 
-        public ConcurrentDictionary<string, WsHandler> WsHandlers
+        public Dictionary<string, WebSocketSessionManager> WebSocketSessionManagers
         {
             get
             {
-                if (_wsHandlers == null)
+                if (_webSocketSessionManagers == null)
                 {
-                    _wsHandlers = new ConcurrentDictionary<string, WsHandler>();
+                    _webSocketSessionManagers = new Dictionary<string, WebSocketSessionManager>();
                 }
-                return _wsHandlers;
+                return _webSocketSessionManagers;
             }
         }
 
-        public WsHandler GetHandler(string siteId)
+
+
+        public WebSocketSessionManager GetWebSocketSessionManager(string siteId)
         {
-            if (WsHandlers.ContainsKey(siteId))
+            if (WebSocketSessionManagers.ContainsKey(siteId))
             {
-                return WsHandlers[siteId];
+                return WebSocketSessionManagers[siteId];
             }
 
-            var wsHandler = new WsHandler(siteId);
-            WsHandlers.TryAdd(siteId, wsHandler);
-            return wsHandler;
+            var webSocketSessionManager = new WebSocketSessionManager(siteId);
+            WebSocketSessionManagers.Add(siteId, webSocketSessionManager);
+            return webSocketSessionManager;
         }
+
+
     }
 }

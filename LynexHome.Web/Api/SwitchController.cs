@@ -58,7 +58,7 @@ namespace LynexHome.Web.Api
 
             var @switch = _switchService.GetSimplifiedSwitch(User.Identity.GetUserId(), model.SwitchId);
 
-            var client = WsHandler.GetWebSocketCollectionBySiteId(@switch.SiteId);
+            var client = LynexWebSocketHandler.GetWebSocketSession(@switch.SiteId);
             if (client != null)
             {
                 client.Broadcast(JsonConvert.SerializeObject(@switch));

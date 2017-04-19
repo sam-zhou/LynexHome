@@ -33,15 +33,15 @@ namespace LynexHome.Web.Api
         private readonly ISiteService _siteService;
         private readonly ICryptoService _cryptoService;
         private readonly ISwitchService _switchService;
-        private readonly WebSocketHandlerManager _wsHandlerManager;
+        private readonly WebSocketSessionCollection _wsSessionCollection;
 
 
-        public RaspberryPiController(ISiteService siteService, ICryptoService cryptoService, ISwitchService switchService, WebSocketHandlerManager wsHandlerManager)
+        public RaspberryPiController(ISiteService siteService, ICryptoService cryptoService, ISwitchService switchService, WebSocketSessionCollection wsSessionCollection)
         {
             _siteService = siteService;
             _cryptoService = cryptoService;
             _switchService = switchService;
-            _wsHandlerManager = wsHandlerManager;
+            _wsSessionCollection = wsSessionCollection;
         }
 
         [HttpPost]
@@ -117,7 +117,7 @@ namespace LynexHome.Web.Api
         {
             if (HttpContext.Current.IsWebSocketRequest)
             {
-                HttpContext.Current.AcceptWebSocketRequest(new WsHandler(siteId));
+                HttpContext.Current.AcceptWebSocketRequest(new PiWebSocketHandler(siteId));
             }
             return new HttpResponseMessage(HttpStatusCode.SwitchingProtocols);
 

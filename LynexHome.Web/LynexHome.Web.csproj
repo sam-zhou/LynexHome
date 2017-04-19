@@ -298,10 +298,11 @@
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="WebScokets\ChatWebSocketHandler.cs" />
-    <Compile Include="WebScokets\WebSocketConnectionManager.cs" />
+    <Compile Include="WebScokets\ClientWebSocketHandler.cs" />
+    <Compile Include="WebScokets\PiWebSocketHandler.cs" />
     <Compile Include="WebScokets\WebSocketHandlerManager.cs" />
-    <Compile Include="WebScokets\WsHandler.cs" />
+    <Compile Include="WebScokets\LynexWebSocketHandler.cs" />
+    <Compile Include="WebScokets\WebSocketSessionManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="admin_favicon.ico" />

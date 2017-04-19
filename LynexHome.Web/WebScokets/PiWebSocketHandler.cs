@@ -20,71 +20,11 @@ using Newtonsoft.Json.Linq;
 
 namespace LynexHome.Web.WebScokets
 {
-    public class WsHandler : WebSocketHandler
+    public sealed class PiWebSocketHandler : LynexWebSocketHandler
     {
-        private static readonly Dictionary<string, WebSocketCollection> Collections = new Dictionary<string, WebSocketCollection>();
-
-        public static WebSocketCollection GetWebSocketCollectionBySiteId(string siteId)
+        public PiWebSocketHandler(string siteId):base(siteId, true)
         {
-            if (Collections.ContainsKey(siteId))
-            {
-                return Collections[siteId];
-            }
-
-            return null;
-        }
-
-        private  WebSocketCollection ChatClients
-        {
-            get
-            {
-                var clients = GetWebSocketCollectionBySiteId(SiteId);
-
-                if (clients == null)
-                {
-                    clients = new WebSocketCollection();
-                    Collections.Add(SiteId, clients);
-                }
-                
-                return clients;
-            }
-        }
-        
-
-        private readonly string _siteId;
-        private readonly bool _isRaspberryPi;
-        private readonly string _clientSessionId;
-
-        public string SiteId
-        {
-            get { return _siteId; }
-        }
-
-        public string ClientSessionId
-        {
-            get { return _clientSessionId; }
-        }
-
-        public bool IsRaspberryPi
-        {
-            get { return _isRaspberryPi; }
-        }
-
-        public WsHandler(string siteId, bool isRaspberryPi = true)
-        {
-            _siteId = siteId;
-            _isRaspberryPi = isRaspberryPi;
-            _clientSessionId = Guid.NewGuid().ToString("N");
-        }
-
-        public override void OnOpen()
-        {
-            ChatClients.Add(this);
-        }
-
-        public override void OnClose()
-        {
-            ChatClients.Remove(this);
+            
         }
 
         public override void OnMessage(string message)
@@ -121,19 +61,7 @@ namespace LynexHome.Web.WebScokets
 
                     if (decryptedSerialNumber == site.SerialNumber)
                     {
-                        foreach (var chatClient in ChatClients)
-                        {
-                            if (chatClient is WsHandler)
-                            {
-                                var wsHandler = (WsHandler)chatClient;
-
-                                if (!wsHandler.IsRaspberryPi)
-                                {
-                                    wsHandler.Send(JsonConvert.SerializeObject(model.Switches));
-                                }
-                            }
-
-                        }
+                        WebSocketSession.SendToClients(JsonConvert.SerializeObject(model.Switches));
                     }
                 }
             }            
