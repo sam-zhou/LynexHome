@@ -27,6 +27,12 @@ namespace LynexHome.Web.WebScokets
             
         }
 
+        public override void OnOpen()
+        {
+            Send("Welcome Pi");
+            base.OnOpen();
+        }
+
         public override void OnMessage(string message)
         {
             var switchUpdatedModel = JsonConvert.DeserializeObject<SwitchUpdatedModel>(message);

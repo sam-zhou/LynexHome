@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading;
 using System.Web;
 using System.Web.Http;
@@ -13,6 +15,7 @@ using LynexHome.ViewModel;
 using LynexHome.Web.WebScokets;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using Microsoft.Web.WebSockets;
 using Newtonsoft.Json;
 
 namespace LynexHome.Web.Api
@@ -23,13 +26,15 @@ namespace LynexHome.Web.Api
         private readonly LynexUserManager _userManager;
         private readonly IAuthenticationManager _anthenticationManager;
         private readonly ISwitchService _switchService;
+        private readonly ISiteService _siteService;
 
 
-        public SwitchController(LynexUserManager userManager, IAuthenticationManager anthenticationManager, ISwitchService switchService)
+        public SwitchController(LynexUserManager userManager, IAuthenticationManager anthenticationManager, ISwitchService switchService, ISiteService siteService)
         {
             _userManager = userManager;
             _anthenticationManager = anthenticationManager;
             _switchService = switchService;
+            _siteService = siteService;
         }
 
         [HttpPost]
@@ -47,6 +52,28 @@ namespace LynexHome.Web.Api
                 Results = switches
             };
             return Ok(obj);
+        }
+
+
+        [HttpGet]
+        public HttpResponseMessage WebSocket(string siteId)
+        {
+            if (HttpContext.Current.IsWebSocketRequest)
+            {
+                try
+                {
+                    var site = _siteService.GetSite(siteId, User.Identity.GetUserId());
+
+                    HttpContext.Current.AcceptWebSocketRequest(new ClientWebSocketHandler(site.Id));
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                
+            }
+            return new HttpResponseMessage(HttpStatusCode.SwitchingProtocols);
         }
 
         [HttpPost]

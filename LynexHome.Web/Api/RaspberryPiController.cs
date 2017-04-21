@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using System.Web.WebSockets;
+using Lynex.Extension;
 using LynexHome.ApiModel;
 using LynexHome.Core;
 using LynexHome.Core.Model;
@@ -113,80 +114,23 @@ namespace LynexHome.Web.Api
         }
 
         [HttpGet]
-        public HttpResponseMessage WebSocket(string siteId)
+        public HttpResponseMessage WebSocket(string siteId, string salt, string md5)
         {
             if (HttpContext.Current.IsWebSocketRequest)
             {
-                HttpContext.Current.AcceptWebSocketRequest(new PiWebSocketHandler(siteId));
-            }
-            return new HttpResponseMessage(HttpStatusCode.SwitchingProtocols);
-
-
-            
-        }
-
-
-        private async Task ProcessWSMessage1(AspNetWebSocketContext context)
-        {
-            var socket = context.WebSocket;
-
-            while (true)
-            {
-                var buffer = new ArraySegment<byte>(new byte[1024]);
-                var result = await socket.ReceiveAsync(
-                    buffer, CancellationToken.None);
-                if (socket.State == WebSocketState.Open)
+                var secret = _siteService.GetSecret(siteId);
+                var queryStr = "siteid=" + siteId + "&salt=" + salt + "&secret=" + secret;
+                var calculatedMd5 = queryStr.GetMD5();
+                if (string.Equals(md5,calculatedMd5, StringComparison.CurrentCultureIgnoreCase))
                 {
-                    var userMessage = Encoding.UTF8.GetString(
-                        buffer.Array, 0, result.Count);
-
-                    try
-                    {
-                        var model = JsonConvert.DeserializeObject<SwitchEnquireModel>(userMessage);
-
-                        using (var dbContext = new LynexDbContext())
-                        {
-                            var site = await dbContext.Set<Site>().FindAsync(model.SiteId);
-
-                            var decryptedSerialNumber = _cryptoService.Decrypt(model.EncryptedSerialNumber, site.Secret);
-
-                            if (decryptedSerialNumber == site.SerialNumber)
-                            {
-                                var siteModel = new SimplifiedSiteModel(site);
-
-                                foreach (var @switch in site.Switches)
-                                {
-                                    siteModel.SwitchViewModels.Add(new SimplifiedSwitchModel(@switch));
-                                }
-
-                                userMessage = JsonConvert.SerializeObject(siteModel);
-                            }
-                            else
-                            {
-                                userMessage = "Serial Number does not match";
-                            }
-                        }
-
-                        
-                        
-                    }
-                    catch (Exception ex)
-                    {
-                        userMessage = "Does not support";
-                    }
-                    
-
-                    
-                    buffer = new ArraySegment<byte>(
-                        Encoding.UTF8.GetBytes(userMessage));
-                    await socket.SendAsync(
-                        buffer, WebSocketMessageType.Text, true, CancellationToken.None);
+                    HttpContext.Current.AcceptWebSocketRequest(new PiWebSocketHandler(siteId));
                 }
                 else
                 {
-                    break;
+                    return new HttpResponseMessage(HttpStatusCode.Unauthorized);
                 }
             }
+            return new HttpResponseMessage(HttpStatusCode.SwitchingProtocols);
         }
     }
 }

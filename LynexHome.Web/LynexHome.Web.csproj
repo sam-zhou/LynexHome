@@ -1271,6 +1271,10 @@
       <Project>{a37b3ab5-139c-40ba-b83c-d2290eb39307}</Project>
       <Name>Lynex.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Lynex.Extension\Lynex.Extension.csproj">
+      <Project>{d80bf225-16d4-4ee4-987b-87fb82c1e470}</Project>
+      <Name>Lynex.Extension</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LynexHome.ApiModel\LynexHome.ApiModel.csproj">
       <Project>{6bc9126f-ac76-41de-b903-0dfb85e6076b}</Project>
       <Name>LynexHome.ApiModel</Name>

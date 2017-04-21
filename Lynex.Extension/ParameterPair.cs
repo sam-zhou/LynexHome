@@ -62,7 +62,7 @@ namespace Lynex.Extension
                 var clientParameters = Parameters.Where(q => q.Name != "md5").ToList();
                 clientParameters.Add(new Parameter("secret",secret));
                 var clientParameterStr = GetStringFromParameters(clientParameters);
-                var md5 = clientParameterStr.CreateMD5();
+                var md5 = clientParameterStr.GetMD5();
                 if (String.Equals(md5, md5Parameter.Value, StringComparison.CurrentCultureIgnoreCase))
                 {
                     return true;
