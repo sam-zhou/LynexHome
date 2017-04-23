@@ -13,6 +13,7 @@ using LynexHome.Core;
 using LynexHome.Core.Model;
 using LynexHome.Service;
 using LynexHome.ViewModel;
+using LynexHome.Web.WebScokets.MessageHandler;
 using Microsoft.Ajax.Utilities;
 using Microsoft.Web.WebSockets;
 using Newtonsoft.Json;
@@ -28,6 +29,8 @@ namespace LynexHome.Web.WebScokets
         {
             get { return GetWebSocketSession(SiteId); }
         }
+
+        public bool IsAuthenticated { get; protected set; }
 
         public static WebSocketSessionManager GetWebSocketSession(string siteId)
         {

@@ -65,7 +65,8 @@
     <Compile Include="BaseEntity.cs" />
     <Compile Include="Site.cs" />
     <Compile Include="Role.cs" />
-    <Compile Include="SwitchEvent.cs" />
+    <Compile Include="SwitchEvent .cs" />
+    <Compile Include="Icon.cs" />
     <Compile Include="SwitchType.cs" />
     <Compile Include="Wall.cs" />
     <Compile Include="Switch.cs" />

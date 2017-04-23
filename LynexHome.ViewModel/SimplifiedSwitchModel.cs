@@ -13,7 +13,7 @@ namespace LynexHome.ViewModel
             : base(data)
         {
         }
-
+        public string Name { get; set; }
 
         public string Id { get; set; }
 
@@ -24,5 +24,7 @@ namespace LynexHome.ViewModel
         public string ChipId { get; set; }
 
         public string SiteId { get; set; }
+
+        public int IconId { get; set; }
     }
 }

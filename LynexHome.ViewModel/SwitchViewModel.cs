@@ -34,5 +34,11 @@ namespace LynexHome.ViewModel
         public DateTime UpdatedDateTime { get; set; }
 
         public string SiteId { get; set; }
+
+        public int IconId { get; set; }
+
+        public string IconName { get; set; }
+
+        public string IconUrl { get; set; }
     }
 }

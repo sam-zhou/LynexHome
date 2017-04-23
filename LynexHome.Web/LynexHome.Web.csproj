@@ -299,6 +299,11 @@
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="WebScokets\ClientWebSocketHandler.cs" />
+    <Compile Include="WebScokets\MessageHandler\SiteStatusHandler.cs" />
+    <Compile Include="WebScokets\MessageHandler\SwitchUpdateHandler.cs" />
+    <Compile Include="WebScokets\MessageHandler\AuthenticationHandler.cs" />
+    <Compile Include="WebScokets\MessageHandler\IMessageHandler.cs" />
+    <Compile Include="WebScokets\MessageHandler\MessageHandler.cs" />
     <Compile Include="WebScokets\PiWebSocketHandler.cs" />
     <Compile Include="WebScokets\WebSocketHandlerManager.cs" />
     <Compile Include="WebScokets\LynexWebSocketHandler.cs" />

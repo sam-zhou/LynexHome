@@ -13,6 +13,7 @@ using LynexHome.Core;
 using LynexHome.Core.Model;
 using LynexHome.Service;
 using LynexHome.ViewModel;
+using LynexHome.Web.WebScokets.MessageHandler;
 using Microsoft.Ajax.Utilities;
 using Microsoft.Web.WebSockets;
 using Newtonsoft.Json;
@@ -29,73 +30,47 @@ namespace LynexHome.Web.WebScokets
 
         public override void OnOpen()
         {
-            Send("Welcome Pi");
+            Send(JsonConvert.SerializeObject(new WebSocketResultViewModel
+            {
+                StatusCode = 100,
+                Message = "Welcome Pi"
+            }));
             base.OnOpen();
         }
 
         public override void OnMessage(string message)
         {
-            var switchUpdatedModel = JsonConvert.DeserializeObject<SwitchUpdatedModel>(message);
 
-            if (switchUpdatedModel.ChipId != null)
+            if (!IsAuthenticated)
             {
-                ProcessSwitchUpdate(switchUpdatedModel);
+                var handler = new AuthenticationHandler(SiteId);
+                var result = handler.ProcessMessage(message);
+                IsAuthenticated = handler.IsAuthenticated;
+                Send(result);
             }
-            else
+            else 
             {
-                var siteStatusModel = JsonConvert.DeserializeObject<SiteStatusModel>(message);
-
-                if (siteStatusModel.Switches != null && siteStatusModel.Switches.Any())
+                var authen = JsonConvert.DeserializeObject<PiRequestModel>(message);
+                switch (authen.RequestType)
                 {
-                    ProcessSiteStatus(siteStatusModel);
+                    
+
+                    case "siteStatus":
+                        var siteStatusHandler =  new SiteStatusHandler(SiteId);
+                        var siteStatusResult = siteStatusHandler.ProcessMessage(message);
+                        WebSocketSession.SendToClients(JsonConvert.SerializeObject(siteStatusResult));
+                        break;
+                    case "switchUpdate":
+                        var switchUpdateHandler = new SiteStatusHandler(SiteId);
+                        switchUpdateHandler.ProcessMessage(message);
+                        break;
                 }
             }
 
+
+
         }
 
-        private void ProcessSiteStatus(SiteStatusModel model)
-        {
-            using (var dbContext = new LynexDbContext())
-            {
-                var cryptoService = new CryptoService();
 
-                var site = dbContext.Set<Site>().Find(model.SiteId);
-
-                if (site != null)
-                {
-                    var decryptedSerialNumber = cryptoService.Decrypt(model.EncryptedSerialNumber, site.Secret);
-
-                    if (decryptedSerialNumber == site.SerialNumber)
-                    {
-                        WebSocketSession.SendToClients(JsonConvert.SerializeObject(model.Switches));
-                    }
-                }
-            }            
-        }
-
-        private void ProcessSwitchUpdate(SwitchUpdatedModel model)
-        {
-            using (var dbContext = new LynexDbContext())
-            {
-                var cryptoService = new CryptoService();
-
-                var site = dbContext.Set<Site>().Find(model.SiteId);
-
-                if (site != null)
-                {
-                    var decryptedSerialNumber = cryptoService.Decrypt(model.EncryptedSerialNumber, site.Secret);
-
-                    if (decryptedSerialNumber == site.SerialNumber)
-                    {
-                        var items =
-                            dbContext.Set<SwitchEvent>()
-                                .Where(q => q.SiteId == site.Id && q.Switch.ChipId == model.ChipId && q.Status == model.Status).ToList();
-
-                        dbContext.Set<SwitchEvent>().RemoveRange(items);
-                        dbContext.SaveChanges();
-                    }
-                }
-            }
-        }
     }
 }

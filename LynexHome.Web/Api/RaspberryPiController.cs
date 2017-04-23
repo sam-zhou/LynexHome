@@ -114,21 +114,11 @@ namespace LynexHome.Web.Api
         }
 
         [HttpGet]
-        public HttpResponseMessage WebSocket(string siteId, string salt, string md5)
+        public HttpResponseMessage WebSocket(string siteId)
         {
             if (HttpContext.Current.IsWebSocketRequest)
             {
-                var secret = _siteService.GetSecret(siteId);
-                var queryStr = "siteid=" + siteId + "&salt=" + salt + "&secret=" + secret;
-                var calculatedMd5 = queryStr.GetMD5();
-                if (string.Equals(md5,calculatedMd5, StringComparison.CurrentCultureIgnoreCase))
-                {
-                    HttpContext.Current.AcceptWebSocketRequest(new PiWebSocketHandler(siteId));
-                }
-                else
-                {
-                    return new HttpResponseMessage(HttpStatusCode.Unauthorized);
-                }
+                HttpContext.Current.AcceptWebSocketRequest(new PiWebSocketHandler(siteId));
             }
             return new HttpResponseMessage(HttpStatusCode.SwitchingProtocols);
         }

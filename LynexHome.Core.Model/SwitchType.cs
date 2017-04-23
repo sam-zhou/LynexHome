@@ -19,6 +19,9 @@ namespace LynexHome.Core.Model
         [Description("TempHumMonitoring")]
         TempHumMonitoring = 3,
 
+        [Description("Safe Valtage")]
+        SafeValtage = 4,
+
         [RuntimeOnly]
         Unknown = 0
     }

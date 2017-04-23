@@ -43,8 +43,10 @@
     <Compile Include="EncryptMessageModel.cs" />
     <Compile Include="KeyPairGenerateModel.cs" />
     <Compile Include="EncryptedSwitchStatusModel.cs" />
+    <Compile Include="PiRequestModel.cs" />
     <Compile Include="QuerySiteModel.cs" />
     <Compile Include="SiteStatusModel.cs" />
+    <Compile Include="PiAuthenticationModel.cs" />
     <Compile Include="SwitchUpdatedModel.cs" />
     <Compile Include="SwitchOrderModel.cs" />
     <Compile Include="SwitchStatusModel.cs" />

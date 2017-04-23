@@ -52,6 +52,23 @@ namespace LynexHome.Core.Model
 
         public virtual Site Site { get; set; }
 
+        [Required]
+        public int IconId { get; set; }
+
+        public virtual Icon Icon { get; set; }
+
+        public string IconName
+        {
+            get { return Icon.Name; }
+        }
+
+        public string IconUrl
+        {
+            get { return Icon.Url; }
+        }
+
+
+
         public virtual ICollection<SwitchEvent> SwitchEvents { get; set; }
     }
 }

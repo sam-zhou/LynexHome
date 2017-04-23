@@ -7,12 +7,8 @@ using LynexHome.Core.Model;
 
 namespace LynexHome.ApiModel
 {
-    public class SiteStatusModel
+    public class SiteStatusModel : PiRequestModel
     {
-        public string SiteId { get; set; }
-
-        public string EncryptedSerialNumber { get; set; }
-
-        public List<SwitchStatusModel> Switches { get; set; }  
+        
     }
 }
