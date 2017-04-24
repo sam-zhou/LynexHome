@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,6 +40,19 @@ namespace LynexHome.Web.WebScokets.MessageHandler
                                         q.Status == model.Status).ToList();
 
                         dbContext.Set<SwitchEvent>().RemoveRange(items);
+
+                        var @switch = dbContext
+                            .Set<Switch>().FirstOrDefault(q => q.ChipId == model.ChipId && q.SiteId == site.Id);
+
+                        if (@switch != null)
+                        {
+                            @switch.Status = model.Status;
+                            dbContext.Entry(@switch).State = EntityState.Modified;
+                            dbContext.Set<Switch>().Attach(@switch);
+
+                            dbContext.Entry(@switch).Property("Status").IsModified = true;
+                        }
+
                         dbContext.SaveChanges();
                     }
                     else

@@ -2,7 +2,7 @@
 using System.Web;
 using System.Web.Http;
 using LynexHome.Core;
-using LynexHome.Core.Model;
+
 using LynexHome.Repository.Interface;
 using Microsoft.AspNet.Identity;
 

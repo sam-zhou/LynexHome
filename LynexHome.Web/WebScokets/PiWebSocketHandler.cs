@@ -53,15 +53,13 @@ namespace LynexHome.Web.WebScokets
                 var authen = JsonConvert.DeserializeObject<PiRequestModel>(message);
                 switch (authen.RequestType)
                 {
-                    
-
                     case "siteStatus":
                         var siteStatusHandler =  new SiteStatusHandler(SiteId);
                         var siteStatusResult = siteStatusHandler.ProcessMessage(message);
                         WebSocketSession.SendToClients(JsonConvert.SerializeObject(siteStatusResult));
                         break;
                     case "switchUpdate":
-                        var switchUpdateHandler = new SiteStatusHandler(SiteId);
+                        var switchUpdateHandler = new SwitchUpdateHandler(SiteId);
                         switchUpdateHandler.ProcessMessage(message);
                         break;
                 }

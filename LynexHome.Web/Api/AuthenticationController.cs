@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Http;
 using Lynex.Common.Exception;
 using LynexHome.Core;
-using LynexHome.Core.Model;
+
 using LynexHome.Repository.Interface;
 using LynexHome.ViewModel;
 using Microsoft.AspNet.Identity;
