@@ -16,9 +16,11 @@
 
             var selectedSite = siteService.getSelectedSite();
             console.log("selectedSite:");
-            console.log(selectedSite);
+            
             siteService.getSites().then(function (data) {
                 if (data.success) {
+                    console.log(data.results);
+
                     $scope.sites = data.results;
 
                     if (selectedSite !== null && selectedSite !== undefined) {
@@ -26,9 +28,8 @@
                             value.isBusy = false;
                             value.edit = false;
 
-                            if (selectedSite.id == value.id) {
+                            if (selectedSite.id === value.id) {
                                 console.log(value);
-
                                 $scope.selectedSite = value;
                                 $scope.switches = value.switchViewModels;
                             }
@@ -104,6 +105,7 @@
 
         $scope.dropCallback = function (event, ui, theSwitch, index) {
             if ($scope.draggingSwitch != null) {
+
                 switchService.updateOrder($scope.draggingSwitch.id, index).then(function(data) {
                     $scope.draggingSwitch.isBusy = false;
                     $scope.draggingSwitch = null;

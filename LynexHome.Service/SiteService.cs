@@ -44,7 +44,7 @@ namespace LynexHome.Service
             {
                 var siteViewModel = new SiteViewModel(site);
 
-                foreach (var @switch in site.Switches)
+                foreach (var @switch in site.Switches.OrderBy(q => q.Order))
                 {
                     siteViewModel.SwitchViewModels.Add(new SwitchViewModel(@switch));
                 }

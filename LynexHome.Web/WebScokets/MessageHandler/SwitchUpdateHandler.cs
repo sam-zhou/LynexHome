@@ -51,9 +51,17 @@ namespace LynexHome.Web.WebScokets.MessageHandler
                             dbContext.Set<Switch>().Attach(@switch);
 
                             dbContext.Entry(@switch).Property("Status").IsModified = true;
+                            result.Message = "Success";
+                            result.StatusCode = 200;
+                            result.Result = new SimplifiedSwitchModel(@switch);
+                            dbContext.SaveChanges();
                         }
-
-                        dbContext.SaveChanges();
+                        else
+                        {
+                            result.StatusCode = 500;
+                            result.Message = "Switch does not exist";
+                        }
+                        
                     }
                     else
                     {

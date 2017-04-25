@@ -47,6 +47,7 @@
     <Compile Include="QuerySiteModel.cs" />
     <Compile Include="SiteStatusModel.cs" />
     <Compile Include="PiAuthenticationModel.cs" />
+    <Compile Include="LiveSwitchModel.cs" />
     <Compile Include="SwitchUpdatedModel.cs" />
     <Compile Include="SwitchOrderModel.cs" />
     <Compile Include="SwitchStatusModel.cs" />

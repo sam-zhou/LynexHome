@@ -30,7 +30,7 @@ namespace LynexHome.Web.WebScokets.MessageHandler
                     result.StatusCode = 110;
                     result.Message = "Success";
                     var switches = new List<SimplifiedSwitchModel>();
-                    foreach (var @switch in site.Switches)
+                    foreach (var @switch in site.Switches.OrderBy(q => q.Order))
                     {
                         switches.Add(new SimplifiedSwitchModel(@switch));
                     }

@@ -56,11 +56,15 @@ namespace LynexHome.Web.WebScokets
                     case "siteStatus":
                         var siteStatusHandler =  new SiteStatusHandler(SiteId);
                         var siteStatusResult = siteStatusHandler.ProcessMessage(message);
-                        WebSocketSession.SendToClients(JsonConvert.SerializeObject(siteStatusResult));
+                        Send(siteStatusResult);
                         break;
                     case "switchUpdate":
                         var switchUpdateHandler = new SwitchUpdateHandler(SiteId);
-                        switchUpdateHandler.ProcessMessage(message);
+                        var result = switchUpdateHandler.ProcessMessage(message);
+                        WebSocketSession.SendToClients(result);
+                        break;
+                    case "liveSwtiches":
+                        WebSocketSession.SendToClients(message);
                         break;
                 }
             }

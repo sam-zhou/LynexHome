@@ -195,7 +195,7 @@ namespace LynexHome.Core.Migrations
                     UpdatedDateTime = DateTime.UtcNow,
                     X = 0,
                     Y = 0,
-                    Order = 1,
+                    Order = 0,
                     IconId = 1,
                     ChipId = "ESP10499465"//StringExtension.GenerateMACAddress(),
                 };
@@ -212,61 +212,13 @@ namespace LynexHome.Core.Migrations
                     UpdatedDateTime = DateTime.UtcNow,
                     X = 0,
                     Y = 0,
-                    Order = 2,
-                    IconId = 1,
+                    Order = 1,
+                    IconId = 2,
                     ChipId = "ESP10498757"//StringExtension.GenerateMACAddress(),
                 };
                 dbContext.Set<Switch>().Add(switch2);
 
                 var switch3 = new Switch
-                {
-                    SiteId = "5735824c-93cc-4016-b6b3-26f7947bb58e",
-                    CreatedDateTime = DateTime.UtcNow,
-                    Name = "Water Feature",
-                    Status = false,
-                    Type = SwitchType.PowerMonitoring,
-                    UpdatedDateTime = DateTime.UtcNow,
-                    X = 0,
-                    Y = 0,
-                    Order = 3,
-                    IconId = 1,
-                    ChipId = "ESP10472361"//StringExtension.GenerateMACAddress(),
-                };
-                dbContext.Set<Switch>().Add(switch3);
-
-                var switch4 = new Switch
-                {
-                    SiteId = "5735824c-93cc-4016-b6b3-26f7947bb58e",
-                    CreatedDateTime = DateTime.UtcNow,
-                    Name = "Switch 4",
-                    Status = false,
-                    Type = SwitchType.PowerMonitoring,
-                    UpdatedDateTime = DateTime.UtcNow,
-                    X = 0,
-                    Y = 0,
-                    Order = 4,
-                    IconId = 1,
-                    ChipId = "ESP10499464"//StringExtension.GenerateMACAddress(),
-                };
-                dbContext.Set<Switch>().Add(switch4);
-
-                var switch5 = new Switch
-                {
-                    SiteId = "5735824c-93cc-4016-b6b3-26f7947bb58e",
-                    CreatedDateTime = DateTime.UtcNow,
-                    Name = "Pond Feature",
-                    Status = false,
-                    Type = SwitchType.PowerMonitoring,
-                    UpdatedDateTime = DateTime.UtcNow,
-                    X = 0,
-                    Y = 0,
-                    Order = 5,
-                    IconId = 1,
-                    ChipId = "ESP10499179"//StringExtension.GenerateMACAddress(),
-                };
-                dbContext.Set<Switch>().Add(switch5);
-
-                var switch6 = new Switch
                 {
                     SiteId = "5735824c-93cc-4016-b6b3-26f7947bb58e",
                     CreatedDateTime = DateTime.UtcNow,
@@ -276,11 +228,63 @@ namespace LynexHome.Core.Migrations
                     UpdatedDateTime = DateTime.UtcNow,
                     X = 0,
                     Y = 0,
-                    Order = 6,
-                    IconId = 1,
+                    Order = 2,
+                    IconId = 4,
                     ChipId = "ESP10500253"//StringExtension.GenerateMACAddress(),
                 };
+                dbContext.Set<Switch>().Add(switch3);
+
+                var switch4 = new Switch
+                {
+                    SiteId = "5735824c-93cc-4016-b6b3-26f7947bb58e",
+                    CreatedDateTime = DateTime.UtcNow,
+                    Name = "Pond Feature",
+                    Status = false,
+                    Type = SwitchType.PowerMonitoring,
+                    UpdatedDateTime = DateTime.UtcNow,
+                    X = 0,
+                    Y = 0,
+                    Order = 3,
+                    IconId = 1,
+                    ChipId = "ESP10472361"//StringExtension.GenerateMACAddress(),
+                };
+                dbContext.Set<Switch>().Add(switch4);
+
+                
+
+                var switch5 = new Switch
+                {
+                    SiteId = "5735824c-93cc-4016-b6b3-26f7947bb58e",
+                    CreatedDateTime = DateTime.UtcNow,
+                    Name = "Water Feature",
+                    Status = false,
+                    Type = SwitchType.PowerMonitoring,
+                    UpdatedDateTime = DateTime.UtcNow,
+                    X = 0,
+                    Y = 0,
+                    Order = 4,
+                    IconId = 1,
+                    ChipId = "ESP10499179"//StringExtension.GenerateMACAddress(),
+                };
+                dbContext.Set<Switch>().Add(switch5);
+
+                var switch6 = new Switch
+                {
+                    SiteId = "5735824c-93cc-4016-b6b3-26f7947bb58e",
+                    CreatedDateTime = DateTime.UtcNow,
+                    Name = "Test Light",
+                    Status = false,
+                    Type = SwitchType.PowerMonitoring,
+                    UpdatedDateTime = DateTime.UtcNow,
+                    X = 0,
+                    Y = 0,
+                    Order = 5,
+                    IconId = 4,
+                    ChipId = "ESP10499464"//StringExtension.GenerateMACAddress(),
+                };
                 dbContext.Set<Switch>().Add(switch6);
+
+                
 
 
                 var switch7 = new Switch
@@ -293,8 +297,8 @@ namespace LynexHome.Core.Migrations
                     UpdatedDateTime = DateTime.UtcNow,
                     X = 0,
                     Y = 0,
-                    Order = 7,
-                    IconId = 1,
+                    Order = 6,
+                    IconId = 3,
                     ChipId = "ESP10488107"//StringExtension.GenerateMACAddress(),
                 };
                 dbContext.Set<Switch>().Add(switch7);
@@ -309,8 +313,8 @@ namespace LynexHome.Core.Migrations
                     UpdatedDateTime = DateTime.UtcNow,
                     X = 0,
                     Y = 0,
-                    Order = 8,
-                    IconId = 1,
+                    Order = 7,
+                    IconId = 3,
                     ChipId = "ESP10488288"//StringExtension.GenerateMACAddress(),
                 };
                 dbContext.Set<Switch>().Add(switch8);
@@ -325,7 +329,7 @@ namespace LynexHome.Core.Migrations
                     UpdatedDateTime = DateTime.UtcNow,
                     X = 0,
                     Y = 0,
-                    Order = 9,
+                    Order = 8,
                     IconId = 1,
                     ChipId = "ESP10488107"//StringExtension.GenerateMACAddress(),
                 };
@@ -341,7 +345,7 @@ namespace LynexHome.Core.Migrations
                     UpdatedDateTime = DateTime.UtcNow,
                     X = 0,
                     Y = 0,
-                    Order = 10,
+                    Order = 9,
                     IconId = 1,
                     ChipId = "ESP10488107"//StringExtension.GenerateMACAddress(),
                 };
