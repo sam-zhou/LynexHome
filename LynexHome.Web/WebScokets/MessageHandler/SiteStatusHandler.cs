@@ -27,7 +27,7 @@ namespace LynexHome.Web.WebScokets.MessageHandler
 
                 if (site != null)
                 {
-                    result.StatusCode = 200;
+                    result.StatusCode = 110;
                     result.Message = "Success";
                     var switches = new List<SimplifiedSwitchModel>();
                     foreach (var @switch in site.Switches)
