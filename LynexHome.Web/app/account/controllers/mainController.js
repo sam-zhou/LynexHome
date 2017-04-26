@@ -101,6 +101,9 @@
 
         }
 
+        $scope.dragStart = function (event, ui, theSwitch) {
+            
+        };
 
 
         $scope.dropCallback = function (event, ui, theSwitch, index) {

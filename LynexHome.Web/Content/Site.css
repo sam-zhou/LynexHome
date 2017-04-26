@@ -636,6 +636,14 @@ footer ul {
     opacity: 0.5
 }
 
+.switch-box .drag-handle {
+    padding: 5px 10px;
+    cursor: move;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
 .loader-container {
     height: 100%;
     z-index: 100000;

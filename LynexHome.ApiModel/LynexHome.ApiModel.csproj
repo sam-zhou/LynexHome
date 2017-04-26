@@ -54,6 +54,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SwitchEnquireModel.cs" />
     <Compile Include="WallUpdateModel.cs" />
+    <Compile Include="WebScoket\PiWebSocketMessageType.cs" />
+    <Compile Include="WebScoket\Client\ClientWebSocketMessage.cs" />
+    <Compile Include="WebScoket\WebSocketMessageType.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LynexHome.Core.Model\LynexHome.Core.Model.csproj">

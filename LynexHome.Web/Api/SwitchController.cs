@@ -55,26 +55,7 @@ namespace LynexHome.Web.Api
         }
 
 
-        [HttpGet]
-        public HttpResponseMessage WebSocket(string siteId)
-        {
-            if (HttpContext.Current.IsWebSocketRequest)
-            {
-                try
-                {
-                    var site = _siteService.GetSite(siteId, User.Identity.GetUserId());
-
-                    HttpContext.Current.AcceptWebSocketRequest(new ClientWebSocketHandler(site.Id));
-
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                
-            }
-            return new HttpResponseMessage(HttpStatusCode.SwitchingProtocols);
-        }
+        
 
         [HttpPost]
         public IHttpActionResult UpdateStatus(SwitchStatusModel model)

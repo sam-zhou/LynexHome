@@ -72,7 +72,10 @@
         common.constant('settings', {
             apiUri: '/api',
             @*apiUri: '@WebConfigurationManager.AppSettings["ApiUri"]',*@
-            isDebug: '@HttpContext.Current.IsDebuggingEnabled' === 'True' ,
+            isDebug: '@HttpContext.Current.IsDebuggingEnabled' === 'True',
+            api: '@WebConfigurationManager.AppSettings["Api"]',
+            domain: '@WebConfigurationManager.AppSettings["Domain"]',
+            useSSL: @WebConfigurationManager.AppSettings["UseSSL"],
         });
 
     </script>

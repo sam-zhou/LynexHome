@@ -12,5 +12,7 @@ namespace LynexHome.ApiModel
         public string ChipId { get; set; }
 
         public bool Status { get; set; }
+
+        public bool Live { get; set; }
     }
 }

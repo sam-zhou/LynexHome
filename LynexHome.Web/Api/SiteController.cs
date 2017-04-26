@@ -1,17 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading;
 using System.Web;
 using System.Web.Http;
+using Lynex.Common.Exception;
 using LynexHome.ApiModel;
 using LynexHome.Core;
 using LynexHome.Core.Model;
 using LynexHome.Repository.Interface;
 using LynexHome.Service;
 using LynexHome.ViewModel;
+using LynexHome.Web.WebScokets;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using Microsoft.Web.WebSockets;
 
 namespace LynexHome.Web.Api
 {
@@ -205,5 +210,32 @@ namespace LynexHome.Web.Api
 
             return Ok(obj);
         }
+
+        [HttpGet]
+        public HttpResponseMessage WebSocket(string siteId)
+        {
+            if (HttpContext.Current.IsWebSocketRequest)
+            {
+                try
+                {
+                    var site = _siteService.GetSite(siteId, User.Identity.GetUserId());
+
+                    HttpContext.Current.AcceptWebSocketRequest(new ClientWebSocketHandler(site.Id));
+
+                }
+                catch (LynexException ex)
+                {
+                    return new HttpResponseMessage(HttpStatusCode.Unauthorized);
+                }
+                catch (Exception ex)
+                {
+                    return new HttpResponseMessage(HttpStatusCode.BadRequest);
+                }
+
+            }
+            return new HttpResponseMessage(HttpStatusCode.SwitchingProtocols);
+        }
+
+        
     }
 }
