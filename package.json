@@ -1,0 +1,22 @@
+{
+  "name": "lynexhome",
+  "version": "1.0.0",
+  "description": "Lynex Smart Home Web App",
+  "dependencies": {
+    "@angular/animations": "^4.1.0",
+    "@angular/common": "4.1.0",
+    "@angular/compiler": "4.1.0",
+    "@angular/compiler-cli": "^4.1.0",
+    "@angular/core": "4.1.0",
+    "@angular/forms": "4.1.0",
+    "@angular/http": "4.1.0",
+    "@angular/platform-browser": "4.1.0",
+    "@angular/platform-browser-dynamic": "4.1.0",
+    "@angular/platform-server": "4.1.0",
+    "@angular/router": "4.1.0",
+    "typescript": "2.2.2"
+  },
+  "devDependencies": {
+    "@angular/compiler-cli": "4.1.0"
+  }
+}

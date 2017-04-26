@@ -1,7 +1,7 @@
 {
-  "name": "angular-quickstart",
+  "name": "lynexhome.web",
   "version": "1.0.0",
-  "description": "QuickStart package.json from the documentation for visual studio 2017 & WebApi",
+  "description": "Lynex Smart Home Web App",
   "scripts": {
     "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
     "lint": "tslint ./app/**/*.ts -t verbose",
