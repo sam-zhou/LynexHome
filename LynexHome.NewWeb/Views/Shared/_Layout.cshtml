@@ -1,0 +1,85 @@
+﻿@using System.Web.Configuration
+<!DOCTYPE html>
+<html lang="en" ng-app="lynex">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - My Smart Home</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @*@if (@HttpContext.Current.IsDebuggingEnabled)
+    {
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+    }
+    else
+    {
+        @Styles.Render("~/Content/css?v=" + ViewContext.Controller.GetType().Assembly.GetName().Version)
+        @Scripts.Render("~/bundles/modernizr?v=" + ViewContext.Controller.GetType().Assembly.GetName().Version)
+        @Scripts.Render("~/bundles/jquery?v=" + ViewContext.Controller.GetType().Assembly.GetName().Version)
+        @Scripts.Render("~/bundles/bootstrap?v=" + ViewContext.Controller.GetType().Assembly.GetName().Version)
+    }*@
+
+    <script type="text/javascript">
+        var appInsights=window.appInsights||function(config){
+            function i(config){t[config]=function(){var i=arguments;t.queue.push(function(){t[config].apply(t,i)})}}var t={config:config},u=document,e=window,o="script",s="AuthenticatedUserContext",h="start",c="stop",l="Track",a=l+"Event",v=l+"Page",y=u.createElement(o),r,f;y.src=config.url||"https://az416426.vo.msecnd.net/scripts/a/ai.0.js";u.getElementsByTagName(o)[0].parentNode.appendChild(y);try{t.cookie=u.cookie}catch(p){}for(t.queue=[],t.version="1.0",r=["Event","Exception","Metric","PageView","Trace","Dependency"];r.length;)i("track"+r.pop());return i("set"+s),i("clear"+s),i(h+a),i(c+a),i(h+v),i(c+v),i("flush"),config.disableExceptionTracking||(r="onerror",i("_"+r),f=e[r],e[r]=function(config,i,u,e,o){var s=f&&f(config,i,u,e,o);return s!==!0&&t["_"+r](config,i,u,e,o),s}),t
+        }({
+            instrumentationKey:"28a3120b-7c23-4454-912e-7d2291af506b"
+        });
+
+        window.appInsights=appInsights;
+        appInsights.trackPageView();
+    </script>
+    
+    
+</head>
+<body>
+    <navigation></navigation>
+    @*<div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Lynex Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
+                    <li>@Html.ActionLink("API", "Index", "Help", new { area = "HelpPage" }, null)</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>*@
+    <div class="container body-content">
+        @RenderBody()
+        @RenderSection("SPAViews", required: false)
+        <hr />
+        <foot>
+        </foot>
+    </div>
+    
+    
+    @RenderSection("Scripts", required: false)
+
+    <script type="text/javascript">
+
+        // MEDWAY MODULE settings
+        common.constant('settings', {
+            apiUri: '/api',
+            @*apiUri: '@WebConfigurationManager.AppSettings["ApiUri"]',*@
+            isDebug: '@HttpContext.Current.IsDebuggingEnabled' === 'True',
+            api: '@WebConfigurationManager.AppSettings["Api"]',
+            domain: '@WebConfigurationManager.AppSettings["Domain"]',
+            useSSL: @WebConfigurationManager.AppSettings["UseSSL"],
+        });
+
+    </script>
+
+</body>
+</html>
+

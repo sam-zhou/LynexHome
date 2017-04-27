@@ -1,6 +1,7 @@
 {
   "name": "lynexhome",
   "version": "1.0.0",
+  "private": true,
   "description": "Lynex Smart Home Web App",
   "dependencies": {
     "@angular/animations": "^4.1.0",

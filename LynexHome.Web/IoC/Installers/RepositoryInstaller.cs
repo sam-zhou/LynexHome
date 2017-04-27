@@ -1,4 +1,4 @@
-﻿using System.Web.ApplicationServices;
+﻿
 using Castle.Core.Internal;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;

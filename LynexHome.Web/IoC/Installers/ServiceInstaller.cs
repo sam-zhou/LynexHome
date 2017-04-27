@@ -1,5 +1,4 @@
-﻿using System.Web.ApplicationServices;
-using Castle.MicroKernel.Registration;
+﻿using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using log4net;
