@@ -1,0 +1,39 @@
+﻿<div>
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="responsive-header-logo res-767-show">
+                    <a href="/" class="logo">
+                        <img alt="Lynex Smart Home" src="/Images/logo.png">
+                    </a>
+                </div>
+
+                <!--<a class="navbar-brand" href="#">Project name</a>-->
+            </div>
+            <div class="header-logo res-767-hide">
+                <a href="/" class="logo">
+                    <img alt="Lynex Smart Home" src="/Images/logo.png">
+                </a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li ng-class="{'active': isActive('/controlcenter')}"><a href="#">Smart Home</a></li>
+                    <li ng-class="{'active': isActive('/map')}"><a href="#!/map">Map</a></li>
+                    <li ng-class="{'active': isActive('/products')}"><a href="#">Products</a></li>
+                    <li ng-class="{'active': isActive('/contactus')}"><a href="#">Contact us</a></li>
+                    <li ng-class="{'active': isActive('/sale')}"><a class="highlight-header" href="#">Sale</a></li>
+                </ul>
+                <login></login>
+            </div><!--/.nav-collapse -->
+        </div>
+    </nav>
+
+
+
+</div>

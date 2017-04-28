@@ -165,10 +165,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app\app.component.css" />
-    <Content Include="app\app.component.html" />
+    <Content Include="app\components\css\footer.component.css" />
+    <Content Include="app\components\css\login.component.css" />
+    <Content Include="app\components\css\navigation.component.css" />
+    <Content Include="app\components\css\lynex.component.css" />
+    <Content Include="app\components\views\footer.component.html" />
+    <Content Include="app\components\views\login.component.html" />
+    <Content Include="app\components\views\navigation.component.html" />
+    <Content Include="app\components\views\lynex.component.html" />
     <Content Include="Global.asax" />
-    <Content Include="index.html" />
+    <Content Include="Images\home-bg.jpg" />
+    <Content Include="Images\logo.png" />
     <Content Include="styles.css" />
     <Content Include="systemjs.config.extras.js" />
     <Content Include="systemjs.config.js" />
@@ -236,6 +243,7 @@
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Views\_ViewStart.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -244,6 +252,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="app\services\" />
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
   </ItemGroup>
@@ -251,8 +260,11 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="app\app.component.ts" />
-    <TypeScriptCompile Include="app\app.module.ts" />
+    <TypeScriptCompile Include="app\components\footer.component.ts" />
+    <TypeScriptCompile Include="app\components\login.component.ts" />
+    <TypeScriptCompile Include="app\components\navigation.component.ts" />
+    <TypeScriptCompile Include="app\components\lynex.component.ts" />
+    <TypeScriptCompile Include="app\modules\lynex.module.ts" />
     <TypeScriptCompile Include="app\main.ts" />
   </ItemGroup>
   <ItemGroup>

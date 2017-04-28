@@ -6,19 +6,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var core_1 = require("@angular/core");
-var platform_browser_1 = require("@angular/platform-browser");
-var app_component_1 = require("./app.component");
-var AppModule = (function () {
-    function AppModule() {
+var LynexComponent = (function () {
+    function LynexComponent() {
+        this.name = 'Angular 4';
     }
-    return AppModule;
+    LynexComponent.prototype.ngOnInit = function () {
+    };
+    return LynexComponent;
 }());
-AppModule = __decorate([
-    core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule],
-        declarations: [app_component_1.AppComponent],
-        bootstrap: [app_component_1.AppComponent]
+LynexComponent = __decorate([
+    core_1.Component({
+        selector: 'lynex-app',
+        templateUrl: './views/lynex.component.html',
+        styleUrls: ['./css/lynex.component.css'],
+        moduleId: module.id
     })
-], AppModule);
-exports.AppModule = AppModule;
-//# sourceMappingURL=app.module.js.map
+], LynexComponent);
+exports.LynexComponent = LynexComponent;
+//# sourceMappingURL=lynex.component.js.map

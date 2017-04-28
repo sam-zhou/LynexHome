@@ -7,6 +7,7 @@ namespace LynexHome.NewWeb.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.Title = "Welcome";
             return View();
         }
     }

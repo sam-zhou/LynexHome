@@ -1,0 +1,12 @@
+﻿<footer ng-class="{'mapMode':isMapMode}">
+    <div>
+        <ul class="nav nav-pills">
+            <li ng-class="{'active' : isActive('/termsofuse')}"><a href="#/termsofuse"><span class="glyphicon glyphicon-check"></span><span class="res-767-hide-inline">&nbsp; Terms of Use</span></a></li>
+            <li ng-class="{'active' : isActive('/privacy')}"><a href="#/privacy"><span class="glyphicon glyphicon-lock"></span><span class="res-767-hide-inline">&nbsp; Privacy</span></a></li>
+            <li ng-class="{'active' : isActive('/contact')}"><a href="#/contact"><span class="glyphicon glyphicon-earphone"></span><span class="res-767-hide-inline">&nbsp; Contact</span></a></li>
+            <li ng-class="{'active' : isActive('/copyright')}"><a href="#/copyright"><span class="glyphicon glyphicon-copyright-mark"></span><span class="res-767-hide-inline">&nbsp; Copyright</span></a></li>
+            <li ng-class="{'active' : isActive('/about')}"><a href="#/about"><span class="glyphicon glyphicon-bullhorn"></span><span class="res-767-hide-inline">&nbsp; About</span></a></li>
+        </ul>
+        <!-- ngIf: isLoggedIn -->
+    </div>
+</footer>
