@@ -1,1 +1,17 @@
-﻿
+﻿.navbar .navbar-default {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    position: relative;
+}
+
+.navbar-brand {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.navbar-toggle {
+    z-index: 3;
+}

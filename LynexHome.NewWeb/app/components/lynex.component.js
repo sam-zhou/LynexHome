@@ -17,8 +17,8 @@ var LynexComponent = (function () {
 LynexComponent = __decorate([
     core_1.Component({
         selector: 'lynex-app',
-        templateUrl: './views/lynex.component.html',
-        styleUrls: ['./css/lynex.component.css'],
+        templateUrl: 'views/lynex.component.html',
+        styleUrls: ['css/lynex.component.css'],
         moduleId: module.id
     })
 ], LynexComponent);

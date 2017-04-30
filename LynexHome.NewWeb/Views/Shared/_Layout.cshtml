@@ -9,7 +9,7 @@
     <base href="/">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="~/styles.css">
     <script type="text/javascript">
         var appInsights = window.appInsights || function (config) {
             function i(config) { t[config] = function () { var i = arguments; t.queue.push(function () { t[config].apply(t, i) }) } } var t = { config: config }, u = document, e = window, o = "script", s = "AuthenticatedUserContext", h = "start", c = "stop", l = "Track", a = l + "Event", v = l + "Page", y = u.createElement(o), r, f; y.src = config.url || "https://az416426.vo.msecnd.net/scripts/a/ai.0.js"; u.getElementsByTagName(o)[0].parentNode.appendChild(y); try { t.cookie = u.cookie } catch (p) { } for (t.queue = [], t.version = "1.0", r = ["Event", "Exception", "Metric", "PageView", "Trace", "Dependency"]; r.length;)i("track" + r.pop()); return i("set" + s), i("clear" + s), i(h + a), i(c + a), i(h + v), i(c + v), i("flush"), config.disableExceptionTracking || (r = "onerror", i("_" + r), f = e[r], e[r] = function (config, i, u, e, o) { var s = f && f(config, i, u, e, o); return s !== !0 && t["_" + r](config, i, u, e, o), s }), t
@@ -22,36 +22,32 @@
     </script>
 
     <!-- Polyfill(s) for older browsers -->
-    <script src="node_modules/core-js/client/shim.min.js"></script>
-    <script src="node_modules/zone.js/dist/zone.js"></script>
-    <script src="node_modules/systemjs/dist/system.src.js"></script>
-    <script src="systemjs.config.js"></script>
+    <script src="~/node_modules/core-js/client/shim.min.js"></script>
+    <script src="~/node_modules/zone.js/dist/zone.js"></script>
+    <script src="~/node_modules/systemjs/dist/system.src.js"></script>
+    <script src="~/systemjs.config.js"></script>
     <script>
-        System.import('app/main.js').catch(function (err) { console.error(err); });
+        System.import('/app/main.js').catch(function (err) { console.error(err); });
     </script>
     <script type="text/javascript">
 
         // MEDWAY MODULE settings
-        var common.constant('settings', {
-            apiUri: '/api',
+        //var common.constant('settings', {
+            //apiUri: '/api',
             @*apiUri: '@WebConfigurationManager.AppSettings["ApiUri"]',*@
-            isDebug: '@HttpContext.Current.IsDebuggingEnabled' === 'True',
+            @*isDebug: '@HttpContext.Current.IsDebuggingEnabled' === 'True',
             api: '@WebConfigurationManager.AppSettings["Api"]',
             domain: '@WebConfigurationManager.AppSettings["Domain"]',
-            useSSL: @WebConfigurationManager.AppSettings["UseSSL"],
-        });
+            useSSL: @WebConfigurationManager.AppSettings["UseSSL"],*@
+        //});
 
     </script>
 </head>
 <body>
-    <lynex-app>Loading App</lynex-app>
-
-    <div class="container body-content">
-        @RenderBody()
-        @RenderSection("SPAViews", required: false)
-        <hr />
-        <foot>
-        </foot>
-    </div></body>
+<lynex-app><div class="loader-container">
+    <div class="loader"></div>
+</div></lynex-app>
+    @RenderBody()
+@RenderSection("SPAViews", required: false)</body>
 </html>
 

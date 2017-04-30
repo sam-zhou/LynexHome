@@ -17,8 +17,8 @@ var NavigationComponent = (function () {
 NavigationComponent = __decorate([
     core_1.Component({
         selector: 'navigation',
-        templateUrl: './views/navigation.component.html',
-        styleUrls: ['./css/navigation.component.css'],
+        templateUrl: 'views/navigation.component.html',
+        styleUrls: ['css/navigation.component.css'],
         moduleId: module.id
     })
 ], NavigationComponent);

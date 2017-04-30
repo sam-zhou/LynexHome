@@ -7,10 +7,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
-var lynex_component_1 = require("..//components/lynex.component");
-var navigation_component_1 = require("..//components/navigation.component");
-var login_component_1 = require("..//components/login.component");
-var footer_component_1 = require("..//components/footer.component");
+var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
+var lynex_component_1 = require("../components/lynex.component");
+var navigation_component_1 = require("../components/navigation.component");
+var login_component_1 = require("../components/login.component");
+var footer_component_1 = require("../components/footer.component");
 var LynexModule = (function () {
     function LynexModule() {
     }
@@ -18,7 +19,7 @@ var LynexModule = (function () {
 }());
 LynexModule = __decorate([
     core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule],
+        imports: [platform_browser_1.BrowserModule, ng_bootstrap_1.NgbModule.forRoot()],
         declarations: [lynex_component_1.LynexComponent, navigation_component_1.NavigationComponent, login_component_1.LoginComponent, footer_component_1.FooterComponent],
         bootstrap: [lynex_component_1.LynexComponent, navigation_component_1.NavigationComponent, login_component_1.LoginComponent, footer_component_1.FooterComponent]
     })
