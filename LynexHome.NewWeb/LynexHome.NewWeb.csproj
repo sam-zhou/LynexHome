@@ -167,12 +167,17 @@
   <ItemGroup>
     <Content Include="app\components\css\footer.component.css" />
     <Content Include="app\components\css\login.component.css" />
+    <Content Include="app\components\css\control.component.css" />
     <Content Include="app\components\css\navigation.component.css" />
     <Content Include="app\components\css\lynex.component.css" />
     <Content Include="app\components\views\footer.component.html" />
     <Content Include="app\components\views\login.component.html" />
+    <Content Include="app\components\views\control.component.html" />
     <Content Include="app\components\views\navigation.component.html" />
     <Content Include="app\components\views\lynex.component.html" />
+    <Content Include="css\font-awesome.css" />
+    <Content Include="css\font-awesome.min.css" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="Images\home-bg.jpg" />
     <Content Include="Images\logo.png" />
@@ -227,6 +232,12 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\AccountController.cs" />
+    <Compile Include="Api\AuthenticationController.cs" />
+    <Compile Include="Api\RaspberryPiController.cs" />
+    <Compile Include="Api\SiteController.cs" />
+    <Compile Include="Api\SwitchController.cs" />
+    <Compile Include="Api\WallController.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
@@ -386,6 +397,11 @@
     <Content Include="node_modules\bootstrap\scss\_type.scss" />
     <Content Include="node_modules\bootstrap\scss\_utilities.scss" />
     <Content Include="node_modules\bootstrap\scss\_variables.scss" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -401,15 +417,23 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="app\apimodels\querysitemodel.apimodels.ts" />
     <TypeScriptCompile Include="app\components\footer.component.ts" />
     <TypeScriptCompile Include="app\components\login.component.ts" />
+    <TypeScriptCompile Include="app\components\control.component.ts" />
+    <TypeScriptCompile Include="app\models\switch.model.ts" />
     <TypeScriptCompile Include="app\components\navigation.component.ts" />
     <TypeScriptCompile Include="app\components\lynex.component.ts" />
     <TypeScriptCompile Include="app\modules\lynex.module.ts" />
     <TypeScriptCompile Include="app\main.ts" />
+    <TypeScriptCompile Include="app\services\switch.service.ts" />
     <TypeScriptCompile Include="app\services\api.service.ts" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Lynex.Common\Lynex.Common.csproj">
+      <Project>{a37b3ab5-139c-40ba-b83c-d2290eb39307}</Project>
+      <Name>Lynex.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Lynex.Extension\Lynex.Extension.csproj">
       <Project>{d80bf225-16d4-4ee4-987b-87fb82c1e470}</Project>
       <Name>Lynex.Extension</Name>

@@ -1,16 +1,38 @@
-﻿.navbar .navbar-default {
-    padding-top: 15px;
-    padding-bottom: 15px;
-    position: relative;
-}
-
-.navbar-brand {
+﻿.navbar-brand {
     width: 100%;
     text-align: center;
-    margin-left: 0 !important;
     height: auto;
+    padding-top: 10px;
+    margin: 0;
 }
 
-.navbar-toggle {
-    z-index: 3;
+    .navbar-brand .img-container {
+        width: 199px;
+        margin: 0 auto;
+        background: #5fc325;
+    }
+
+
+.navbar-toggleable-md .navbar-nav {
+    margin: 0 auto;
 }
+
+
+.navbar {
+    font-size: 20px;
+    font-weight: 100;
+    border: none;
+    background-color: rgba(255,255,255,1);
+    -webkit-box-shadow: 0 2px 3px rgba(0,0,0,.15);
+    -moz-box-shadow: 0 2px 3px rgba(0,0,0,.15);
+    box-shadow: 0 2px 3px rgba(0,0,0,.15);
+}
+
+.nav-item.nav-link {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+    .nav-item.nav-link.active {
+        border-bottom: #5fc325 solid 3px;
+    }

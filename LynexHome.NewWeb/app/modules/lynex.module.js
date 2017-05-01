@@ -7,11 +7,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
+var http_1 = require("@angular/http");
 var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
 var lynex_component_1 = require("../components/lynex.component");
 var navigation_component_1 = require("../components/navigation.component");
 var login_component_1 = require("../components/login.component");
 var footer_component_1 = require("../components/footer.component");
+var control_component_1 = require("../components/control.component");
+var api_service_1 = require("../services/api.service");
+var switch_service_1 = require("../services/switch.service");
 var LynexModule = (function () {
     function LynexModule() {
     }
@@ -19,9 +23,10 @@ var LynexModule = (function () {
 }());
 LynexModule = __decorate([
     core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule, ng_bootstrap_1.NgbModule.forRoot()],
-        declarations: [lynex_component_1.LynexComponent, navigation_component_1.NavigationComponent, login_component_1.LoginComponent, footer_component_1.FooterComponent],
-        bootstrap: [lynex_component_1.LynexComponent, navigation_component_1.NavigationComponent, login_component_1.LoginComponent, footer_component_1.FooterComponent]
+        imports: [platform_browser_1.BrowserModule, ng_bootstrap_1.NgbModule.forRoot(), http_1.HttpModule],
+        declarations: [lynex_component_1.LynexComponent, navigation_component_1.NavigationComponent, login_component_1.LoginComponent, footer_component_1.FooterComponent, control_component_1.ControlComponent],
+        providers: [api_service_1.ApiService, switch_service_1.SwitchService],
+        bootstrap: [lynex_component_1.LynexComponent, navigation_component_1.NavigationComponent, login_component_1.LoginComponent, footer_component_1.FooterComponent, control_component_1.ControlComponent]
     })
 ], LynexModule);
 exports.LynexModule = LynexModule;

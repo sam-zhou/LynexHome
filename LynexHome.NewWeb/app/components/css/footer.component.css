@@ -1,1 +1,16 @@
-﻿
+﻿footer {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    height: 50px;
+    line-height: 50px;
+}
+
+    footer ul {
+        width: auto;
+    }
+
+footer ul li {
+    display: inline-block;
+    padding-right: 15px;
+}

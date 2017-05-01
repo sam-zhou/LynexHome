@@ -5,9 +5,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 var core_1 = require("@angular/core");
+var http_1 = require("@angular/http");
+require("rxjs/add/operator/map");
+require("rxjs/add/operator/toPromise");
 var ApiService = (function () {
-    function ApiService() {
+    function ApiService(http) {
+        this.http = http;
     }
     ApiService.prototype.getParamValues = function (param) {
         if (!param)
@@ -19,17 +26,17 @@ var ApiService = (function () {
                 var p = param[i];
                 if (p) {
                     if (p.name !== undefined && p.value !== undefined) {
-                        if (paramValues != "") {
+                        if (paramValues !== "") {
                             paramValues += "&";
                         }
                         //quote strings
-                        if (typeof (p.value) == 'string')
+                        if (typeof (p.value) === 'string')
                             p.value = '"' + p.value + '"';
                         paramValues += p.name + "=" + p.value;
                     }
                 }
             }
-            if (paramValues != "") {
+            if (paramValues !== "") {
                 paramValues = "?" + paramValues;
             }
         }
@@ -38,10 +45,29 @@ var ApiService = (function () {
         }
         return paramValues;
     };
+    ;
+    ApiService.prototype.postData = function (controller, action, data) {
+        return this.http.post('/api/' + controller + '/' + action + '/', data)
+            .toPromise()
+            .catch(this.handleError);
+    };
+    ;
+    ApiService.prototype.getData = function (controller, action, data) {
+        return this.http.get('/api/' + controller + '/' + action + '/' + this.getParamValues(data))
+            .toPromise()
+            .catch(this.handleError);
+        ;
+    };
+    ;
+    ApiService.prototype.handleError = function (error) {
+        console.error('An error occurred', error); // for demo purposes only
+        return Promise.reject(error.message || error);
+    };
     return ApiService;
 }());
 ApiService = __decorate([
-    core_1.Injectable()
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http])
 ], ApiService);
 exports.ApiService = ApiService;
 //# sourceMappingURL=api.service.js.map

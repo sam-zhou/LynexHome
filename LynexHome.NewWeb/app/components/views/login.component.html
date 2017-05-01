@@ -1,6 +1,9 @@
 ﻿<ul class="nav navbar-nav navbar-right" ng-switch on="isUserLoggedIn()">
     <li class="dropdown" ng-switch-when="true">
-        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span title="User" class="glyphicon glyphicon-user" aria-hidden="true"></span> <span class="res-767-show-inline">My Account</span></a>
+        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+            <span class="res-767-show-inline">My Account</span>
+        </a>
         <ul class="dropdown-menu">
             <li class="dropdown-header">{{user}}</li>
             <li><a href="javascript:void(0)"><span title="Logout" class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;My Smart Home</a></li>
