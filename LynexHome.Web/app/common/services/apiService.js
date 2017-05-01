@@ -64,12 +64,12 @@
                 if (p) {
                     if (p.name !== undefined && p.value !== undefined) {
 
-                        if (paramValues != "") {
+                        if (paramValues !== "") {
                             paramValues += "&";
                         }
 
                         //quote strings
-                        if (typeof (p.value) == 'string')
+                        if (typeof (p.value) === 'string')
                             p.value = '"' + p.value + '"';
 
                         paramValues += p.name + "=" + p.value;
@@ -77,7 +77,7 @@
                 }
             }
 
-            if (paramValues != "") {
+            if (paramValues !== "") {
                 paramValues = "?" + paramValues;
             }
 

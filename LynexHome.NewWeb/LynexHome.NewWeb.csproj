@@ -267,7 +267,6 @@
     <Content Include="packages.config" />
     <Content Include="package.json" />
     <Content Include="tsconfig.json" />
-    <Content Include="Views\Home\_Home.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
@@ -395,7 +394,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="app\services\" />
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
   </ItemGroup>
@@ -409,6 +407,7 @@
     <TypeScriptCompile Include="app\components\lynex.component.ts" />
     <TypeScriptCompile Include="app\modules\lynex.module.ts" />
     <TypeScriptCompile Include="app\main.ts" />
+    <TypeScriptCompile Include="app\services\api.service.ts" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Lynex.Extension\Lynex.Extension.csproj">
