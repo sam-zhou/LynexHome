@@ -47,7 +47,7 @@ namespace LynexHome.NewWeb.Api
                 {
                     Success = true,
                     Message = "",
-                    User = new UserViewModel(user),
+                    Results = new UserViewModel(user),
                 };
 
                 return Ok(obj);

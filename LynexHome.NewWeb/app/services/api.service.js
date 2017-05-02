@@ -46,6 +46,13 @@ var ApiService = (function () {
         return paramValues;
     };
     ;
+    ApiService.prototype.reject = function (object) {
+        return Promise.reject(object);
+    };
+    ApiService.prototype.resolve = function (object) {
+        return Promise.resolve(object);
+    };
+    ;
     ApiService.prototype.postData = function (controller, action, data) {
         return this.http.post('/api/' + controller + '/' + action + '/', data)
             .map(function (response) { return response.json(); })
@@ -54,7 +61,14 @@ var ApiService = (function () {
     };
     ;
     ApiService.prototype.getData = function (controller, action, data) {
-        return this.http.get('/api/' + controller + '/' + action + '/' + this.getParamValues(data))
+        var url = null;
+        if (data) {
+            url = '/api/' + controller + '/' + action + '/' + this.getParamValues(data);
+        }
+        else {
+            url = '/api/' + controller + '/' + action + '/';
+        }
+        return this.http.get(url)
             .map(function (response) { return response.json(); })
             .toPromise()
             .catch(this.handleError);

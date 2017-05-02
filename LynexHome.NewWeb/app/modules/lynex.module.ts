@@ -13,12 +13,14 @@ import { ControlComponent } from '../components/control.component';
 
 import { ApiService } from '../services/api.service';
 import { SwitchService } from '../services/switch.service';
+import { UserService } from '../services/user.service';
 import { WebSocketService } from '../services/websocket.service';
+import { SiteWebSocketService } from '../services/sitewebsocket.service';
 
 @NgModule({
     imports: [BrowserModule, NgbModule.forRoot(), HttpModule, FormsModule, LynexRoutingModule],
     declarations: [LynexComponent, NavigationComponent, LoginComponent, FooterComponent, ControlComponent],
-    providers: [ApiService, SwitchService, WebSocketService],
+    providers: [ApiService, SwitchService, UserService, WebSocketService, SiteWebSocketService],
     bootstrap: [LynexComponent]
 })
 export class LynexModule { }

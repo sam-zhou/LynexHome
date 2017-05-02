@@ -12,7 +12,7 @@ export class ApiService {
         
     }
 
-    getParamValues(param: Object): string {
+    getParamValues(param: any): string {
 
         if (!param)
             return null;
@@ -50,7 +50,15 @@ export class ApiService {
         return paramValues;
     };
 
-    postData(controller: string, action: string, data: Object): Promise<ApiResponse> {
+    reject(object: any): Promise<any> {
+        return Promise.reject(object);
+    }
+
+    resolve(object: any): Promise<any> {
+        return Promise.resolve(object);
+    };
+
+    postData(controller: string, action: string, data: any): Promise<ApiResponse> {
         return this.http.post('/api/' + controller + '/' + action + '/', data)
             .map(response => response.json() as ApiResponse)
             .toPromise()
@@ -58,8 +66,16 @@ export class ApiService {
     };
 
 
-    getData(controller: string, action: string, data: Object): Promise<ApiResponse> {
-        return this.http.get('/api/' + controller + '/' + action + '/' + this.getParamValues(data))
+    getData(controller: string, action: string, data?: any): Promise<ApiResponse> {
+        var url = null;
+        if (data) {
+            url = '/api/' + controller + '/' + action + '/' + this.getParamValues(data);
+        } else {
+            url = '/api/' + controller + '/' + action + '/';
+        }
+
+
+        return this.http.get(url)
             .map(response => response.json() as ApiResponse)
             .toPromise()
             .catch(this.handleError);;

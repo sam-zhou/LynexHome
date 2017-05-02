@@ -67,7 +67,7 @@ namespace LynexHome.NewWeb.Api
             {
                 Success = true,
                 Message = "",
-                Result = result,
+                Results = result,
             };
 
             return Ok(obj);

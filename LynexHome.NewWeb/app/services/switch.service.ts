@@ -19,4 +19,12 @@ export class SwitchService {
             .then(response => response.results as Switch[]);
         return promise;
     };
+
+    updateStatus(switchId: string, status: boolean): Promise<boolean> {
+        var updateStatus = {
+            SwitchId: switchId,
+            Status: status
+        };
+        return this.apiService.postData("switch", "updateStatus", updateStatus).then(response => response.results);
+    };
 }

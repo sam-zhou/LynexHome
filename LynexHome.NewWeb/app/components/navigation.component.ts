@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../services/user.service';
+import { User } from '../models/user.model';
+
 
 @Component({
     selector: 'navigation',
@@ -7,8 +10,9 @@ import { Component, OnInit } from '@angular/core';
     moduleId: module.id
 })
 export class NavigationComponent implements OnInit {
-    name = 'Angular 4';
-    ngOnInit(): void {
+    
 
+    ngOnInit(): void {
+        
     }
 }

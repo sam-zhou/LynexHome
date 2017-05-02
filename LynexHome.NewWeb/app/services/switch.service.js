@@ -24,6 +24,14 @@ var SwitchService = (function () {
         return promise;
     };
     ;
+    SwitchService.prototype.updateStatus = function (switchId, status) {
+        var updateStatus = {
+            SwitchId: switchId,
+            Status: status
+        };
+        return this.apiService.postData("switch", "updateStatus", updateStatus).then(function (response) { return response.results; });
+    };
+    ;
     return SwitchService;
 }());
 SwitchService = __decorate([

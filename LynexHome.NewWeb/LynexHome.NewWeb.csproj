@@ -270,6 +270,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Images\Icons\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
@@ -281,12 +282,15 @@
     <TypeScriptCompile Include="app\components\login.component.ts" />
     <TypeScriptCompile Include="app\components\control.component.ts" />
     <TypeScriptCompile Include="app\models\apiresponse.model.ts" />
+    <TypeScriptCompile Include="app\models\user.model.ts" />
     <TypeScriptCompile Include="app\models\switch.model.ts" />
     <TypeScriptCompile Include="app\components\navigation.component.ts" />
     <TypeScriptCompile Include="app\components\lynex.component.ts" />
     <TypeScriptCompile Include="app\modules\lynex.module.ts" />
     <TypeScriptCompile Include="app\main.ts" />
     <TypeScriptCompile Include="app\modules\lynex.routing.module.ts" />
+    <TypeScriptCompile Include="app\services\sitewebsocket.service.ts" />
+    <TypeScriptCompile Include="app\services\user.service.ts" />
     <TypeScriptCompile Include="app\services\switch.service.ts" />
     <TypeScriptCompile Include="app\services\api.service.ts" />
     <TypeScriptCompile Include="app\services\websocket.service.ts" />

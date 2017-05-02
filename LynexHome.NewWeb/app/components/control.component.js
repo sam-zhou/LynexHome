@@ -10,17 +10,37 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var switch_service_1 = require("../services/switch.service");
+var sitewebsocket_service_1 = require("../services/sitewebsocket.service");
 var ControlComponent = (function () {
-    function ControlComponent(switchService) {
+    function ControlComponent(switchService, siteWebSocketService) {
         this.switchService = switchService;
+        this.siteWebSocketService = siteWebSocketService;
+        this.messages = new Array();
+        this.isBusy = true;
     }
+    ;
+    ControlComponent.prototype.changeStatus = function (theSwitch) {
+        theSwitch.isBusy = true;
+        this.switchService.updateStatus(theSwitch.id, !theSwitch.status).then(function (response) {
+            theSwitch.status = response;
+            theSwitch.isBusy = false;
+        });
+    };
+    ;
     ControlComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.switchService.getSwitches("5735824c-93cc-4016-b6b3-26f7947bb58e")
             .then(function (switches) {
             _this.switches = switches;
             console.log(switches);
+            _this.isBusy = false;
         });
+        this.siteWebSocketService.create("5735824c-93cc-4016-b6b3-26f7947bb58e");
+        this.siteWebSocketService.messages.subscribe(function (msg) {
+            _this.messages.push(msg);
+            console.log(msg);
+        });
+        //this.websocketService.connect("ws://home.mylynex.com.au/site/websocket").
     };
     return ControlComponent;
 }());
@@ -31,7 +51,7 @@ ControlComponent = __decorate([
         styleUrls: ['css/control.component.css'],
         moduleId: module.id
     }),
-    __metadata("design:paramtypes", [switch_service_1.SwitchService])
+    __metadata("design:paramtypes", [switch_service_1.SwitchService, sitewebsocket_service_1.SiteWebSocketService])
 ], ControlComponent);
 exports.ControlComponent = ControlComponent;
 //# sourceMappingURL=control.component.js.map
