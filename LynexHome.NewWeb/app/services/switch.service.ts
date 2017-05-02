@@ -11,16 +11,12 @@ export class SwitchService {
         
     }
 
-    getSwitches(siteId: string): Promise<any> {
+    getSwitches(siteId: string): Promise<Switch[]> {
         var siteQueryModel = new QuerySiteModel();
         siteQueryModel.SiteId = siteId;
 
-        var promise = this.apiService.postData("switch", "get", siteQueryModel).then(response => {
-            var result = JSON.parse(response._body);
-
-            return result.results;
-        });
-
+        var promise = this.apiService.postData("switch", "get", siteQueryModel)
+            .then(response => response.results as Switch[]);
         return promise;
     };
 }

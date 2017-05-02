@@ -1,1 +1,59 @@
-﻿
+﻿.switch-box {
+    height: 100px;
+    margin-right: 5px;
+    margin-bottom: 20px;
+    color: #fff;
+    cursor: pointer;
+    background: #808080;
+    position: relative;
+}
+
+
+    .switch-box.on {
+        background: #5FC325
+    }
+
+    .switch-box .switch-name {
+        width: 100%;
+        font-family: open sans,"Hiragino Sans GB","Microsoft Yahei","\5b8b\4f53";
+        font-size: 18px;
+        text-transform: uppercase;
+        text-align: center;
+        padding-top: 30px;
+    }
+
+
+    .switch-box .add-new-switch {
+        width: 100%;
+        font-family: open sans,"Hiragino Sans GB","Microsoft Yahei","\5b8b\4f53";
+        font-size: 40px;
+        text-transform: uppercase;
+        text-align: center;
+        padding-top: 20px;
+    }
+
+.switch-box-busy-wrapper {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, .5);
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.switch-box .loader {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    left: calc(50% - 40px);
+    top: 10px;
+    opacity: 0.5
+}
+
+.switch-box .drag-handle {
+    padding: 5px 10px;
+    cursor: move;
+    position: absolute;
+    top: 0;
+    left: 0;
+}

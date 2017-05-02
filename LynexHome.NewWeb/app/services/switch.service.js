@@ -19,10 +19,8 @@ var SwitchService = (function () {
     SwitchService.prototype.getSwitches = function (siteId) {
         var siteQueryModel = new querysitemodel_apimodels_1.QuerySiteModel();
         siteQueryModel.SiteId = siteId;
-        var promise = this.apiService.postData("switch", "get", siteQueryModel).then(function (response) {
-            var result = JSON.parse(response._body);
-            return result.results;
-        });
+        var promise = this.apiService.postData("switch", "get", siteQueryModel)
+            .then(function (response) { return response.results; });
         return promise;
     };
     ;

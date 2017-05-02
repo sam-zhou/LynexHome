@@ -48,12 +48,14 @@ var ApiService = (function () {
     ;
     ApiService.prototype.postData = function (controller, action, data) {
         return this.http.post('/api/' + controller + '/' + action + '/', data)
+            .map(function (response) { return response.json(); })
             .toPromise()
             .catch(this.handleError);
     };
     ;
     ApiService.prototype.getData = function (controller, action, data) {
         return this.http.get('/api/' + controller + '/' + action + '/' + this.getParamValues(data))
+            .map(function (response) { return response.json(); })
             .toPromise()
             .catch(this.handleError);
         ;

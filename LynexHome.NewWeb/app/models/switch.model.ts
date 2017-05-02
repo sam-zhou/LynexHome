@@ -9,4 +9,6 @@
     iconId: number;
     iconName: string;
     iconUrl: string;
+    status: boolean;
+    isBusy: boolean;
 }

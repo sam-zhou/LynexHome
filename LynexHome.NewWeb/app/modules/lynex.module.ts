@@ -2,6 +2,8 @@ import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
+import { LynexRoutingModule } from './lynex.routing.module';
 
 import { LynexComponent } from '../components/lynex.component';
 import { NavigationComponent } from '../components/navigation.component';
@@ -11,11 +13,12 @@ import { ControlComponent } from '../components/control.component';
 
 import { ApiService } from '../services/api.service';
 import { SwitchService } from '../services/switch.service';
+import { WebSocketService } from '../services/websocket.service';
 
 @NgModule({
-    imports: [BrowserModule, NgbModule.forRoot(), HttpModule],
+    imports: [BrowserModule, NgbModule.forRoot(), HttpModule, FormsModule, LynexRoutingModule],
     declarations: [LynexComponent, NavigationComponent, LoginComponent, FooterComponent, ControlComponent],
-    providers: [ApiService, SwitchService],
-    bootstrap: [LynexComponent, NavigationComponent, LoginComponent, FooterComponent, ControlComponent]
+    providers: [ApiService, SwitchService, WebSocketService],
+    bootstrap: [LynexComponent]
 })
 export class LynexModule { }

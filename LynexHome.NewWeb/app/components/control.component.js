@@ -16,8 +16,10 @@ var ControlComponent = (function () {
     }
     ControlComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.switchService.getSwitches("5735824c-93cc-4016-b6b3-26f7947bb58e").then(function (response) {
-            _this.switches = response;
+        this.switchService.getSwitches("5735824c-93cc-4016-b6b3-26f7947bb58e")
+            .then(function (switches) {
+            _this.switches = switches;
+            console.log(switches);
         });
     };
     return ControlComponent;

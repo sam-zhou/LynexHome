@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { SwitchService } from '../services/switch.service';
-import { Observable } from 'rxjs/Observable';
 import { Switch } from '../models/switch.model';
 
 
@@ -19,8 +18,10 @@ export class ControlComponent implements OnInit {
 
 
     ngOnInit(): void {
-        this.switchService.getSwitches("5735824c-93cc-4016-b6b3-26f7947bb58e").then(response => {
-            this.switches = response;
-        });
+        this.switchService.getSwitches("5735824c-93cc-4016-b6b3-26f7947bb58e")
+            .then(switches => {
+                this.switches = switches;
+                console.log(switches);
+            });
     }
 }

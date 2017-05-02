@@ -3,6 +3,7 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
+import { ApiResponse } from '../models/apiresponse.model';
 
 @Injectable()
 export class ApiService {
@@ -49,15 +50,17 @@ export class ApiService {
         return paramValues;
     };
 
-    postData(controller: string, action: string, data: Object): Promise<any> {
+    postData(controller: string, action: string, data: Object): Promise<ApiResponse> {
         return this.http.post('/api/' + controller + '/' + action + '/', data)
+            .map(response => response.json() as ApiResponse)
             .toPromise()
             .catch(this.handleError);
     };
 
 
-    getData(controller: string, action: string, data: Object): Promise<any> {
+    getData(controller: string, action: string, data: Object): Promise<ApiResponse> {
         return this.http.get('/api/' + controller + '/' + action + '/' + this.getParamValues(data))
+            .map(response => response.json() as ApiResponse)
             .toPromise()
             .catch(this.handleError);;
     };

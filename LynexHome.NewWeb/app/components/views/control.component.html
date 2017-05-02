@@ -1,3 +1,16 @@
-﻿<div>
-    Control
+﻿<div class="row">
+    
+
+    <div class="col-md-6" *ngFor="let switch of switches" >
+        <div class="switch-box" [ngClass]="{'on': switch.status, 'busy': switch.isBusy}" ng-click="clickSwitch(switch)">
+            <div class="drag-handle"><i class="fa fa-bars" aria-hidden="true"></i></div>
+            <div class="switch-name">{{switch.name}}</div>
+            <div class="switch-box-busy-wrapper" [hidden]="!switch.isBusy">
+                <div class="loader">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
