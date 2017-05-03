@@ -13,26 +13,51 @@ var websocket_service_1 = require("./websocket.service");
 require("rxjs/add/operator/map");
 var CHAT_URL = 'ws://home.mylynex.com.au/api/site/websocket?siteId=';
 var SiteWebSocketService = (function () {
-    function SiteWebSocketService(webSocketService) {
-        this.webSocketService = webSocketService;
-    }
-    SiteWebSocketService.prototype.create = function (siteId) {
-        this.messages = (this.webSocketService)
-            .connect(CHAT_URL + siteId)
-            .map(function (response) {
-            var data = JSON.parse(response.data);
-            console.log(response.data);
-            return {
-                requestType: data.requestType,
-                liveSwitches: data.liveSwitches,
-            };
+    function SiteWebSocketService(siteId) {
+        this.webSocketService = null;
+        this.onMessageCallbacks = [];
+        var self = this;
+        this.webSocketService = new websocket_service_1.WebSocketService(CHAT_URL + siteId, null, {
+            initialTimeout: 500,
+            maxTimeout: 300000,
+            reconnectIfNotNormalClose: true,
         });
+        // set received message callback
+        this.webSocketService.onMessage(function (msg) {
+            self.onMessageHandler(msg);
+        }, { autoApply: false });
+        // set received message stream
+        this.webSocketService.getDataStream().subscribe(function (msg) {
+            console.log("next", msg.data);
+        }, function (msg) {
+            console.log("error", msg);
+        }, function () {
+            console.log("complete");
+        });
+        this.webSocketService.setSendMode(websocket_service_1.WebSocketSendMode.Direct);
+    }
+    SiteWebSocketService.prototype.onMessage = function (callback) {
+        if (typeof callback !== 'function') {
+            throw new Error('Callback must be a function');
+        }
+        this.onMessageCallbacks.push(callback);
+        return this;
     };
+    SiteWebSocketService.prototype.onMessageHandler = function (message) {
+        var self = this;
+        var currentCallback;
+        for (var i = 0; i < self.onMessageCallbacks.length; i++) {
+            currentCallback = self.onMessageCallbacks[i];
+            currentCallback.fn.apply(self, message.data);
+        }
+        console.log("onMessage ", message.data);
+    };
+    ;
     return SiteWebSocketService;
 }());
 SiteWebSocketService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [websocket_service_1.WebSocketService])
+    __metadata("design:paramtypes", [String])
 ], SiteWebSocketService);
 exports.SiteWebSocketService = SiteWebSocketService;
 //# sourceMappingURL=sitewebsocket.service.js.map

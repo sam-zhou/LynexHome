@@ -19,7 +19,6 @@ var control_component_1 = require("../components/control.component");
 var api_service_1 = require("../services/api.service");
 var switch_service_1 = require("../services/switch.service");
 var user_service_1 = require("../services/user.service");
-var websocket_service_1 = require("../services/websocket.service");
 var sitewebsocket_service_1 = require("../services/sitewebsocket.service");
 var LynexModule = (function () {
     function LynexModule() {
@@ -30,7 +29,7 @@ LynexModule = __decorate([
     core_1.NgModule({
         imports: [platform_browser_1.BrowserModule, ng_bootstrap_1.NgbModule.forRoot(), http_1.HttpModule, forms_1.FormsModule, lynex_routing_module_1.LynexRoutingModule],
         declarations: [lynex_component_1.LynexComponent, navigation_component_1.NavigationComponent, login_component_1.LoginComponent, footer_component_1.FooterComponent, control_component_1.ControlComponent],
-        providers: [api_service_1.ApiService, switch_service_1.SwitchService, user_service_1.UserService, websocket_service_1.WebSocketService, sitewebsocket_service_1.SiteWebSocketService],
+        providers: [api_service_1.ApiService, switch_service_1.SwitchService, user_service_1.UserService, sitewebsocket_service_1.SiteWebSocketService],
         bootstrap: [lynex_component_1.LynexComponent]
     })
 ], LynexModule);

@@ -281,6 +281,7 @@
     <TypeScriptCompile Include="app\components\footer.component.ts" />
     <TypeScriptCompile Include="app\components\login.component.ts" />
     <TypeScriptCompile Include="app\components\control.component.ts" />
+    <TypeScriptCompile Include="app\models\websocketmessage.model.ts" />
     <TypeScriptCompile Include="app\models\apiresponse.model.ts" />
     <TypeScriptCompile Include="app\models\user.model.ts" />
     <TypeScriptCompile Include="app\models\switch.model.ts" />

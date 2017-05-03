@@ -10,37 +10,47 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var switch_service_1 = require("../services/switch.service");
-var sitewebsocket_service_1 = require("../services/sitewebsocket.service");
+var websocketmessage_model_1 = require("../models/websocketmessage.model");
+var websocket_service_1 = require("../services/websocket.service");
+var CHAT_URL = 'ws://home.mylynex.com.au/api/site/websocket?siteId=';
 var ControlComponent = (function () {
-    function ControlComponent(switchService, siteWebSocketService) {
+    function ControlComponent(switchService) {
         this.switchService = switchService;
-        this.siteWebSocketService = siteWebSocketService;
-        this.messages = new Array();
+        this.webSocketService = null;
         this.isBusy = true;
     }
     ;
     ControlComponent.prototype.changeStatus = function (theSwitch) {
         theSwitch.isBusy = true;
-        this.switchService.updateStatus(theSwitch.id, !theSwitch.status).then(function (response) {
-            theSwitch.status = response;
-            theSwitch.isBusy = false;
-        });
+        //this.switchService.updateStatus(theSwitch.id, !theSwitch.status).then(response => {
+        //    theSwitch.status = response;
+        //    theSwitch.isBusy = false;
+        //});
+        var updatingSwitch = Object.assign({}, theSwitch);
+        updatingSwitch.status = !updatingSwitch.status;
+        var message = new websocketmessage_model_1.WebSocketMessage(updatingSwitch, websocketmessage_model_1.WebSocketMessageType.WebSwitchStatusUpdate);
+        this.webSocketService.sendDirect(JSON.stringify(message));
     };
     ;
     ControlComponent.prototype.ngOnInit = function () {
         var _this = this;
+        var self = this;
         this.switchService.getSwitches("5735824c-93cc-4016-b6b3-26f7947bb58e")
             .then(function (switches) {
             _this.switches = switches;
             console.log(switches);
             _this.isBusy = false;
         });
-        this.siteWebSocketService.create("5735824c-93cc-4016-b6b3-26f7947bb58e");
-        this.siteWebSocketService.messages.subscribe(function (msg) {
-            _this.messages.push(msg);
-            console.log(msg);
+        this.webSocketService = new websocket_service_1.WebSocketService(CHAT_URL + "5735824c-93cc-4016-b6b3-26f7947bb58e", null, {
+            initialTimeout: 500,
+            maxTimeout: 300000,
+            reconnectIfNotNormalClose: true,
         });
-        //this.websocketService.connect("ws://home.mylynex.com.au/site/websocket").
+        // set received message callback
+        this.webSocketService.onMessage(function (msg) {
+            console.log("received message: ", msg.data);
+        }, { autoApply: false });
+        this.webSocketService.setSendMode(websocket_service_1.WebSocketSendMode.Direct);
     };
     return ControlComponent;
 }());
@@ -51,7 +61,7 @@ ControlComponent = __decorate([
         styleUrls: ['css/control.component.css'],
         moduleId: module.id
     }),
-    __metadata("design:paramtypes", [switch_service_1.SwitchService, sitewebsocket_service_1.SiteWebSocketService])
+    __metadata("design:paramtypes", [switch_service_1.SwitchService])
 ], ControlComponent);
 exports.ControlComponent = ControlComponent;
 //# sourceMappingURL=control.component.js.map

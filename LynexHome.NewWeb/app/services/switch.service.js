@@ -15,12 +15,18 @@ var querysitemodel_apimodels_1 = require("../apimodels/querysitemodel.apimodels"
 var SwitchService = (function () {
     function SwitchService(apiService) {
         this.apiService = apiService;
+        this.switches = [];
     }
     SwitchService.prototype.getSwitches = function (siteId) {
+        var _this = this;
         var siteQueryModel = new querysitemodel_apimodels_1.QuerySiteModel();
         siteQueryModel.SiteId = siteId;
         var promise = this.apiService.postData("switch", "get", siteQueryModel)
-            .then(function (response) { return response.results; });
+            .then(function (response) {
+            var results = response.results;
+            _this.switches = results;
+            return results;
+        });
         return promise;
     };
     ;
