@@ -22,16 +22,21 @@ var ControlComponent = (function () {
     ;
     ControlComponent.prototype.changeStatus = function (theSwitch) {
         theSwitch.isBusy = true;
-        //this.switchService.updateStatus(theSwitch.id, !theSwitch.status).then(response => {
-        //    theSwitch.status = response;
-        //    theSwitch.isBusy = false;
-        //});
         var updatingSwitch = Object.assign({}, theSwitch);
         updatingSwitch.status = !updatingSwitch.status;
         var message = new websocketmessage_model_1.WebSocketMessage(updatingSwitch, websocketmessage_model_1.WebSocketMessageType.WebSwitchStatusUpdate);
         this.webSocketService.sendDirect(JSON.stringify(message));
     };
     ;
+    ControlComponent.prototype.HandlerMessage = function (msg) {
+        var theSwitch = JSON.parse(msg.data);
+        for (var i = 0; i < this.switches.length; i++) {
+            if (this.switches[i].id == theSwitch.id) {
+                this.switches[i].isBusy = false;
+                this.switches[i].status = theSwitch.status;
+            }
+        }
+    };
     ControlComponent.prototype.ngOnInit = function () {
         var _this = this;
         var self = this;
@@ -48,7 +53,7 @@ var ControlComponent = (function () {
         });
         // set received message callback
         this.webSocketService.onMessage(function (msg) {
-            console.log("received message: ", msg.data);
+            _this.HandlerMessage(msg);
         }, { autoApply: false });
         this.webSocketService.setSendMode(websocket_service_1.WebSocketSendMode.Direct);
     };

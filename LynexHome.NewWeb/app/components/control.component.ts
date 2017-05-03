@@ -26,10 +26,7 @@ export class ControlComponent implements OnInit {
 
     changeStatus(theSwitch: Switch): void{
         theSwitch.isBusy = true;
-        //this.switchService.updateStatus(theSwitch.id, !theSwitch.status).then(response => {
-        //    theSwitch.status = response;
-        //    theSwitch.isBusy = false;
-        //});
+        
 
         let updatingSwitch = Object.assign({}, theSwitch);
         updatingSwitch.status = !updatingSwitch.status;
@@ -37,6 +34,15 @@ export class ControlComponent implements OnInit {
         this.webSocketService.sendDirect(JSON.stringify(message));
     };
 
+    private HandlerMessage(msg: MessageEvent): void {
+        let theSwitch = JSON.parse(msg.data);
+        for (let i = 0; i < this.switches.length; i++) {
+            if (this.switches[i].id == theSwitch.id) {
+                this.switches[i].isBusy = false;
+                this.switches[i].status = theSwitch.status;
+            } 
+        }
+    }
 
     ngOnInit(): void {
         let self = this;
@@ -58,11 +64,12 @@ export class ControlComponent implements OnInit {
         // set received message callback
         this.webSocketService.onMessage(
             (msg: MessageEvent) => {
-                console.log("received message: ", msg.data);
+                this.HandlerMessage(msg);
             },
             { autoApply: false }
         );
 
         this.webSocketService.setSendMode(WebSocketSendMode.Direct);
     }
+
 }
