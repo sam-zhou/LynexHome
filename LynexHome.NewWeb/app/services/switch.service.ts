@@ -9,6 +9,8 @@ import { QuerySiteModel } from '../apimodels/querysitemodel.apimodels';
 export class SwitchService {
     switches: Switch[] = [];
 
+
+
     constructor(private apiService: ApiService) {
         
     }
@@ -18,7 +20,11 @@ export class SwitchService {
         siteQueryModel.SiteId = siteId;
 
         var promise = this.apiService.postData("switch", "get", siteQueryModel)
-            .then(response => response.results as Switch[]);
+            .then(response => {
+                var results = response.results as Switch[];
+                this.switches = results;
+                return results;
+            });
         return promise;
     };
 
