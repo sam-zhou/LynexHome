@@ -9,8 +9,9 @@ import { QuerySiteModel } from '../apimodels/querysitemodel.apimodels';
 const CHAT_URL = 'ws://home.mylynex.com.au/api/site/websocket?siteId=';
 
 export interface Message {
-    requestType: string;
-    liveSwitches: any;
+    type: string;
+    typeName: string;
+    message: any;
 }
 
 @Injectable()
@@ -30,8 +31,9 @@ export class SiteWebSocketService {
                 let data = JSON.parse(response.data);
                 console.log(response.data);
                 return {
-                    requestType: data.requestType,
-                    liveSwitches: data.liveSwitches,
+                    type: data.type,
+                    typeName: data.typeName,
+                    message: data.message
                 }
             });
     }

@@ -7,6 +7,8 @@ import { QuerySiteModel } from '../apimodels/querysitemodel.apimodels';
 
 @Injectable()
 export class SwitchService {
+    switches: Switch[] = [];
+
     constructor(private apiService: ApiService) {
         
     }

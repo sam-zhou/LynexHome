@@ -8,11 +8,13 @@ namespace LynexHome.ApiModel.WebScoket
 {
     public enum WebSocketMessageType
     {
-        Unknown = 0,
-        SwitchStatusUpdate = 1,
-        SwitchLiveUpdate = 2,
-        SiteEnquire = 3,
-    }
+        PiAuthentication = 100,
+        PiSiteStatus = 101,
+        PiSwitchStatusUpdate = 102,
+        PiLiveSwitches = 103,
 
-    
+        WebSwitchStatusUpdate = 200,
+        WebSwitchLiveUpdate = 201,
+        WebSiteEnquire = 202,
+    }
 }
