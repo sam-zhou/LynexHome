@@ -24,17 +24,36 @@ var ControlComponent = (function () {
         theSwitch.isBusy = true;
         var updatingSwitch = Object.assign({}, theSwitch);
         updatingSwitch.status = !updatingSwitch.status;
-        var message = new websocketmessage_model_1.WebSocketMessage(updatingSwitch, websocketmessage_model_1.WebSocketMessageType.WebSwitchStatusUpdate);
+        var message = new websocketmessage_model_1.WebSocketMessage();
+        message.Message = updatingSwitch;
+        message.Type = websocketmessage_model_1.WebSocketMessageType.WebSwitchStatusUpdate;
         this.webSocketService.sendDirect(JSON.stringify(message));
     };
     ;
     ControlComponent.prototype.HandlerMessage = function (msg) {
-        var theSwitch = JSON.parse(msg.data);
-        for (var i = 0; i < this.switches.length; i++) {
-            if (this.switches[i].id == theSwitch.id) {
-                this.switches[i].isBusy = false;
-                this.switches[i].status = theSwitch.status;
-            }
+        var message = JSON.parse(msg.data);
+        console.log(msg.data);
+        var webSocketMessage = new websocketmessage_model_1.WebSocketMessage(message);
+        console.log("message received:", webSocketMessage);
+        switch (webSocketMessage.Type) {
+            case websocketmessage_model_1.WebSocketMessageType.WebSwitchStatusUpdate:
+                for (var i = 0; i < this.switches.length; i++) {
+                    if (this.switches[i].id == webSocketMessage.Message.id) {
+                        this.switches[i].isBusy = false;
+                        this.switches[i].status = webSocketMessage.Message.status;
+                    }
+                }
+                break;
+            case websocketmessage_model_1.WebSocketMessageType.WebSwitchLiveUpdate:
+                for (var i = 0; i < this.switches.length; i++) {
+                    for (var j = 0; j < webSocketMessage.Message.length; j++) {
+                        if (this.switches[i].id == webSocketMessage.Message[j].id) {
+                            this.switches[i].status = webSocketMessage.Message[j].status;
+                            this.switches[i].live = webSocketMessage.Message[j].live;
+                            break;
+                        }
+                    }
+                }
         }
     };
     ControlComponent.prototype.ngOnInit = function () {

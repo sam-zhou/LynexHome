@@ -45,10 +45,10 @@ namespace LynexHome.NewWeb.WebScokets
                     case "switchUpdate":
                         var switchUpdateHandler = new SwitchUpdateHandler(SiteId);
                         var result = switchUpdateHandler.ProcessMessage(message);
-                        WebSocketSession.SendToClients(result);
+                        WebSocketSession.SendToWeb(result);
                         break;
                     case "liveSwtiches":
-                        WebSocketSession.SendToClients(message);
+                        WebSocketSession.SendToWeb(message);
                         break;
                 }
             }

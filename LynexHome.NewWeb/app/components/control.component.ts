@@ -30,17 +30,41 @@ export class ControlComponent implements OnInit {
 
         let updatingSwitch = Object.assign({}, theSwitch);
         updatingSwitch.status = !updatingSwitch.status;
-        let message = new WebSocketMessage(updatingSwitch, WebSocketMessageType.WebSwitchStatusUpdate);
+        let message = new WebSocketMessage();
+        message.Message = updatingSwitch;
+        message.Type = WebSocketMessageType.WebSwitchStatusUpdate
+
         this.webSocketService.sendDirect(JSON.stringify(message));
     };
 
     private HandlerMessage(msg: MessageEvent): void {
-        let theSwitch = JSON.parse(msg.data);
-        for (let i = 0; i < this.switches.length; i++) {
-            if (this.switches[i].id == theSwitch.id) {
-                this.switches[i].isBusy = false;
-                this.switches[i].status = theSwitch.status;
-            } 
+        let message = JSON.parse(msg.data);
+        console.log(msg.data);
+
+        let webSocketMessage = new WebSocketMessage(message);
+
+        console.log("message received:", webSocketMessage);
+
+        switch (webSocketMessage.Type) {
+            case WebSocketMessageType.WebSwitchStatusUpdate:
+                for (let i = 0; i < this.switches.length; i++) {
+                    if (this.switches[i].id == webSocketMessage.Message.id) {
+                        this.switches[i].isBusy = false;
+                        this.switches[i].status = webSocketMessage.Message.status;
+                    }
+                }
+                break;
+            case WebSocketMessageType.WebSwitchLiveUpdate:
+                for (let i = 0; i < this.switches.length; i++) {
+
+                    for (let j = 0; j < webSocketMessage.Message.length; j++) {
+                        if (this.switches[i].id == webSocketMessage.Message[j].id) {
+                            this.switches[i].status = webSocketMessage.Message[j].status;
+                            this.switches[i].live = webSocketMessage.Message[j].live;
+                            break;
+                        }
+                    }
+                }
         }
     }
 

@@ -1,4 +1,6 @@
-﻿export class Switch {
+﻿import { Deserializable } from "./deserializable.model";
+
+export class Switch extends Deserializable{
     id: string;
     name: string;
     x: number;
@@ -10,5 +12,6 @@
     iconName: string;
     iconUrl: string;
     status: boolean;
+    live: boolean;
     isBusy: boolean;
 }

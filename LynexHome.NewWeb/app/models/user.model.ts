@@ -1,4 +1,6 @@
-﻿export class User {
+﻿import { Deserializable } from "./deserializable.model";
+
+export class User extends Deserializable{
     id: string;
     name: string;
     email: string;
@@ -7,6 +9,7 @@
     isAuthenticated(): boolean { return this.id !== null; };
 
     constructor(userObject?: any) {
+        super();
         if (userObject) {
             if (userObject.id) {
                 this.id = userObject.id;

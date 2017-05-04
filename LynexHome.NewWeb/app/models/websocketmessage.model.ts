@@ -1,11 +1,26 @@
-﻿export class WebSocketMessage {
-    message: any;
-    type: WebSocketMessageType;
+﻿import { Deserializable } from "./deserializable.model";
 
-    constructor(message: any, type: WebSocketMessageType) {
-        this.message = message;
-        this.type = type;
+export class WebSocketMessage{
+    Message: any;
+    Type: WebSocketMessageType;
+    BroadcastType: WebSocketBroadcastType;
+
+
+    constructor(json?: any) {
+        if (json) {
+            this.Message = json.Message;
+            this.Type = json.Type;
+            this.BroadcastType = json.BroadcastType;
+
+        }
     }
+}
+
+export enum WebSocketBroadcastType {
+    None = 0,
+    All = 1,
+    Pi = 2,
+    Web = 3,
 }
 
 export enum WebSocketMessageType {

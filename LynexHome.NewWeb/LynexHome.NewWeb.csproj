@@ -225,8 +225,11 @@
     <Compile Include="WebScokets\MessageHandler\AuthenticationHandler.cs" />
     <Compile Include="WebScokets\MessageHandler\IMessageHandler.cs" />
     <Compile Include="WebScokets\MessageHandler\MessageHandler.cs" />
+    <Compile Include="WebScokets\MessageHandler\MessageHandlerFactory.cs" />
     <Compile Include="WebScokets\MessageHandler\SiteStatusHandler.cs" />
     <Compile Include="WebScokets\MessageHandler\SwitchUpdateHandler.cs" />
+    <Compile Include="WebScokets\MessageHandler\WebSocketMessageHandler.cs" />
+    <Compile Include="WebScokets\MessageHandler\WebSwitchUpdateHandler.cs" />
     <Compile Include="WebScokets\PiWebSocketHandler.cs" />
     <Compile Include="WebScokets\WebSocketHandlerManager.cs" />
     <Compile Include="WebScokets\WebSocketSessionManager.cs" />
@@ -281,6 +284,7 @@
     <TypeScriptCompile Include="app\components\footer.component.ts" />
     <TypeScriptCompile Include="app\components\login.component.ts" />
     <TypeScriptCompile Include="app\components\control.component.ts" />
+    <TypeScriptCompile Include="app\models\deserializable.model.ts" />
     <TypeScriptCompile Include="app\models\websocketmessage.model.ts" />
     <TypeScriptCompile Include="app\models\apiresponse.model.ts" />
     <TypeScriptCompile Include="app\models\user.model.ts" />

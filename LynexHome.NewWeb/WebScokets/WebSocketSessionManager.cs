@@ -44,7 +44,7 @@ namespace LynexHome.NewWeb.WebScokets
             _siteId = siteId;
         }
 
-        public void SendToClients(string message)
+        public void SendToWeb(string message)
         {
             ClientCollection.Broadcast(message);
         }

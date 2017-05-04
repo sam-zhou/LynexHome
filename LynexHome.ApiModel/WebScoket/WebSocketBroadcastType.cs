@@ -8,8 +8,9 @@ namespace LynexHome.ApiModel.WebScoket
 {
     public enum WebSocketBroadcastType
     {
-        All = 0,
-        Pi = 1,
-        Client = 2
+        None = 0,
+        All = 1,
+        Pi = 2,
+        Web = 3,
     }
 }
