@@ -42,12 +42,15 @@ export class WebSocketService {
     private dataStream: Subject<any>;
     private internalConnectionState: number;
 
+    clientId: string;
+
     constructor(private url: string, private protocols?: Array<string>, private config?: WebSocketConfig, private binaryType?: BinaryType) {
         let match = new RegExp('wss?:\/\/').test(url);
         if (!match) {
             throw new Error('Invalid url provided');
         }
-        this.config = config || { initialTimeout: 500, maxTimeout: 300000, reconnectIfNotNormalClose: false };
+        this.config = config || { initialTimeout: 500, maxTimeout: 300000, reconnectIfNotNormalClose: false, clientId: Math.random().toString(36) };
+        this.clientId = this.config.clientId;
         this.binaryType = binaryType || "blob";
         this.dataStream = new Subject();
         this.connect(true);
@@ -321,6 +324,7 @@ export interface WebSocketConfig {
     initialTimeout: number;
     maxTimeout: number;
     reconnectIfNotNormalClose: boolean;
+    clientId: string;
 }
 
 export enum WebSocketSendMode {

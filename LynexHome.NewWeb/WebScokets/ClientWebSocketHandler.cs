@@ -10,10 +10,12 @@ namespace LynexHome.NewWeb.WebScokets
 {
     public sealed class ClientWebSocketHandler : LynexWebSocketHandler
     {
-        public ClientWebSocketHandler(string siteId)
+        public string UserId { get; set; }
+
+        public ClientWebSocketHandler(string siteId, string userId)
             : base(siteId, false)
         {
-            
+            UserId = userId;
         }
 
         public override void OnMessage(string message)
@@ -22,12 +24,12 @@ namespace LynexHome.NewWeb.WebScokets
 
             if (websocketMessage != null) {
 
-                var webSwitchMessageHandler = MessageHandlerFactory.GetMessageHandler(websocketMessage.Type, SiteId);
+                var webSwitchMessageHandler = MessageHandlerFactory.GetMessageHandler(websocketMessage.Type, SiteId, UserId);
                 var result = webSwitchMessageHandler.ProcessMessage(websocketMessage);
 
 
                 if (result != null) {
-                    switch (result.BroadcaseType) {
+                    switch (result.BroadcastType) {
                         case WebSocketBroadcastType.Pi:
                             WebSocketSession.SendToPi(JsonConvert.SerializeObject(result));
                             break;

@@ -1,4 +1,8 @@
-﻿.switch-box {
+﻿.site-selector {
+    margin-bottom: 10px;
+}
+
+.switch-box {
     height: 100px;
     margin-right: 5px;
     margin-bottom: 20px;
@@ -52,8 +56,33 @@
 
 .switch-box .drag-handle {
     padding: 5px 10px;
-    cursor: move;
+    cursor:move;
     position: absolute;
     top: 0;
     left: 0;
 }
+
+    .switch-box .drag-handle.drag-disabled {
+        cursor:not-allowed;
+    }
+
+.switch-box .switch-btn-container {
+    position: absolute;
+    right: 0;
+    width: 50px;
+}
+
+    .switch-box .switch-btn-container .switch-btn {
+        float: left;
+        padding: 5px 5px;
+        cursor: pointer;
+        opacity: 0.5;
+    }
+
+        .switch-box .switch-btn-container .switch-btn.activated {
+            opacity: 1;
+        }
+
+        .switch-box .switch-btn-container .switch-btn:hover, .switch-box .drag-handle:hover {
+            opacity: 0.8;
+        }

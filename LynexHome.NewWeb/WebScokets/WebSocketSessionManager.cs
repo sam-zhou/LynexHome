@@ -49,6 +49,21 @@ namespace LynexHome.NewWeb.WebScokets
             ClientCollection.Broadcast(message);
         }
 
+        public void SendToOthers(string message, WebSocketHandler sender) {
+            foreach (var client in ClientCollection) {
+                if (client != sender) {
+                    client.Send(message);
+                }
+            }
+
+            foreach (var pi in PiCollection) {
+                if (pi != sender) {
+                    pi.Send(message);
+                }
+            }
+
+        }
+
         public void SendToPi(string message)
         {
             PiCollection.Broadcast(message);

@@ -16,5 +16,8 @@ namespace LynexHome.ApiModel.WebScoket
         WebSwitchStatusUpdate = 200,
         WebSwitchLiveUpdate = 201,
         WebSiteEnquire = 202,
+        WebSwitchOrderUpdate = 203,
+        WebSwitchTimerUpdate = 204,
+        WebSwitchSettingUpdate = 205
     }
 }

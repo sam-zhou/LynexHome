@@ -10,26 +10,74 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var switch_service_1 = require("../services/switch.service");
+var site_service_1 = require("../services/site.service");
 var websocketmessage_model_1 = require("../models/websocketmessage.model");
 var websocket_service_1 = require("../services/websocket.service");
 var CHAT_URL = 'ws://home.mylynex.com.au/api/site/websocket?siteId=';
 var ControlComponent = (function () {
-    function ControlComponent(switchService) {
+    function ControlComponent(switchService, siteService) {
         this.switchService = switchService;
+        this.siteService = siteService;
+        this.switches = [];
+        this.sites = [];
+        this.selectedSite = null;
+        this.disableOrder = false;
         this.webSocketService = null;
         this.isBusy = true;
     }
     ;
     ControlComponent.prototype.changeStatus = function (theSwitch) {
-        theSwitch.isBusy = true;
-        var updatingSwitch = Object.assign({}, theSwitch);
-        updatingSwitch.status = !updatingSwitch.status;
-        var message = new websocketmessage_model_1.WebSocketMessage();
-        message.Message = updatingSwitch;
-        message.Type = websocketmessage_model_1.WebSocketMessageType.WebSwitchStatusUpdate;
-        this.webSocketService.sendDirect(JSON.stringify(message));
+        if (!theSwitch.isBusy) {
+            theSwitch.isBusy = true;
+            var updatingSwitch = Object.assign({}, theSwitch);
+            updatingSwitch.status = !updatingSwitch.status;
+            var message = new websocketmessage_model_1.WebSocketMessage();
+            message.Message = updatingSwitch;
+            message.Type = websocketmessage_model_1.WebSocketMessageType.WebSwitchStatusUpdate;
+            message.ClientId = this.webSocketService.clientId;
+            this.webSocketService.sendDirect(JSON.stringify(message));
+        }
     };
     ;
+    ControlComponent.prototype.sort = function (theSwitch, index) {
+        if (!theSwitch.isBusy) {
+            theSwitch.isBusy = true;
+            var message = new websocketmessage_model_1.WebSocketMessage();
+            message.Message = {
+                id: theSwitch.id,
+                order: index
+            };
+            message.ClientId = this.webSocketService.clientId;
+            for (var i = 0; i < this.switches.length; i++) {
+                this.switches[i].order = i;
+            }
+            //this.updateOrder(theSwitch.order, index);
+            message.Type = websocketmessage_model_1.WebSocketMessageType.WebSwitchOrderUpdate;
+            this.webSocketService.sendDirect(JSON.stringify(message));
+        }
+    };
+    //private updateOrder(oldOrder: number, newOrder: number): void {
+    //    let originalSwitch = this.switches[oldOrder];
+    //    if (oldOrder > newOrder) {
+    //        for (let j = oldOrder; j >= newOrder; j--) {
+    //            if (j == newOrder) {
+    //                this.switches[j] = originalSwitch;
+    //            } else {
+    //                this.switches[j] = this.switches[j - 1]
+    //            }
+    //            this.switches[j].order = j;
+    //        }
+    //    } else if (oldOrder < newOrder) {
+    //        for (let j = oldOrder; j >= newOrder; j++) {
+    //            if (j == newOrder) {
+    //                this.switches[j] = originalSwitch;
+    //            } else {
+    //                this.switches[j] = this.switches[j + 1]
+    //            }
+    //            this.switches[j].order = j;
+    //        }
+    //    }
+    //}
     ControlComponent.prototype.HandlerMessage = function (msg) {
         var message = JSON.parse(msg.data);
         console.log(msg.data);
@@ -41,6 +89,7 @@ var ControlComponent = (function () {
                     if (this.switches[i].id == webSocketMessage.Message.id) {
                         this.switches[i].isBusy = false;
                         this.switches[i].status = webSocketMessage.Message.status;
+                        break;
                     }
                 }
                 break;
@@ -54,27 +103,100 @@ var ControlComponent = (function () {
                         }
                     }
                 }
+                break;
+            case websocketmessage_model_1.WebSocketMessageType.WebSwitchOrderUpdate:
+                if (this.webSocketService.clientId !== webSocketMessage.ClientId) {
+                    this.disableOrder = true;
+                }
+                else {
+                    for (var i = 0; i < this.switches.length; i++) {
+                        if (this.switches[i].id == webSocketMessage.Message.id) {
+                            this.switches[i].isBusy = false;
+                            break;
+                        }
+                    }
+                }
+                break;
+        }
+    };
+    ControlComponent.prototype.getSiteName = function () {
+        if (this.selectedSite) {
+            var suffix = this.selectedSite.isDefault ? "(Default)" : "";
+            return this.selectedSite.name + suffix;
+        }
+        return "Please Select";
+    };
+    ControlComponent.prototype.selectSite = function (site) {
+        this.isBusy = true;
+        this.selectedSite = site;
+        this.loadSelectedSite();
+    };
+    ControlComponent.prototype.setDefault = function () {
+        var _this = this;
+        if (this.selectedSite) {
+            this.isBusy = true;
+            this.siteService.setDefault(this.selectedSite.id).then(function (response) {
+                if (response.success) {
+                    for (var i = 0; i < _this.sites.length; i++) {
+                        if (_this.sites[i].id === _this.selectedSite.id) {
+                            _this.sites[i].isDefault = true;
+                        }
+                        else {
+                            _this.sites[i].isDefault = false;
+                        }
+                    }
+                }
+                _this.isBusy = false;
+            });
+        }
+    };
+    ControlComponent.prototype.switchTimer = function (event, theSwitch) {
+        event.stopPropagation();
+        console.log(theSwitch);
+    };
+    ControlComponent.prototype.switchSetting = function (event, theSwitch) {
+        event.stopPropagation();
+        console.log(theSwitch);
+    };
+    ControlComponent.prototype.loadSelectedSite = function () {
+        var _this = this;
+        if (this.webSocketService) {
+            this.webSocketService.close();
+        }
+        if (this.selectedSite && this.selectedSite !== null) {
+            this.switchService.getSwitches(this.selectedSite.id)
+                .then(function (switches) {
+                _this.switches = switches;
+                console.log(switches);
+                _this.webSocketService = new websocket_service_1.WebSocketService(CHAT_URL + _this.selectedSite.id, null, {
+                    initialTimeout: 500,
+                    maxTimeout: 300000,
+                    reconnectIfNotNormalClose: true,
+                    clientId: Math.random().toString(36)
+                });
+                // set received message callback
+                _this.webSocketService.onMessage(function (msg) {
+                    _this.HandlerMessage(msg);
+                }, { autoApply: false });
+                _this.webSocketService.setSendMode(websocket_service_1.WebSocketSendMode.Direct);
+                _this.isBusy = false;
+            });
         }
     };
     ControlComponent.prototype.ngOnInit = function () {
         var _this = this;
         var self = this;
-        this.switchService.getSwitches("5735824c-93cc-4016-b6b3-26f7947bb58e")
-            .then(function (switches) {
-            _this.switches = switches;
-            console.log(switches);
-            _this.isBusy = false;
+        this.siteService.getSites().then(function (sites) {
+            _this.sites = sites;
+            console.log(sites);
+            for (var i = 0; i < _this.sites.length; i++) {
+                if (_this.sites[i].isDefault) {
+                    _this.selectedSite = _this.sites[i];
+                    _this.loadSelectedSite();
+                    break;
+                }
+            }
         });
-        this.webSocketService = new websocket_service_1.WebSocketService(CHAT_URL + "5735824c-93cc-4016-b6b3-26f7947bb58e", null, {
-            initialTimeout: 500,
-            maxTimeout: 300000,
-            reconnectIfNotNormalClose: true,
-        });
-        // set received message callback
-        this.webSocketService.onMessage(function (msg) {
-            _this.HandlerMessage(msg);
-        }, { autoApply: false });
-        this.webSocketService.setSendMode(websocket_service_1.WebSocketSendMode.Direct);
     };
     return ControlComponent;
 }());
@@ -85,7 +207,7 @@ ControlComponent = __decorate([
         styleUrls: ['css/control.component.css'],
         moduleId: module.id
     }),
-    __metadata("design:paramtypes", [switch_service_1.SwitchService])
+    __metadata("design:paramtypes", [switch_service_1.SwitchService, site_service_1.SiteService])
 ], ControlComponent);
 exports.ControlComponent = ControlComponent;
 //# sourceMappingURL=control.component.js.map

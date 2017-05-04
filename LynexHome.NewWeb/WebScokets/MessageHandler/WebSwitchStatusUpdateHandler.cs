@@ -9,9 +9,9 @@ using System.Data.Entity;
 
 namespace LynexHome.NewWeb.WebScokets.MessageHandler
 {
-    public class WebSwitchUpdateHandler : WebSocketMessageHandler
+    public class WebSwitchStatusUpdateHandler : WebSocketMessageHandler
     {
-        public WebSwitchUpdateHandler(string siteId) : base(siteId)
+        public WebSwitchStatusUpdateHandler(string siteId) : base(siteId)
         {
         }
 
@@ -31,7 +31,7 @@ namespace LynexHome.NewWeb.WebScokets.MessageHandler
                     dbcontext.Set<Switch>().Attach(@switch);
                     dbcontext.Entry(@switch).Property("Status").IsModified = true;
                     dbcontext.SaveChanges();
-                    model.BroadcaseType = WebSocketBroadcastType.All;
+                    model.BroadcastType = WebSocketBroadcastType.All;
                 }
             }
 

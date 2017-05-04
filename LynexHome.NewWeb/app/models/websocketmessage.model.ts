@@ -4,14 +4,14 @@ export class WebSocketMessage{
     Message: any;
     Type: WebSocketMessageType;
     BroadcastType: WebSocketBroadcastType;
-
+    ClientId: string;
 
     constructor(json?: any) {
         if (json) {
             this.Message = json.Message;
             this.Type = json.Type;
             this.BroadcastType = json.BroadcastType;
-
+            this.ClientId = json.ClientId;
         }
     }
 }
@@ -27,4 +27,7 @@ export enum WebSocketMessageType {
     WebSwitchStatusUpdate = 200,
     WebSwitchLiveUpdate = 201,
     WebSiteEnquire = 202,
+    WebSwitchOrderUpdate = 203,
+    WebSwitchTimerUpdate = 204,
+    WebSwitchSettingUpdate = 205
 }

@@ -16,10 +16,10 @@ export class SwitchService {
     }
 
     getSwitches(siteId: string): Promise<Switch[]> {
-        var siteQueryModel = new QuerySiteModel();
+        let siteQueryModel = new QuerySiteModel();
         siteQueryModel.SiteId = siteId;
 
-        var promise = this.apiService.postData("switch", "get", siteQueryModel)
+        let promise = this.apiService.postData("switch", "get", siteQueryModel)
             .then(response => {
                 var results = response.results as Switch[];
                 this.switches = results;
@@ -29,10 +29,21 @@ export class SwitchService {
     };
 
     updateStatus(switchId: string, status: boolean): Promise<boolean> {
-        var updateStatus = {
+        let updateStatus = {
             SwitchId: switchId,
             Status: status
         };
         return this.apiService.postData("switch", "updateStatus", updateStatus).then(response => response.results);
     };
+
+
+    updateOrder(switchId: string, order: number): Promise<any> {
+
+        let updateOrder = {
+            SwitchId: switchId,
+            Order: order
+        };
+
+        return this.apiService.postData("switch", "updateOrder", updateOrder);
+    }
 }

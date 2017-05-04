@@ -11,45 +11,31 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var api_service_1 = require("./api.service");
 require("rxjs/add/operator/map");
-var querysitemodel_apimodels_1 = require("../apimodels/querysitemodel.apimodels");
-var SwitchService = (function () {
-    function SwitchService(apiService) {
+var SiteService = (function () {
+    function SiteService(apiService) {
         this.apiService = apiService;
-        this.switches = [];
+        this.sites = [];
     }
-    SwitchService.prototype.getSwitches = function (siteId) {
+    SiteService.prototype.getSites = function () {
         var _this = this;
-        var siteQueryModel = new querysitemodel_apimodels_1.QuerySiteModel();
-        siteQueryModel.SiteId = siteId;
-        var promise = this.apiService.postData("switch", "get", siteQueryModel)
+        var promise = this.apiService.getData("site", "get")
             .then(function (response) {
             var results = response.results;
-            _this.switches = results;
+            _this.sites = results;
             return results;
         });
         return promise;
     };
     ;
-    SwitchService.prototype.updateStatus = function (switchId, status) {
-        var updateStatus = {
-            SwitchId: switchId,
-            Status: status
-        };
-        return this.apiService.postData("switch", "updateStatus", updateStatus).then(function (response) { return response.results; });
+    SiteService.prototype.setDefault = function (siteId) {
+        var promise = this.apiService.postData("site", "SetAsDefault", { SiteId: siteId });
+        return promise;
     };
-    ;
-    SwitchService.prototype.updateOrder = function (switchId, order) {
-        var updateOrder = {
-            SwitchId: switchId,
-            Order: order
-        };
-        return this.apiService.postData("switch", "updateOrder", updateOrder);
-    };
-    return SwitchService;
+    return SiteService;
 }());
-SwitchService = __decorate([
+SiteService = __decorate([
     core_1.Injectable(),
     __metadata("design:paramtypes", [api_service_1.ApiService])
-], SwitchService);
-exports.SwitchService = SwitchService;
-//# sourceMappingURL=switch.service.js.map
+], SiteService);
+exports.SiteService = SiteService;
+//# sourceMappingURL=site.service.js.map

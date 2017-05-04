@@ -229,7 +229,9 @@
     <Compile Include="WebScokets\MessageHandler\SiteStatusHandler.cs" />
     <Compile Include="WebScokets\MessageHandler\SwitchUpdateHandler.cs" />
     <Compile Include="WebScokets\MessageHandler\WebSocketMessageHandler.cs" />
-    <Compile Include="WebScokets\MessageHandler\WebSwitchUpdateHandler.cs" />
+    <Compile Include="WebScokets\MessageHandler\WebSiteEnquireHandler.cs" />
+    <Compile Include="WebScokets\MessageHandler\WebSwitchOrderUpdateHandler.cs" />
+    <Compile Include="WebScokets\MessageHandler\WebSwitchStatusUpdateHandler.cs" />
     <Compile Include="WebScokets\PiWebSocketHandler.cs" />
     <Compile Include="WebScokets\WebSocketHandlerManager.cs" />
     <Compile Include="WebScokets\WebSocketSessionManager.cs" />
@@ -285,6 +287,7 @@
     <TypeScriptCompile Include="app\components\login.component.ts" />
     <TypeScriptCompile Include="app\components\control.component.ts" />
     <TypeScriptCompile Include="app\models\deserializable.model.ts" />
+    <TypeScriptCompile Include="app\models\site.model.ts" />
     <TypeScriptCompile Include="app\models\websocketmessage.model.ts" />
     <TypeScriptCompile Include="app\models\apiresponse.model.ts" />
     <TypeScriptCompile Include="app\models\user.model.ts" />
@@ -294,7 +297,7 @@
     <TypeScriptCompile Include="app\modules\lynex.module.ts" />
     <TypeScriptCompile Include="app\main.ts" />
     <TypeScriptCompile Include="app\modules\lynex.routing.module.ts" />
-    <TypeScriptCompile Include="app\services\sitewebsocket.service.ts" />
+    <TypeScriptCompile Include="app\services\site.service.ts" />
     <TypeScriptCompile Include="app\services\user.service.ts" />
     <TypeScriptCompile Include="app\services\switch.service.ts" />
     <TypeScriptCompile Include="app\services\api.service.ts" />

@@ -10,7 +10,8 @@ namespace LynexHome.ApiModel.WebScoket
     {
         None = 0,
         All = 1,
-        Pi = 2,
-        Web = 3,
+        Others = 2,
+        Pi = 3,
+        Web = 4,
     }
 }

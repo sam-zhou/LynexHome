@@ -215,7 +215,7 @@ namespace LynexHome.NewWeb.Api
                 {
                     var site = _siteService.GetSite(siteId, User.Identity.GetUserId());
 
-                    HttpContext.Current.AcceptWebSocketRequest(new ClientWebSocketHandler(site.Id));
+                    HttpContext.Current.AcceptWebSocketRequest(new ClientWebSocketHandler(site.Id, User.Identity.GetUserId()));
 
                 }
                 catch (LynexException ex)

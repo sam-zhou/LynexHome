@@ -5,6 +5,7 @@ var WebSocketMessage = (function () {
             this.Message = json.Message;
             this.Type = json.Type;
             this.BroadcastType = json.BroadcastType;
+            this.ClientId = json.ClientId;
         }
     }
     return WebSocketMessage;
@@ -22,5 +23,8 @@ var WebSocketMessageType;
     WebSocketMessageType[WebSocketMessageType["WebSwitchStatusUpdate"] = 200] = "WebSwitchStatusUpdate";
     WebSocketMessageType[WebSocketMessageType["WebSwitchLiveUpdate"] = 201] = "WebSwitchLiveUpdate";
     WebSocketMessageType[WebSocketMessageType["WebSiteEnquire"] = 202] = "WebSiteEnquire";
+    WebSocketMessageType[WebSocketMessageType["WebSwitchOrderUpdate"] = 203] = "WebSwitchOrderUpdate";
+    WebSocketMessageType[WebSocketMessageType["WebSwitchTimerUpdate"] = 204] = "WebSwitchTimerUpdate";
+    WebSocketMessageType[WebSocketMessageType["WebSwitchSettingUpdate"] = 205] = "WebSwitchSettingUpdate";
 })(WebSocketMessageType = exports.WebSocketMessageType || (exports.WebSocketMessageType = {}));
 //# sourceMappingURL=websocketmessage.model.js.map

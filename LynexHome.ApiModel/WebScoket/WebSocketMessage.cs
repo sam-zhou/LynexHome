@@ -6,7 +6,9 @@
 
         public WebSocketMessageType Type { get; set; }
 
-        public WebSocketBroadcastType BroadcaseType { get; set; }
+        public WebSocketBroadcastType BroadcastType { get; set; }
+
+        public string ClientId { get; set; }
 
         public WebSocketMessage(WebSocketMessageType type) {
             Type = type;

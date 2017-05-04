@@ -37,7 +37,8 @@ var WebSocketService = WebSocketService_1 = (function () {
         if (!match) {
             throw new Error('Invalid url provided');
         }
-        this.config = config || { initialTimeout: 500, maxTimeout: 300000, reconnectIfNotNormalClose: false };
+        this.config = config || { initialTimeout: 500, maxTimeout: 300000, reconnectIfNotNormalClose: false, clientId: Math.random().toString(36) };
+        this.clientId = this.config.clientId;
         this.binaryType = binaryType || "blob";
         this.dataStream = new Subject_1.Subject();
         this.connect(true);
