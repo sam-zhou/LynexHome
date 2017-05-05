@@ -37,11 +37,13 @@ export class SwitchService {
     };
 
 
-    updateOrder(switchId: string, order: number): Promise<any> {
+    updateOrder(switchId: string, order: number, siteId?: string, clientWebSocketId?: string): Promise<any> {
 
         let updateOrder = {
             SwitchId: switchId,
-            Order: order
+            Order: order,
+            ClientWebSocketId: clientWebSocketId,
+            SiteId: siteId
         };
 
         return this.apiService.postData("switch", "updateOrder", updateOrder);

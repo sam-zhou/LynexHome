@@ -15,6 +15,7 @@ namespace LynexHome.Core.Model
         public Switch()
         {
             SwitchEvents = new HashSet<SwitchEvent>();
+            Schedules = new HashSet<Schedule>();
         }
 
         [Required]
@@ -70,5 +71,8 @@ namespace LynexHome.Core.Model
 
 
         public virtual ICollection<SwitchEvent> SwitchEvents { get; set; }
+
+
+        public virtual ICollection<Schedule> Schedules { get; set; }
     }
 }

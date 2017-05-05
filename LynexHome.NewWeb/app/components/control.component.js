@@ -40,44 +40,19 @@ var ControlComponent = (function () {
     };
     ;
     ControlComponent.prototype.sort = function (theSwitch, index) {
+        var _this = this;
         if (!theSwitch.isBusy) {
             theSwitch.isBusy = true;
-            var message = new websocketmessage_model_1.WebSocketMessage();
-            message.Message = {
-                id: theSwitch.id,
-                order: index
-            };
-            message.ClientId = this.webSocketService.clientId;
-            for (var i = 0; i < this.switches.length; i++) {
-                this.switches[i].order = i;
-            }
-            //this.updateOrder(theSwitch.order, index);
-            message.Type = websocketmessage_model_1.WebSocketMessageType.WebSwitchOrderUpdate;
-            this.webSocketService.sendDirect(JSON.stringify(message));
+            this.switchService.updateOrder(theSwitch.id, index, this.selectedSite.id, this.webSocketService.clientId).then(function (response) {
+                if (response.success) {
+                    theSwitch.isBusy = false;
+                    for (var i = 0; i < _this.switches.length; i++) {
+                        _this.switches[i].order = i;
+                    }
+                }
+            });
         }
     };
-    //private updateOrder(oldOrder: number, newOrder: number): void {
-    //    let originalSwitch = this.switches[oldOrder];
-    //    if (oldOrder > newOrder) {
-    //        for (let j = oldOrder; j >= newOrder; j--) {
-    //            if (j == newOrder) {
-    //                this.switches[j] = originalSwitch;
-    //            } else {
-    //                this.switches[j] = this.switches[j - 1]
-    //            }
-    //            this.switches[j].order = j;
-    //        }
-    //    } else if (oldOrder < newOrder) {
-    //        for (let j = oldOrder; j >= newOrder; j++) {
-    //            if (j == newOrder) {
-    //                this.switches[j] = originalSwitch;
-    //            } else {
-    //                this.switches[j] = this.switches[j + 1]
-    //            }
-    //            this.switches[j].order = j;
-    //        }
-    //    }
-    //}
     ControlComponent.prototype.HandlerMessage = function (msg) {
         var message = JSON.parse(msg.data);
         console.log(msg.data);

@@ -24,6 +24,8 @@
                 '@angular/router': 'npm:@angular/router/bundles/router.umd.js',
                 '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
                 'ng2-dnd': 'npm:ng2-dnd/bundles/index.umd.js',
+                'moment': 'npm:moment',
+                'angular2-moment': 'npm:angular2-moment',
                 // other libraries
                 'rxjs': 'npm:rxjs',
                 'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
@@ -42,6 +44,14 @@
                 defaultExtension: 'js'
             },
             bootstrap: {
+                defaultExtension: 'js'
+            },
+            'moment': {
+                main: './moment.js',
+                defaultExtension: 'js'
+            },
+            'angular2-moment': {
+                main: './index.js',
                 defaultExtension: 'js'
             }
         }

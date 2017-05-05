@@ -288,6 +288,7 @@
     <TypeScriptCompile Include="app\components\control.component.ts" />
     <TypeScriptCompile Include="app\models\deserializable.model.ts" />
     <TypeScriptCompile Include="app\models\site.model.ts" />
+    <TypeScriptCompile Include="app\models\schedule.model.ts" />
     <TypeScriptCompile Include="app\models\websocketmessage.model.ts" />
     <TypeScriptCompile Include="app\models\apiresponse.model.ts" />
     <TypeScriptCompile Include="app\models\user.model.ts" />

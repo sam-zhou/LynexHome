@@ -50,53 +50,30 @@ export class ControlComponent implements OnInit {
         if (!theSwitch.isBusy) {
             theSwitch.isBusy = true;
 
-            let message = new WebSocketMessage();
-            message.Message = {
-                id: theSwitch.id,
-                order: index
-            };
-            message.ClientId = this.webSocketService.clientId;
-            for (let i = 0; i < this.switches.length; i++) {
-                this.switches[i].order = i;
-            }
-            //this.updateOrder(theSwitch.order, index);
-            message.Type = WebSocketMessageType.WebSwitchOrderUpdate;
-            this.webSocketService.sendDirect(JSON.stringify(message));
-            
-            //this.switchService.updateOrder(theSwitch.id, index)
-            //    .then(response => {
-            //        theSwitch.isBusy = false;
-            //    });
+            this.switchService.updateOrder(theSwitch.id, index, this.selectedSite.id, this.webSocketService.clientId).then(response => {
+                if (response.success) {
+                    theSwitch.isBusy = false;
+                    for (let i = 0; i < this.switches.length; i++) {
+                        this.switches[i].order = i;
+                    }
+                }
+            });
+
+            //let message = new WebSocketMessage();
+            //message.Message = {
+            //    id: theSwitch.id,
+            //    order: index,
+            //    clientId = this.webSocketService.clientId
+            //};
+            //message.ClientId = this.webSocketService.clientId;
+            //for (let i = 0; i < this.switches.length; i++) {
+            //    this.switches[i].order = i;
+            //}
+
+            //message.Type = WebSocketMessageType.WebSwitchOrderUpdate;
+            //this.webSocketService.sendDirect(JSON.stringify(message));
         }
     }
-
-    //private updateOrder(oldOrder: number, newOrder: number): void {
-    //    let originalSwitch = this.switches[oldOrder];
-    //    if (oldOrder > newOrder) {
-    //        for (let j = oldOrder; j >= newOrder; j--) {
-    //            if (j == newOrder) {
-    //                this.switches[j] = originalSwitch;
-
-    //            } else {
-    //                this.switches[j] = this.switches[j - 1]
-    //            }
-                
-    //            this.switches[j].order = j;
-    //        }
-
-    //    } else if (oldOrder < newOrder) {
-    //        for (let j = oldOrder; j >= newOrder; j++) {
-    //            if (j == newOrder) {
-    //                this.switches[j] = originalSwitch;
-
-    //            } else {
-    //                this.switches[j] = this.switches[j + 1]
-    //            }
-    //            this.switches[j].order = j;
-    //        }
-    //    }
-
-    //}
 
     private HandlerMessage(msg: MessageEvent): void {
         let message = JSON.parse(msg.data);

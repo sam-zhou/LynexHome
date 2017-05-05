@@ -10,6 +10,10 @@ namespace LynexHome.ApiModel
     {
         public string SwitchId { get; set; }
 
+        public string SiteId { get; set; }
+
         public int Order { get; set; }
+
+        public string ClientWebSocketId { get; set; }
     }
 }

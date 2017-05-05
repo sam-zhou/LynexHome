@@ -94,9 +94,9 @@
     <Compile Include="LynexSignInManager.cs" />
     <Compile Include="LynexUserManager.cs" />
     <Compile Include="LynexUserStore.cs" />
-    <Compile Include="Migrations\201704230840597_InitialCreate.cs" />
-    <Compile Include="Migrations\201704230840597_InitialCreate.Designer.cs">
-      <DependentUpon>201704230840597_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201705050439329_InitialCreate.cs" />
+    <Compile Include="Migrations\201705050439329_InitialCreate.Designer.cs">
+      <DependentUpon>201705050439329_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs">
       <SubType>Code</SubType>
@@ -138,8 +138,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201704230840597_InitialCreate.resx">
-      <DependentUpon>201704230840597_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201705050439329_InitialCreate.resx">
+      <DependentUpon>201705050439329_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

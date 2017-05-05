@@ -163,11 +163,51 @@ namespace LynexHome.Core.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
+                "dbo.Schedules",
+                c => new
+                    {
+                        Id = c.Long(nullable: false, identity: true),
+                        Frequency = c.Int(nullable: false),
+                        Active = c.Boolean(nullable: false,
+                            annotations: new Dictionary<string, AnnotationValues>
+                            {
+                                { 
+                                    "SqlDefaultValue",
+                                    new AnnotationValues(oldValue: null, newValue: "1")
+                                },
+                            }),
+                        StartTime = c.Time(nullable: false, precision: 7),
+                        Last = c.Int(nullable: false),
+                        Day = c.String(nullable: false),
+                        CreatedDateTime = c.DateTime(nullable: false,
+                            annotations: new Dictionary<string, AnnotationValues>
+                            {
+                                { 
+                                    "SqlDefaultValue",
+                                    new AnnotationValues(oldValue: null, newValue: "GETUTCDATE()")
+                                },
+                            }),
+                        UpdatedDateTime = c.DateTime(nullable: false,
+                            annotations: new Dictionary<string, AnnotationValues>
+                            {
+                                { 
+                                    "SqlDefaultValue",
+                                    new AnnotationValues(oldValue: null, newValue: "GETUTCDATE()")
+                                },
+                            }),
+                        SwitchId = c.String(nullable: false, maxLength: 128),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Switches", t => t.SwitchId, cascadeDelete: true)
+                .Index(t => t.SwitchId);
+            
+            CreateTable(
                 "dbo.SwitchEvents",
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
                         Status = c.Boolean(nullable: false),
+                        Live = c.Boolean(nullable: false),
                         CreatedDateTime = c.DateTime(nullable: false,
                             annotations: new Dictionary<string, AnnotationValues>
                             {
@@ -228,6 +268,7 @@ namespace LynexHome.Core.Migrations
             DropForeignKey("dbo.SwitchEvents", "SwitchId", "dbo.Switches");
             DropForeignKey("dbo.SwitchEvents", "SiteId", "dbo.Sites");
             DropForeignKey("dbo.Switches", "SiteId", "dbo.Sites");
+            DropForeignKey("dbo.Schedules", "SwitchId", "dbo.Switches");
             DropForeignKey("dbo.Switches", "IconId", "dbo.Icons");
             DropForeignKey("dbo.UserRoles", "UserId", "dbo.Users");
             DropForeignKey("dbo.UserLogins", "UserId", "dbo.Users");
@@ -236,6 +277,7 @@ namespace LynexHome.Core.Migrations
             DropIndex("dbo.Walls", new[] { "SiteId" });
             DropIndex("dbo.SwitchEvents", new[] { "SiteId" });
             DropIndex("dbo.SwitchEvents", new[] { "SwitchId" });
+            DropIndex("dbo.Schedules", new[] { "SwitchId" });
             DropIndex("dbo.Switches", new[] { "IconId" });
             DropIndex("dbo.Switches", new[] { "SiteId" });
             DropIndex("dbo.Sites", new[] { "UserId" });
@@ -269,6 +311,31 @@ namespace LynexHome.Core.Migrations
                 {
                     {
                         "CreatedDateTime",
+                        new Dictionary<string, object>
+                        {
+                            { "SqlDefaultValue", "GETUTCDATE()" },
+                        }
+                    },
+                });
+            DropTable("dbo.Schedules",
+                removedColumnAnnotations: new Dictionary<string, IDictionary<string, object>>
+                {
+                    {
+                        "Active",
+                        new Dictionary<string, object>
+                        {
+                            { "SqlDefaultValue", "1" },
+                        }
+                    },
+                    {
+                        "CreatedDateTime",
+                        new Dictionary<string, object>
+                        {
+                            { "SqlDefaultValue", "GETUTCDATE()" },
+                        }
+                    },
+                    {
+                        "UpdatedDateTime",
                         new Dictionary<string, object>
                         {
                             { "SqlDefaultValue", "GETUTCDATE()" },

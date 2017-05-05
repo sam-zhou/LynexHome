@@ -7,6 +7,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using Newtonsoft.Json;
 using LynexHome.NewWeb.WebScokets;
+using LynexHome.ApiModel.WebScoket;
 
 namespace LynexHome.NewWeb.Api
 {
@@ -86,6 +87,16 @@ namespace LynexHome.NewWeb.Api
                 Message = "",
                 Result = result,
             };
+
+            var client = LynexWebSocketHandler.GetWebSocketSession(model.SiteId);
+            if (client != null)
+            {
+                var webSocketMessage = new WebSocketMessage(WebSocketMessageType.WebSwitchOrderUpdate);
+                webSocketMessage.BroadcastType = WebSocketBroadcastType.All;
+                webSocketMessage.ClientId = model.ClientWebSocketId;
+                webSocketMessage.Message = model;
+                client.Broadcast(JsonConvert.SerializeObject(webSocketMessage));
+            }
 
             return Ok(obj);
         }

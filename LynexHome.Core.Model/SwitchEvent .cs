@@ -22,6 +22,9 @@ namespace LynexHome.Core.Model
         [Required]
         public bool Status { get; set; }
 
+        [Required]
+        public bool Live { get; set; }
+
         [Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         [SqlDefaultValue("GETUTCDATE()")]
         public DateTime CreatedDateTime { get; set; }

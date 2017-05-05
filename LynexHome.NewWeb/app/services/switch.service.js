@@ -38,10 +38,12 @@ var SwitchService = (function () {
         return this.apiService.postData("switch", "updateStatus", updateStatus).then(function (response) { return response.results; });
     };
     ;
-    SwitchService.prototype.updateOrder = function (switchId, order) {
+    SwitchService.prototype.updateOrder = function (switchId, order, siteId, clientWebSocketId) {
         var updateOrder = {
             SwitchId: switchId,
-            Order: order
+            Order: order,
+            ClientWebSocketId: clientWebSocketId,
+            SiteId: siteId
         };
         return this.apiService.postData("switch", "updateOrder", updateOrder);
     };

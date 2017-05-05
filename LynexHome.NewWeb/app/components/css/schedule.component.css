@@ -1,0 +1,10 @@
+﻿.main-container {
+    padding-top:15px;
+    height:calc(100% - 206px);
+    width:100%;
+    position:fixed;
+    bottom:50px;
+    left:0;
+    overflow-x:hidden;
+    overflow-y:auto;
+}
