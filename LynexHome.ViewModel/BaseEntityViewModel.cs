@@ -18,18 +18,21 @@ namespace LynexHome.ViewModel
 
         protected BaseEntityViewModel(TEntity data)
         {
-            var entityProperties = TypeDescriptor.GetProperties(typeof(TEntity)).Cast<PropertyDescriptor>().ToList();
-            var convertProperties = TypeDescriptor.GetProperties(GetType()).Cast<PropertyDescriptor>().ToList();
-
-            
-
-            foreach (var entityProperty in entityProperties)
+            if (data != null)
             {
-                var property = entityProperty;
-                var convertProperty = convertProperties.FirstOrDefault(prop => prop.Name == property.Name);
-                if (convertProperty != null)
+                var entityProperties = TypeDescriptor.GetProperties(typeof(TEntity)).Cast<PropertyDescriptor>().ToList();
+                var convertProperties = TypeDescriptor.GetProperties(GetType()).Cast<PropertyDescriptor>().ToList();
+
+
+
+                foreach (var entityProperty in entityProperties)
                 {
-                    convertProperty.SetValue(this, Convert.ChangeType(entityProperty.GetValue(data), convertProperty.PropertyType));
+                    var property = entityProperty;
+                    var convertProperty = convertProperties.FirstOrDefault(prop => prop.Name == property.Name);
+                    if (convertProperty != null)
+                    {
+                        convertProperty.SetValue(this, Convert.ChangeType(entityProperty.GetValue(data), convertProperty.PropertyType));
+                    }
                 }
             }
         }

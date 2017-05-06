@@ -17,6 +17,8 @@ namespace LynexHome.ViewModel
 
         public string Id { get; set; }
 
+        public bool Live { get; set; }
+
         public bool Status { get; set; }
 
         public SwitchType Type { get; set; }

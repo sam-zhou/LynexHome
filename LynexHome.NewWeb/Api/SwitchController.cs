@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Threading;
 using System.Web.Http;
 using LynexHome.ApiModel;
 using LynexHome.Core;
@@ -8,6 +10,7 @@ using Microsoft.Owin.Security;
 using Newtonsoft.Json;
 using LynexHome.NewWeb.WebScokets;
 using LynexHome.ApiModel.WebScoket;
+using LynexHome.ViewModel;
 
 namespace LynexHome.NewWeb.Api
 {
@@ -57,6 +60,10 @@ namespace LynexHome.NewWeb.Api
 
             var @switch = _switchService.GetSimplifiedSwitch(User.Identity.GetUserId(), model.SwitchId);
 
+            var message = new WebSocketMessage(WebSocketMessageType.WebSwitchStatusUpdate);
+            message.Message = @switch;
+            message.BroadcastType = WebSocketBroadcastType.All;
+
             var client = LynexWebSocketHandler.GetWebSocketSession(@switch.SiteId);
             if (client != null)
             {
@@ -97,6 +104,91 @@ namespace LynexHome.NewWeb.Api
                 webSocketMessage.Message = model;
                 client.Broadcast(JsonConvert.SerializeObject(webSocketMessage));
             }
+
+            return Ok(obj);
+        }
+
+        [HttpPost]
+        public IHttpActionResult GetSchedules(GetSwitchSchedulesModel model)
+        {
+            Thread.Sleep(1000);
+            var schedules = _switchService.GetSchedules(User.Identity.GetUserId(), model.SwitchId);
+
+            var obj = new
+            {
+                Success = true,
+                Message = "",
+                Results = schedules,
+            };
+
+            return Ok(obj);
+        }
+
+        [HttpPost]
+        public IHttpActionResult UpdateSchedule(ScheduleViewModel model)
+        {
+            Thread.Sleep(1000);
+
+            ScheduleViewModel result;
+            if (model.Monday && model.Tuesday && model.Wednesday && model.Thursday && model.Friday && model.Saturday && model.Sunday)
+            {
+                model.Frequency = Core.Model.ScheduleFrequency.Daily;
+            }
+            else if (model.Monday && model.Tuesday && model.Wednesday && model.Thursday && model.Friday && !model.Saturday && !model.Sunday)
+            {
+                model.Frequency = Core.Model.ScheduleFrequency.Workdays;
+            }
+            else if (!model.Monday && !model.Tuesday && !model.Wednesday && !model.Thursday && !model.Friday &&
+                     model.Saturday && model.Sunday)
+            {
+                model.Frequency = Core.Model.ScheduleFrequency.Weekends;
+            }
+            else if (!model.Monday && !model.Tuesday && !model.Wednesday && !model.Thursday && !model.Friday &&
+                     !model.Saturday && !model.Sunday)
+            {
+                model.Frequency = Core.Model.ScheduleFrequency.Once;
+            }
+            else
+            {
+                model.Frequency = Core.Model.ScheduleFrequency.Weekly;
+            }
+
+            model.StartTime = new TimeSpan(model.STime.Hour, model.STime.Minute, 0);
+            var endTime = new TimeSpan(model.ETime.Hour, model.ETime.Minute, 0);
+
+            model.Length = (int)(endTime.Subtract(model.StartTime).Ticks / TimeSpan.TicksPerMinute);
+
+            if (model.Id == 0)
+            {
+                result = _switchService.AddSchedule(User.Identity.GetUserId(), model);
+            }
+            else
+            {
+                result = _switchService.UpdateSchedule(User.Identity.GetUserId(), model);
+            }
+
+            
+            var obj = new
+            {
+                Success = true,
+                Message = "",
+                Results = result,
+            };
+
+            return Ok(obj);
+        }
+
+        [HttpPost]
+        public IHttpActionResult DeleteSchedule(ScheduleViewModel model)
+        {
+            Thread.Sleep(1000);
+            _switchService.DeleteSchedule(User.Identity.GetUserId(), model);
+
+            var obj = new
+            {
+                Success = true,
+                Message = "",
+            };
 
             return Ok(obj);
         }

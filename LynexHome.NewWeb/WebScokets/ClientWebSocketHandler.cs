@@ -41,6 +41,10 @@ namespace LynexHome.NewWeb.WebScokets
                         case WebSocketBroadcastType.All:
                             WebSocketSession.Broadcast(JsonConvert.SerializeObject(result));
                             break;
+                        case WebSocketBroadcastType.Others:
+
+
+                            break;
                     }
                 }
 

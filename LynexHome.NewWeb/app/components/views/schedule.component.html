@@ -1,5 +1,90 @@
-﻿<div class="schedule-container">
+﻿<div class="schedule-container" *ngIf="currentSwitch">
+    <div class="schedule-header">
+        Schedule
+        <a class="schedule-close pull-right" aria-label="Close" (click)="closeDialog()">
+            <i class="fa fa-times" aria-hidden="true"></i>
+        </a>
+    </div>
+    <div class="schedule-content">
+        <div class="col-md-12 schedule-detail" *ngIf="!schedules || isBusy">
+            <div class="loader"></div>
+        </div>
+        <div class="col-md-4 schedule-list" *ngIf="schedules && !isBusy">
+            <ul>
+                <li *ngFor="let schedule of schedules" [ngClass]="{'active':selectedSchedule && schedule.id === selectedSchedule.id}" (click)="selectSchedule(schedule)" class="schedule-item">
+                    <div class="schedule-name">{{schedule.name}}</div>
+                    <div class="schedule-time">{{getTime(schedule)}}</div>
+                    <div class="schedule-day">{{getDay(schedule)}}</div>
+                    <div [(ngModel)]="schedule.active" ngbRadioGroup name="schedule-toggle" (click)="$event.stopPropagation()">
+                        <label class="btn btn-sm btn-default">
+                            <input type="radio" [value]="true"> On
+                        </label>
+                        <label class="btn btn-sm btn-default">
+                            <input type="radio" [value]="false"> Off
+                        </label>
+                    </div>
+                </li>
+                <li  class="add-schedule-item" >
+                    <div class="add-new-schedule" [ngClass]="{'active':selectedSchedule && (selectedSchedule.id === null || selectedSchedule.id === undefined)}" (click)="addNew()"><i class="fa fa-plus" aria-hidden="true"></i></div>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-8 schedule-detail" *ngIf="schedules && !isBusy">
+            <div *ngIf="selectedSchedule">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="scheduleTitle">SCHEDULE TITLE</label>
+                        <input type="text" [(ngModel)]="selectedSchedule.name" class="form-control" id="scheduleTitle" aria-describedby="scheduleTitleHelp" placeholder="Enter Schedule Title">
 
+                    </div>
+                </div>
+                
 
+                <div class="pull-left col-md-6">
+                    <div class="form-group">
+                        <label for="scheduleTitle">START TIME</label>
+                        <ngb-timepicker [(ngModel)]="selectedSchedule.sTime"></ngb-timepicker>
 
-</div>
+                    </div>
+                </div>
+
+                <div class="pull-left col-md-6">
+                    <div class="form-group">
+                        <label for="scheduleTitle">END TIME</label>
+                        <ngb-timepicker [(ngModel)]="selectedSchedule.eTime"></ngb-timepicker>
+
+                    </div>
+                </div>
+                
+                <div class="col-md-12 schedule-repeat-row">
+                    <div class="form-group">
+                        <label for="scheduleTitle">REPEAT</label>
+                        <div class="schedule-repeat-container">
+                            <div class="schedule-repeat-item" [ngClass]="{'active':selectedSchedule.monday}" (click)="selectedSchedule.monday=!selectedSchedule.monday"><span class="schedule-repeat-text">MON</span></div>
+                            <div class="schedule-repeat-item" [ngClass]="{'active':selectedSchedule.tuesday}" (click)="selectedSchedule.tuesday=!selectedSchedule.tuesday"><span class="schedule-repeat-text">TUE</span></div>
+                            <div class="schedule-repeat-item" [ngClass]="{'active':selectedSchedule.wednesday}" (click)="selectedSchedule.wednesday=!selectedSchedule.wednesday"><span class="schedule-repeat-text">WED</span></div>
+                            <div class="schedule-repeat-item" [ngClass]="{'active':selectedSchedule.thursday}" (click)="selectedSchedule.thursday=!selectedSchedule.thursday"><span class="schedule-repeat-text">THU</span></div>
+                            <div class="schedule-repeat-item" [ngClass]="{'active':selectedSchedule.friday}" (click)="selectedSchedule.friday=!selectedSchedule.friday"><span class="schedule-repeat-text">FRI</span></div>
+                            
+                        </div>
+                        <div class="schedule-repeat-container">
+
+                            <div class="schedule-repeat-item" [ngClass]="{'active':selectedSchedule.saturday}" (click)="selectedSchedule.saturday=!selectedSchedule.saturday"><span class="schedule-repeat-text">SAT</span></div>
+                            <div class="schedule-repeat-item" [ngClass]="{'active':selectedSchedule.sunday}" (click)="selectedSchedule.sunday=!selectedSchedule.sunday"><span class="schedule-repeat-text">SUN</span></div>
+                        </div>
+                        <small id="scheduleRepeatHelp" class="form-text text-muted">Your repeat preference: {{getDay(selectedSchedule)}}</small>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <span class="btn btn-default pull-right" (click)="save(selectedSchedule)"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;SAVE</span>
+                    <span class="btn btn-danger pull-left" (click)="delete(selectedSchedule)"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;DELETE</span>
+                </div>
+            </div>
+            <div *ngIf="!selectedSchedule">
+                <div>SELECT SCHEDULE TO EDIT</div>
+            </div>
+            </div>
+        </div>
+
+    </div>
+    

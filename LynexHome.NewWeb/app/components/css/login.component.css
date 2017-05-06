@@ -6,3 +6,8 @@
     line-height: 40px;
 }
 
+
+#loginDropDown {
+    cursor: pointer;
+}
+

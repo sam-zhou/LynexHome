@@ -14,4 +14,6 @@ export class Switch extends Deserializable{
     status: boolean;
     live: boolean;
     isBusy: boolean;
+    hasSchedule: boolean;
+    chipId: string;
 }

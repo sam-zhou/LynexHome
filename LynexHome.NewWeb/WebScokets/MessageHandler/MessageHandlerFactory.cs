@@ -8,7 +8,7 @@ namespace LynexHome.NewWeb.WebScokets.MessageHandler
 {
     public class MessageHandlerFactory
     {
-        public static IWebSocketMessageHandler GetMessageHandler(WebSocketMessageType type, string siteId, string userId) {
+        public static IWebSocketMessageHandler GetMessageHandler(WebSocketMessageType type, string siteId, string userId = null) {
             switch (type) {
                 case WebSocketMessageType.WebSwitchStatusUpdate:
                     return new WebSwitchStatusUpdateHandler(siteId);
@@ -20,12 +20,16 @@ namespace LynexHome.NewWeb.WebScokets.MessageHandler
                     return new WebSiteEnquireHandler(siteId);
 
                 case WebSocketMessageType.PiSiteStatus:
-
-                    break;
+                    return new PiSiteStatusHandler(siteId);
 
                 case WebSocketMessageType.PiSwitchStatusUpdate:
+                    return new PiSwitchUpdateHandler(siteId);
 
-                    break;
+                case WebSocketMessageType.PiLiveSwitches:
+                    return new PiLiveSwitchesHandler(siteId);
+                case WebSocketMessageType.PiSwitchLiveUpdate:
+                    return new PiSwitchLiveUpdateHandler(siteId);
+
             }
 
             return null;

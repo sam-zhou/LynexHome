@@ -12,14 +12,18 @@ namespace LynexHome.ViewModel
     {
         public SwitchViewModel(Switch data) : base(data)
         {
+            HasSchedule = data.Schedules.Any();
         }
 
         public string Id { get; set; }
 
+        public string ChipId { get; set; }
 
         public string Name { get; set; }
 
         public bool Status { get; set; }
+
+        public bool Live { get; set; }
 
         public int X { get; set; }
 
@@ -40,5 +44,8 @@ namespace LynexHome.ViewModel
         public string IconName { get; set; }
 
         public string IconUrl { get; set; }
+
+        public bool HasSchedule { get; set; }
     }
+
 }

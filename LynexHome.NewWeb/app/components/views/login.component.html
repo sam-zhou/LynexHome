@@ -1,19 +1,22 @@
 ﻿<ul class="nav navbar-nav navbar-right" [ngSwitch]="isAuthenticated()">
     <li class="dropdown" *ngSwitchCase="true">
-        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-            <span class="res-767-show-inline">{{user.email}}</span>
-        </a>
-        <ul class="dropdown-menu">
-            <li class="dropdown-header">{{user}}</li>
-            <li><a href="javascript:void(0)"><span title="Logout" class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;My Smart Home</a></li>
-            <li><a href="javascript:void(0)"><span title="Logout" class="glyphicon glyphicon-saved" aria-hidden="true"></span>&nbsp;Subscription</a></li>
+        <div ngbDropdown class="d-inline-block">
+            
+            <span id="loginDropDown" ngbDropdownToggle>
+                <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                <span>{{user.email}}</span>
+            </span>
+            <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-header">{{user.email}}</a>
+                <a class="dropdown-item" href="javascript:void(0)"><span title="Logout" class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;My Smart Home</a>
+                <a class="dropdown-item" href="javascript:void(0)"><span title="Logout" class="glyphicon glyphicon-saved" aria-hidden="true"></span>&nbsp;Subscription</a>
 
-            <li role="separator" class="divider"></li>
-            <li><a href="javascript:void(0)"><span title="Logout" class="glyphicon glyphicon-wrench" aria-hidden="true"></span>&nbsp;Account Settings</a></li>
-            <li><a href="javascript:void(0)" ng-click="logout()"><span title="Logout" class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Logout</a></li>
+                <div role="separator" class="dropdown-divider"></div>
+                <a class="dropdown-item" href="javascript:void(0)"><span title="Logout" class="glyphicon glyphicon-wrench" aria-hidden="true"></span>&nbsp;Account Settings</a>
+                <a class="dropdown-item" href="javascript:void(0)" ng-click="logout()"><span title="Logout" class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Logout</a>
 
-        </ul>
+            </div>
+        </div>
     </li>
     <li *ngSwitchCase="false"><a href="/Account/Login"><span title="Login" class="glyphicon glyphicon-log-in" aria-hidden="true"></span></a></li>
 </ul>

@@ -59,11 +59,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interface\IScheduleRepository.cs" />
     <Compile Include="Interface\ISwitchRepository.cs" />
     <Compile Include="Interface\ISwitchEventRepository.cs" />
     <Compile Include="Interface\IWallRepository.cs" />
     <Compile Include="Interface\ISiteRepository.cs" />
     <Compile Include="BaseRepository.cs" />
+    <Compile Include="ScheduleRepository.cs" />
     <Compile Include="SwitchRepository.cs" />
     <Compile Include="SwitchEventRepository.cs" />
     <Compile Include="WallRepository.cs" />

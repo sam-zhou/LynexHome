@@ -1,13 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400');
 @import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+@import "../node_modules/sweetalert2/dist/sweetalert2.min.css";
 @import "../css/font-awesome.min.css";
 body {
     margin: 0;
     outline: none;
     padding: 0;
     text-decoration: none;
-    font-family: open sans, sans-serif £¬ "Hiragino Sans GB", "Microsoft Yahei", "\5b8b\4f53" !important;
+    font-family: open sans, sans-serif, "Hiragino Sans GB", "Microsoft Yahei", "\5b8b\4f53" !important;
 }
 
 h1, h2, h3, h4, h5, label {
@@ -29,9 +30,12 @@ a:link, a:visited, a {
 .loader {
     border: 16px solid #f3f3f3; /* Light grey */
     border-top: 16px solid #2F7D00; /* Blue */
+    -ms-border-radius: 50%;
     border-radius: 50%;
     width: 120px;
     height: 120px;
+    -ms-animation: spin 2s linear infinite;
+    -webkit-animation: spin 2s linear infinite;
     animation: spin 2s linear infinite;
 }
 
@@ -84,3 +88,32 @@ a:link, a:visited, a {
         bottom: 0;
         right: 0;
     }
+
+.btn-default {
+    color: #fff;
+    background-color: #60C325;
+    border-color: #60C325;
+    cursor: pointer;
+}
+
+.btn-link {
+    color: #60C325;
+    cursor: pointer;
+}
+
+    .btn-link:focus, .btn-link:active, .btn-link:hover {
+        color: #2F7D00;
+    }
+
+.btn-default.active, .btn-default:active, .show > .btn-default.dropdown-toggle {
+    color: #fff;
+    background-color: #2F7D00;
+    background-image: none;
+    border-color: #2F7D00;
+}
+
+.btn-default.focus {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow:none;
+}

@@ -9,7 +9,7 @@
     .navbar-brand .img-container {
         width: 199px;
         margin: 0 auto;
-        background: #5fc325;
+        background: #60C325;
     }
 
 
@@ -33,6 +33,10 @@
     padding-right: 20px;
 }
 
-    .nav-item.nav-link.active {
-        border-bottom: #5fc325 solid 3px;
-    }
+.nav-item.nav-link.active {
+    border-bottom: #60C325 solid 3px;
+}
+
+@media screen and (max-width: 991px) {
+
+}

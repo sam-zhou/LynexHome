@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Directive, OnInit, Input } from '@angular/core';
+import { ScheduleComponent } from './schedule.component';
 import { SwitchService } from '../services/switch.service';
 import { SiteService } from '../services/site.service';
 import { Switch } from '../models/switch.model';
@@ -8,7 +9,7 @@ import { WebSocketService, WebSocketSendMode, WebSocketConfig } from '../service
 import { Subject } from 'rxjs/Rx';
 
 
-const CHAT_URL = 'ws://home.mylynex.com.au/api/site/websocket?siteId=';
+const CHAT_URL = 'wss://home.lynex.com.au/api/site/websocket?siteId=';
 
 @Component({
     selector: 'control',
@@ -23,6 +24,8 @@ export class ControlComponent implements OnInit {
 
     selectedSite: Site = null;
 
+    selectedSwitch: Switch = null;
+
     disableOrder = false;
 
     private webSocketService: WebSocketService = null;
@@ -30,17 +33,17 @@ export class ControlComponent implements OnInit {
 
     constructor(private switchService: SwitchService, private siteService: SiteService) {
         
-    };
+    }
 
 
     changeStatus(theSwitch: Switch): void{
-        if (!theSwitch.isBusy) {
+        if (!theSwitch.isBusy && theSwitch.live) {
             theSwitch.isBusy = true;
             let updatingSwitch = Object.assign({}, theSwitch);
             updatingSwitch.status = !updatingSwitch.status;
             let message = new WebSocketMessage();
             message.Message = updatingSwitch;
-            message.Type = WebSocketMessageType.WebSwitchStatusUpdate
+            message.Type = WebSocketMessageType.WebSwitchStatusUpdate;
             message.ClientId = this.webSocketService.clientId;
             this.webSocketService.sendDirect(JSON.stringify(message));
         }
@@ -75,7 +78,7 @@ export class ControlComponent implements OnInit {
         }
     }
 
-    private HandlerMessage(msg: MessageEvent): void {
+    private handlerMessage(msg: MessageEvent): void {
         let message = JSON.parse(msg.data);
         console.log(msg.data);
 
@@ -86,7 +89,7 @@ export class ControlComponent implements OnInit {
         switch (webSocketMessage.Type) {
             case WebSocketMessageType.WebSwitchStatusUpdate:
                 for (let i = 0; i < this.switches.length; i++) {
-                    if (this.switches[i].id == webSocketMessage.Message.id) {
+                    if (this.switches[i].id === webSocketMessage.Message.id) {
                         this.switches[i].isBusy = false;
                         this.switches[i].status = webSocketMessage.Message.status;
                         break;
@@ -97,7 +100,7 @@ export class ControlComponent implements OnInit {
                 for (let i = 0; i < this.switches.length; i++) {
 
                     for (let j = 0; j < webSocketMessage.Message.length; j++) {
-                        if (this.switches[i].id == webSocketMessage.Message[j].id) {
+                        if (this.switches[i].id === webSocketMessage.Message[j].id) {
                             this.switches[i].status = webSocketMessage.Message[j].status;
                             this.switches[i].live = webSocketMessage.Message[j].live;
                             break;
@@ -111,13 +114,32 @@ export class ControlComponent implements OnInit {
                 }
                 else {
                     for (let i = 0; i < this.switches.length; i++) {
-                        if (this.switches[i].id == webSocketMessage.Message.id) {
+                        if (this.switches[i].id === webSocketMessage.Message.id) {
                             this.switches[i].isBusy = false;
                             break;
                         }
                     }
                 }
 
+                break;
+            case WebSocketMessageType.PiLiveSwitches:
+                for (let i = 0; i < this.switches.length; i++) {
+                    this.switches[i].live = false;
+                    for (let j = 0; j < webSocketMessage.Message.length; j++) {
+                        if (this.switches[i].id === webSocketMessage.Message[j].Id) {
+                            this.switches[i].live = webSocketMessage.Message[j].Live;
+                            break;
+                        }
+                    }
+                }
+                break;
+            case WebSocketMessageType.PiSwitchLiveUpdate:
+                for (let i = 0; i < this.switches.length; i++) {
+                    if (this.switches[i].id === webSocketMessage.Message.SwitchId) {
+                        this.switches[i].live = webSocketMessage.Message.Live;
+                        break;
+                    }
+                }
                 break;
         }
     }
@@ -155,9 +177,14 @@ export class ControlComponent implements OnInit {
         }
     }
 
-    switchTimer(event: Event, theSwitch: Switch): void {
+    switchSchedule(event: Event, theSwitch: Switch): void {
         event.stopPropagation();
-        console.log(theSwitch);
+        this.selectedSwitch = theSwitch;
+        console.log(this.selectedSwitch);
+    }
+
+    onCloseSchedule(event: Event): void {
+        this.selectedSwitch = null;
     }
 
 
@@ -175,9 +202,7 @@ export class ControlComponent implements OnInit {
             this.switchService.getSwitches(this.selectedSite.id)
                 .then(switches => {
                     this.switches = switches;
-                    console.log(switches);
-
-
+                    console.log("get switches:",this.switches);
                     this.webSocketService = new WebSocketService(CHAT_URL + this.selectedSite.id, null, {
                         initialTimeout: 500,
                         maxTimeout: 300000,
@@ -188,12 +213,17 @@ export class ControlComponent implements OnInit {
                     // set received message callback
                     this.webSocketService.onMessage(
                         (msg: MessageEvent) => {
-                            this.HandlerMessage(msg);
+                            this.handlerMessage(msg);
                         },
                         { autoApply: false }
                     );
 
                     this.webSocketService.setSendMode(WebSocketSendMode.Direct);
+
+                    let message = new WebSocketMessage();
+                    message.Type = WebSocketMessageType.WebSiteEnquire;
+                    message.ClientId = this.webSocketService.clientId;
+                    this.webSocketService.sendDirect(JSON.stringify(message));
 
                     this.isBusy = false;
                 });

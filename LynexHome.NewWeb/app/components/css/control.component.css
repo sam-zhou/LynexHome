@@ -10,6 +10,8 @@
     cursor: pointer;
     background: #808080;
     position: relative;
+    pointer-events: auto;
+    cursor: pointer;
 }
 
 
@@ -17,7 +19,12 @@
         background: #5FC325
     }
 
-    .switch-box .switch-name {
+    .switch-box.not-live {
+        -ms-opacity:0.8;
+        opacity:0.8;
+    }
+
+.switch-box .switch-name {
         width: 100%;
         font-family: open sans,"Hiragino Sans GB","Microsoft Yahei","\5b8b\4f53";
         font-size: 18px;

@@ -122,6 +122,7 @@ namespace LynexHome.Core.Migrations
                         Id = c.String(nullable: false, maxLength: 128),
                         Name = c.String(nullable: false, maxLength: 50),
                         Status = c.Boolean(nullable: false),
+                        Live = c.Boolean(nullable: false),
                         X = c.Int(nullable: false),
                         Y = c.Int(nullable: false),
                         Type = c.Int(nullable: false),
@@ -168,6 +169,7 @@ namespace LynexHome.Core.Migrations
                     {
                         Id = c.Long(nullable: false, identity: true),
                         Frequency = c.Int(nullable: false),
+                        Name = c.String(nullable: false, maxLength: 50),
                         Active = c.Boolean(nullable: false,
                             annotations: new Dictionary<string, AnnotationValues>
                             {
@@ -177,8 +179,14 @@ namespace LynexHome.Core.Migrations
                                 },
                             }),
                         StartTime = c.Time(nullable: false, precision: 7),
-                        Last = c.Int(nullable: false),
-                        Day = c.String(nullable: false),
+                        Length = c.Int(nullable: false),
+                        Monday = c.Boolean(nullable: false),
+                        Tuesday = c.Boolean(nullable: false),
+                        Wednesday = c.Boolean(nullable: false),
+                        Thursday = c.Boolean(nullable: false),
+                        Friday = c.Boolean(nullable: false),
+                        Saturday = c.Boolean(nullable: false),
+                        Sunday = c.Boolean(nullable: false),
                         CreatedDateTime = c.DateTime(nullable: false,
                             annotations: new Dictionary<string, AnnotationValues>
                             {

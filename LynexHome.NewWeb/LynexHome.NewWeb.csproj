@@ -165,16 +165,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="css\767.css" />
+    <Content Include="css\1023.css" />
+    <Content Include="app\components\css\dialog.component.css" />
     <Content Include="app\components\css\footer.component.css" />
     <Content Include="app\components\css\login.component.css" />
     <Content Include="app\components\css\control.component.css" />
     <Content Include="app\components\css\navigation.component.css" />
     <Content Include="app\components\css\lynex.component.css" />
+    <Content Include="app\components\css\schedule.component.css" />
+    <Content Include="app\components\views\dialog.component.html" />
     <Content Include="app\components\views\footer.component.html" />
     <Content Include="app\components\views\login.component.html" />
     <Content Include="app\components\views\control.component.html" />
     <Content Include="app\components\views\navigation.component.html" />
     <Content Include="app\components\views\lynex.component.html" />
+    <Content Include="app\components\views\schedule.component.html" />
     <Content Include="css\font-awesome.css" />
     <Content Include="css\font-awesome.min.css" />
     <Content Include="favicon.ico" />
@@ -182,70 +188,12 @@
     <Content Include="Global.asax" />
     <Content Include="Images\home-bg.jpg" />
     <Content Include="Images\logo.png" />
-    <Content Include="styles.css" />
+    <Content Include="package.json" />
+    <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\shome2017 - Web Deploy.pubxml" />
+    <Content Include="css\styles.css" />
     <Content Include="systemjs.config.extras.js" />
     <Content Include="systemjs.config.js" />
-    <Content Include="Web.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Api\AccountController.cs" />
-    <Compile Include="Api\AuthenticationController.cs" />
-    <Compile Include="Api\RaspberryPiController.cs" />
-    <Compile Include="Api\SiteController.cs" />
-    <Compile Include="Api\SwitchController.cs" />
-    <Compile Include="Api\WallController.cs" />
-    <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\ControlController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="IoC\ApiDependancyResolver.cs" />
-    <Compile Include="IoC\Factory\WindsorControllerFactory.cs" />
-    <Compile Include="IoC\Factory\WindsorDependencyResolver.cs" />
-    <Compile Include="IoC\Factory\WindsorDependencyScope.cs" />
-    <Compile Include="IoC\Installers\ApiControllerInstaller.cs" />
-    <Compile Include="IoC\Installers\AuthInstaller.cs" />
-    <Compile Include="IoC\Installers\BaseInstaller.cs" />
-    <Compile Include="IoC\Installers\ControllerInstaller.cs" />
-    <Compile Include="IoC\Installers\RepositoryInstaller.cs" />
-    <Compile Include="IoC\Installers\ServiceInstaller.cs" />
-    <Compile Include="IoC\Installers\SettingInstaller.cs" />
-    <Compile Include="IoC\IoCContainer.cs" />
-    <Compile Include="IoC\WindsorServiceLocator.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Providers\ApplicationOAuthProvider.cs" />
-    <Compile Include="Startup.cs" />
-    <Compile Include="WebScokets\ClientWebSocketHandler.cs" />
-    <Compile Include="WebScokets\LynexWebSocketHandler.cs" />
-    <Compile Include="WebScokets\MessageHandler\AuthenticationHandler.cs" />
-    <Compile Include="WebScokets\MessageHandler\IMessageHandler.cs" />
-    <Compile Include="WebScokets\MessageHandler\MessageHandler.cs" />
-    <Compile Include="WebScokets\MessageHandler\MessageHandlerFactory.cs" />
-    <Compile Include="WebScokets\MessageHandler\SiteStatusHandler.cs" />
-    <Compile Include="WebScokets\MessageHandler\SwitchUpdateHandler.cs" />
-    <Compile Include="WebScokets\MessageHandler\WebSocketMessageHandler.cs" />
-    <Compile Include="WebScokets\MessageHandler\WebSiteEnquireHandler.cs" />
-    <Compile Include="WebScokets\MessageHandler\WebSwitchOrderUpdateHandler.cs" />
-    <Compile Include="WebScokets\MessageHandler\WebSwitchStatusUpdateHandler.cs" />
-    <Compile Include="WebScokets\PiWebSocketHandler.cs" />
-    <Compile Include="WebScokets\WebSocketHandlerManager.cs" />
-    <Compile Include="WebScokets\WebSocketSessionManager.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="packages.config" />
-    <Content Include="package.json" />
-    <Content Include="tsconfig.json" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\Lockout.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
@@ -257,15 +205,16 @@
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\SendCode.cshtml" />
     <Content Include="Views\Account\VerifyCode.cshtml" />
-    <Content Include="Views\Web.config">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="fonts\fontawesome-webfont.eot" />
-    <Content Include="fonts\fontawesome-webfont.ttf" />
-    <Content Include="fonts\fontawesome-webfont.woff" />
-    <Content Include="fonts\fontawesome-webfont.woff2" />
-    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="tsconfig.json" />
+    <Content Include="Web.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -283,9 +232,11 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="app\apimodels\querysitemodel.apimodels.ts" />
+    <TypeScriptCompile Include="app\components\dialog.component.ts" />
     <TypeScriptCompile Include="app\components\footer.component.ts" />
     <TypeScriptCompile Include="app\components\login.component.ts" />
     <TypeScriptCompile Include="app\components\control.component.ts" />
+    <TypeScriptCompile Include="app\components\schedule.component.ts" />
     <TypeScriptCompile Include="app\models\deserializable.model.ts" />
     <TypeScriptCompile Include="app\models\site.model.ts" />
     <TypeScriptCompile Include="app\models\schedule.model.ts" />
@@ -337,6 +288,54 @@
       <Project>{6497b135-6f05-4031-bc7b-349a8f3f333d}</Project>
       <Name>LynexHome.ViewModel</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Api\AccountController.cs" />
+    <Compile Include="Api\AuthenticationController.cs" />
+    <Compile Include="Api\RaspberryPiController.cs" />
+    <Compile Include="Api\SiteController.cs" />
+    <Compile Include="Api\SwitchController.cs" />
+    <Compile Include="Api\WallController.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ControlController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="IoC\ApiDependancyResolver.cs" />
+    <Compile Include="IoC\Factory\WindsorControllerFactory.cs" />
+    <Compile Include="IoC\Factory\WindsorDependencyResolver.cs" />
+    <Compile Include="IoC\Factory\WindsorDependencyScope.cs" />
+    <Compile Include="IoC\Installers\ApiControllerInstaller.cs" />
+    <Compile Include="IoC\Installers\AuthInstaller.cs" />
+    <Compile Include="IoC\Installers\BaseInstaller.cs" />
+    <Compile Include="IoC\Installers\ControllerInstaller.cs" />
+    <Compile Include="IoC\Installers\RepositoryInstaller.cs" />
+    <Compile Include="IoC\Installers\ServiceInstaller.cs" />
+    <Compile Include="IoC\Installers\SettingInstaller.cs" />
+    <Compile Include="IoC\IoCContainer.cs" />
+    <Compile Include="IoC\WindsorServiceLocator.cs" />
+    <Compile Include="Providers\ApplicationOAuthProvider.cs" />
+    <Compile Include="Startup.cs" />
+    <Compile Include="WebScokets\ClientWebSocketHandler.cs" />
+    <Compile Include="WebScokets\LynexWebSocketHandler.cs" />
+    <Compile Include="WebScokets\MessageHandler\AuthenticationHandler.cs" />
+    <Compile Include="WebScokets\MessageHandler\MessageHandlerFactory.cs" />
+    <Compile Include="WebScokets\MessageHandler\PiLiveSwitchesHandler.cs" />
+    <Compile Include="WebScokets\MessageHandler\PiSiteStatusHandler.cs" />
+    <Compile Include="WebScokets\MessageHandler\PiSwitchLiveUpdateHandler.cs" />
+    <Compile Include="WebScokets\MessageHandler\PiSwitchUpdateHandler.cs" />
+    <Compile Include="WebScokets\MessageHandler\WebSiteEnquireHandler.cs" />
+    <Compile Include="WebScokets\MessageHandler\WebSocketMessageHandler.cs" />
+    <Compile Include="WebScokets\MessageHandler\WebSwitchOrderUpdateHandler.cs" />
+    <Compile Include="WebScokets\MessageHandler\WebSwitchStatusUpdateHandler.cs" />
+    <Compile Include="WebScokets\PiWebSocketHandler.cs" />
+    <Compile Include="WebScokets\WebSocketHandlerManager.cs" />
+    <Compile Include="WebScokets\WebSocketSessionManager.cs" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

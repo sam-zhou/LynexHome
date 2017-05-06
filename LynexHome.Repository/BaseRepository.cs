@@ -77,7 +77,18 @@ namespace LynexHome.Repository
             foreach (var ep in entityProperties)
             {
                 if (ep.Name != "Id")
-                    DbContext.Entry(entity).Property(ep.Name).IsModified = true;
+                {
+                    try
+                    {
+                        DbContext.Entry(entity).Property(ep.Name).IsModified = true;
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                    
+                }
+                
             }
         }
 

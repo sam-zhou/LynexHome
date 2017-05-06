@@ -26,11 +26,12 @@
                 'ng2-dnd': 'npm:ng2-dnd/bundles/index.umd.js',
                 'moment': 'npm:moment',
                 'angular2-moment': 'npm:angular2-moment',
+                'sweetalert2': 'npm:sweetalert2/dist/sweetalert2.min.js',
                 // other libraries
                 'rxjs': 'npm:rxjs',
                 'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
                 '@ng-bootstrap/ng-bootstrap': 'npm:@ng-bootstrap/ng-bootstrap/bundles/ng-bootstrap.js',
-                'bootstrap': 'npm:bootstrap/dist/js/bootstrap.min.js',
+                'bootstrap': 'npm:bootstrap/dist/js/bootstrap.min.js'
     },
         // packages tells the System loader how to load when no filename and/or no extension
         packages: {
@@ -52,6 +53,9 @@
             },
             'angular2-moment': {
                 main: './index.js',
+                defaultExtension: 'js'
+            },
+            'sweetalert2': {
                 defaultExtension: 'js'
             }
         }

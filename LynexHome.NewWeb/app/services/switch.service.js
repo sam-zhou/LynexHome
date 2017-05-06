@@ -47,6 +47,56 @@ var SwitchService = (function () {
         };
         return this.apiService.postData("switch", "updateOrder", updateOrder);
     };
+    SwitchService.prototype.getSchedules = function (switchId) {
+        var scheduleEnquire = {
+            SwitchId: switchId
+        };
+        return this.apiService.postData("switch", "getSchedules", scheduleEnquire).then(function (response) { return response.results; });
+    };
+    SwitchService.prototype.updateSchedule = function (schedule) {
+        var scheduleModel = {
+            Id: schedule.id,
+            Name: schedule.name,
+            StartTime: schedule.startTime,
+            Length: schedule.length,
+            Monday: schedule.monday,
+            Tuesday: schedule.tuesday,
+            Wednesday: schedule.wednesday,
+            Thursday: schedule.thursday,
+            Friday: schedule.friday,
+            Saturday: schedule.saturday,
+            Sunday: schedule.sunday,
+            Frequency: schedule.frequency,
+            SwitchId: schedule.switchId,
+            STime: {
+                Hour: schedule.sTime.hour,
+                Minute: schedule.sTime.minute
+            },
+            ETime: {
+                Hour: schedule.eTime.hour,
+                Minute: schedule.eTime.minute
+            }
+        };
+        return this.apiService.postData("switch", "updateSchedule", scheduleModel).then(function (response) { return response.results; });
+    };
+    SwitchService.prototype.deleteSchedule = function (schedule) {
+        var scheduleModel = {
+            Id: schedule.id,
+            Name: schedule.name,
+            StartTime: schedule.startTime,
+            Length: schedule.length,
+            Monday: schedule.monday,
+            Tuesday: schedule.tuesday,
+            Wednesday: schedule.wednesday,
+            Thursday: schedule.thursday,
+            Friday: schedule.friday,
+            Saturday: schedule.saturday,
+            Sunday: schedule.sunday,
+            Frequency: schedule.frequency,
+            SwitchId: schedule.switchId
+        };
+        return this.apiService.postData("switch", "deleteSchedule", scheduleModel).then(function (response) { return response.results; });
+    };
     return SwitchService;
 }());
 SwitchService = __decorate([

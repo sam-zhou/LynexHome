@@ -14,10 +14,12 @@ var ng2_dnd_1 = require("ng2-dnd");
 var lynex_routing_module_1 = require("./lynex.routing.module");
 var angular2_moment_1 = require("angular2-moment");
 var lynex_component_1 = require("../components/lynex.component");
+var dialog_component_1 = require("../components/dialog.component");
 var navigation_component_1 = require("../components/navigation.component");
 var login_component_1 = require("../components/login.component");
 var footer_component_1 = require("../components/footer.component");
 var control_component_1 = require("../components/control.component");
+var schedule_component_1 = require("../components/schedule.component");
 var api_service_1 = require("../services/api.service");
 var switch_service_1 = require("../services/switch.service");
 var site_service_1 = require("../services/site.service");
@@ -30,7 +32,7 @@ var LynexModule = (function () {
 LynexModule = __decorate([
     core_1.NgModule({
         imports: [platform_browser_1.BrowserModule, ng_bootstrap_1.NgbModule.forRoot(), http_1.HttpModule, forms_1.FormsModule, lynex_routing_module_1.LynexRoutingModule, ng2_dnd_1.DndModule.forRoot(), angular2_moment_1.MomentModule],
-        declarations: [lynex_component_1.LynexComponent, navigation_component_1.NavigationComponent, login_component_1.LoginComponent, footer_component_1.FooterComponent, control_component_1.ControlComponent],
+        declarations: [lynex_component_1.LynexComponent, dialog_component_1.DialogComponent, navigation_component_1.NavigationComponent, login_component_1.LoginComponent, footer_component_1.FooterComponent, control_component_1.ControlComponent, schedule_component_1.ScheduleComponent],
         providers: [api_service_1.ApiService, switch_service_1.SwitchService, user_service_1.UserService, site_service_1.SiteService],
         bootstrap: [lynex_component_1.LynexComponent]
     })

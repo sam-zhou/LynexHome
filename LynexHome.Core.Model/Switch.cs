@@ -26,6 +26,9 @@ namespace LynexHome.Core.Model
         public bool Status { get; set; }
 
         [Required]
+        public bool Live { get; set; }
+
+        [Required]
         public int X { get; set; }
 
         [Required]

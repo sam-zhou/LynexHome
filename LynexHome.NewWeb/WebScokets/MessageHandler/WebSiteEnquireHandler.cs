@@ -18,6 +18,7 @@ namespace LynexHome.NewWeb.WebScokets.MessageHandler
         public override WebSocketMessage ProcessMessage(WebSocketMessage model)
         {
             model.BroadcastType = WebSocketBroadcastType.Pi;
+            model.Type = WebSocketMessageType.PiSiteStatus;
             return model;
         }
     }

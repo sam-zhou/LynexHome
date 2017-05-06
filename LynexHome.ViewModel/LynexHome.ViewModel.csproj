@@ -78,6 +78,7 @@
   <ItemGroup>
     <Compile Include="AccountViewModels.cs" />
     <Compile Include="BaseEntityViewModel.cs" />
+    <Compile Include="ScheduleViewModel.cs" />
     <Compile Include="WebSocketResultViewModel.cs" />
     <Compile Include="RsaKeyPair.cs" />
     <Compile Include="SimplifiedSwitchModel.cs" />

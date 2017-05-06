@@ -13,7 +13,7 @@ var switch_service_1 = require("../services/switch.service");
 var site_service_1 = require("../services/site.service");
 var websocketmessage_model_1 = require("../models/websocketmessage.model");
 var websocket_service_1 = require("../services/websocket.service");
-var CHAT_URL = 'ws://home.mylynex.com.au/api/site/websocket?siteId=';
+var CHAT_URL = 'wss://home.lynex.com.au/api/site/websocket?siteId=';
 var ControlComponent = (function () {
     function ControlComponent(switchService, siteService) {
         this.switchService = switchService;
@@ -21,13 +21,13 @@ var ControlComponent = (function () {
         this.switches = [];
         this.sites = [];
         this.selectedSite = null;
+        this.selectedSwitch = null;
         this.disableOrder = false;
         this.webSocketService = null;
         this.isBusy = true;
     }
-    ;
     ControlComponent.prototype.changeStatus = function (theSwitch) {
-        if (!theSwitch.isBusy) {
+        if (!theSwitch.isBusy && theSwitch.live) {
             theSwitch.isBusy = true;
             var updatingSwitch = Object.assign({}, theSwitch);
             updatingSwitch.status = !updatingSwitch.status;
@@ -53,7 +53,7 @@ var ControlComponent = (function () {
             });
         }
     };
-    ControlComponent.prototype.HandlerMessage = function (msg) {
+    ControlComponent.prototype.handlerMessage = function (msg) {
         var message = JSON.parse(msg.data);
         console.log(msg.data);
         var webSocketMessage = new websocketmessage_model_1.WebSocketMessage(message);
@@ -61,7 +61,7 @@ var ControlComponent = (function () {
         switch (webSocketMessage.Type) {
             case websocketmessage_model_1.WebSocketMessageType.WebSwitchStatusUpdate:
                 for (var i = 0; i < this.switches.length; i++) {
-                    if (this.switches[i].id == webSocketMessage.Message.id) {
+                    if (this.switches[i].id === webSocketMessage.Message.id) {
                         this.switches[i].isBusy = false;
                         this.switches[i].status = webSocketMessage.Message.status;
                         break;
@@ -71,7 +71,7 @@ var ControlComponent = (function () {
             case websocketmessage_model_1.WebSocketMessageType.WebSwitchLiveUpdate:
                 for (var i = 0; i < this.switches.length; i++) {
                     for (var j = 0; j < webSocketMessage.Message.length; j++) {
-                        if (this.switches[i].id == webSocketMessage.Message[j].id) {
+                        if (this.switches[i].id === webSocketMessage.Message[j].id) {
                             this.switches[i].status = webSocketMessage.Message[j].status;
                             this.switches[i].live = webSocketMessage.Message[j].live;
                             break;
@@ -85,10 +85,29 @@ var ControlComponent = (function () {
                 }
                 else {
                     for (var i = 0; i < this.switches.length; i++) {
-                        if (this.switches[i].id == webSocketMessage.Message.id) {
+                        if (this.switches[i].id === webSocketMessage.Message.id) {
                             this.switches[i].isBusy = false;
                             break;
                         }
+                    }
+                }
+                break;
+            case websocketmessage_model_1.WebSocketMessageType.PiLiveSwitches:
+                for (var i = 0; i < this.switches.length; i++) {
+                    this.switches[i].live = false;
+                    for (var j = 0; j < webSocketMessage.Message.length; j++) {
+                        if (this.switches[i].id === webSocketMessage.Message[j].Id) {
+                            this.switches[i].live = webSocketMessage.Message[j].Live;
+                            break;
+                        }
+                    }
+                }
+                break;
+            case websocketmessage_model_1.WebSocketMessageType.PiSwitchLiveUpdate:
+                for (var i = 0; i < this.switches.length; i++) {
+                    if (this.switches[i].id === webSocketMessage.Message.SwitchId) {
+                        this.switches[i].live = webSocketMessage.Message.Live;
+                        break;
                     }
                 }
                 break;
@@ -125,9 +144,13 @@ var ControlComponent = (function () {
             });
         }
     };
-    ControlComponent.prototype.switchTimer = function (event, theSwitch) {
+    ControlComponent.prototype.switchSchedule = function (event, theSwitch) {
         event.stopPropagation();
-        console.log(theSwitch);
+        this.selectedSwitch = theSwitch;
+        console.log(this.selectedSwitch);
+    };
+    ControlComponent.prototype.onCloseSchedule = function (event) {
+        this.selectedSwitch = null;
     };
     ControlComponent.prototype.switchSetting = function (event, theSwitch) {
         event.stopPropagation();
@@ -142,7 +165,7 @@ var ControlComponent = (function () {
             this.switchService.getSwitches(this.selectedSite.id)
                 .then(function (switches) {
                 _this.switches = switches;
-                console.log(switches);
+                console.log("get switches:", _this.switches);
                 _this.webSocketService = new websocket_service_1.WebSocketService(CHAT_URL + _this.selectedSite.id, null, {
                     initialTimeout: 500,
                     maxTimeout: 300000,
@@ -151,9 +174,13 @@ var ControlComponent = (function () {
                 });
                 // set received message callback
                 _this.webSocketService.onMessage(function (msg) {
-                    _this.HandlerMessage(msg);
+                    _this.handlerMessage(msg);
                 }, { autoApply: false });
                 _this.webSocketService.setSendMode(websocket_service_1.WebSocketSendMode.Direct);
+                var message = new websocketmessage_model_1.WebSocketMessage();
+                message.Type = websocketmessage_model_1.WebSocketMessageType.WebSiteEnquire;
+                message.ClientId = _this.webSocketService.clientId;
+                _this.webSocketService.sendDirect(JSON.stringify(message));
                 _this.isBusy = false;
             });
         }

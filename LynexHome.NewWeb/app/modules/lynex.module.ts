@@ -8,10 +8,12 @@ import { LynexRoutingModule } from './lynex.routing.module';
 import { MomentModule } from 'angular2-moment';
 
 import { LynexComponent } from '../components/lynex.component';
+import { DialogComponent } from '../components/dialog.component';
 import { NavigationComponent } from '../components/navigation.component';
 import { LoginComponent } from '../components/login.component';
 import { FooterComponent } from '../components/footer.component';
 import { ControlComponent } from '../components/control.component';
+import { ScheduleComponent } from '../components/schedule.component';
 
 import { ApiService } from '../services/api.service';
 import { SwitchService } from '../services/switch.service';
@@ -22,7 +24,7 @@ import { UserService } from '../services/user.service';
 
 @NgModule({
     imports: [BrowserModule, NgbModule.forRoot(), HttpModule, FormsModule, LynexRoutingModule, DndModule.forRoot(), MomentModule],
-    declarations: [LynexComponent, NavigationComponent, LoginComponent, FooterComponent, ControlComponent],
+    declarations: [LynexComponent, DialogComponent, NavigationComponent, LoginComponent, FooterComponent, ControlComponent, ScheduleComponent],
     providers: [ApiService, SwitchService, UserService, SiteService],
     bootstrap: [LynexComponent]
 })

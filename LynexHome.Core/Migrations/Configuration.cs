@@ -586,7 +586,22 @@ namespace LynexHome.Core.Migrations
                 });
                 dbContext.SaveChanges();
 
-
+                var schedule = new Schedule();
+                schedule.Active = true;
+                schedule.StartTime = new TimeSpan(18, 0, 0);
+                schedule.Length = 60;
+                schedule.Name = "Daily Irrigation";
+                schedule.Frequency = ScheduleFrequency.Daily;
+                schedule.SwitchId = switch1.Id;
+                schedule.Monday = true;
+                schedule.Tuesday = true;
+                schedule.Wednesday = true;
+                schedule.Thursday = true;
+                schedule.Friday = true;
+                schedule.Saturday = true;
+                schedule.Sunday = true;
+                dbContext.Set<Schedule>().Add(schedule);
+                dbContext.SaveChanges();
             }
 
         }

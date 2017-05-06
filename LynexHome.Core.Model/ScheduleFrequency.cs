@@ -8,8 +8,13 @@ namespace LynexHome.Core.Model
 {
     public enum ScheduleFrequency
     {
-        OneTime = 1,
+        Once = 1,
         Daily = 2,
-        Weekly = 3,
+        Workdays = 3,
+        Weekends = 4,
+        Weekly = 10,
+        Monthly = 20,
+        Quaterly = 25,
+        Yearly = 30
     }
 }

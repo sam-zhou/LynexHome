@@ -19,6 +19,10 @@ namespace LynexHome.Core.Model
         public ScheduleFrequency Frequency { get; set; }
 
         [Required]
+        [StringLength(50)]
+        public string Name { get; set; }
+
+        [Required]
         [SqlDefaultValue("1")]
         public bool Active { get; set; }
 
@@ -26,10 +30,28 @@ namespace LynexHome.Core.Model
         public TimeSpan StartTime { get; set; }
 
         [Required]
-        public int Last { get; set; }
+        public int Length { get; set; }
 
         [Required]
-        public string Day { get; set; }
+        public bool Monday { get; set; }
+
+        [Required]
+        public bool Tuesday { get; set; }
+
+        [Required]
+        public bool Wednesday { get; set; }
+
+        [Required]
+        public bool Thursday { get; set; }
+
+        [Required]
+        public bool Friday { get; set; }
+
+        [Required]
+        public bool Saturday { get; set; }
+
+        [Required]
+        public bool Sunday { get; set; }
 
         [Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         [SqlDefaultValue("GETUTCDATE()")]
