@@ -8,3 +8,10 @@
     overflow-x:hidden;
     overflow-y:auto;
 }
+
+
+@media screen and (max-width: 991px) {
+    .main-container {
+        height: calc(100% - 100px);
+    }
+}

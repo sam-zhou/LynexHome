@@ -20,10 +20,12 @@ var login_component_1 = require("../components/login.component");
 var footer_component_1 = require("../components/footer.component");
 var control_component_1 = require("../components/control.component");
 var schedule_component_1 = require("../components/schedule.component");
+var switchsetting_component_1 = require("../components/switchsetting.component");
 var api_service_1 = require("../services/api.service");
 var switch_service_1 = require("../services/switch.service");
 var site_service_1 = require("../services/site.service");
 var user_service_1 = require("../services/user.service");
+var settings_service_1 = require("../services/settings.service");
 var LynexModule = (function () {
     function LynexModule() {
     }
@@ -32,8 +34,8 @@ var LynexModule = (function () {
 LynexModule = __decorate([
     core_1.NgModule({
         imports: [platform_browser_1.BrowserModule, ng_bootstrap_1.NgbModule.forRoot(), http_1.HttpModule, forms_1.FormsModule, lynex_routing_module_1.LynexRoutingModule, ng2_dnd_1.DndModule.forRoot(), angular2_moment_1.MomentModule],
-        declarations: [lynex_component_1.LynexComponent, dialog_component_1.DialogComponent, navigation_component_1.NavigationComponent, login_component_1.LoginComponent, footer_component_1.FooterComponent, control_component_1.ControlComponent, schedule_component_1.ScheduleComponent],
-        providers: [api_service_1.ApiService, switch_service_1.SwitchService, user_service_1.UserService, site_service_1.SiteService],
+        declarations: [lynex_component_1.LynexComponent, dialog_component_1.DialogComponent, navigation_component_1.NavigationComponent, login_component_1.LoginComponent, footer_component_1.FooterComponent, control_component_1.ControlComponent, schedule_component_1.ScheduleComponent, switchsetting_component_1.SwitchSettingComponent],
+        providers: [api_service_1.ApiService, switch_service_1.SwitchService, user_service_1.UserService, site_service_1.SiteService, settings_service_1.SettingsService, forms_1.FormBuilder],
         bootstrap: [lynex_component_1.LynexComponent]
     })
 ], LynexModule);

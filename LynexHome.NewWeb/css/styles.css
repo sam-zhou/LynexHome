@@ -117,3 +117,62 @@ a:link, a:visited, a {
     -moz-box-shadow: none;
     box-shadow:none;
 }
+
+
+.dialog-container {
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    background: #ffffff;
+    z-index: 20;
+    -webkit-box-shadow: 3px 3px 19px 1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 3px 3px 19px 1px rgba(0,0,0,0.75);
+    box-shadow: 3px 3px 19px 1px rgba(0,0,0,0.75);
+}
+
+.dialog-close, .dialog-back {
+    padding: 0 15px;
+    cursor: pointer;
+}
+
+.dialog-back {
+display:none;
+}
+
+    .dialog-close:hover {
+        -ms-opacity: 0.5;
+        opacity: 0.5;
+    }
+
+.dialog-header {
+    width: 100%;
+    text-align: center;
+    background: #2F7D00;
+    color: #ffffff;
+    line-height: 50px;
+    font-weight: 100;
+}
+
+.dialog-content {
+    height: calc(100% - 50px);
+}
+
+    .dialog-content .container {
+        height:100%;
+    }
+
+.dialog-detail {
+    height: 100%;
+    padding: 15px;
+    float: right;
+    position: relative;
+}
+
+    .dialog-detail .loader {
+        margin: auto;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+    }

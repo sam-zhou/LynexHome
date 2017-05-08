@@ -22,15 +22,17 @@
     .switch-box.not-live {
         -ms-opacity:0.8;
         opacity:0.8;
+        cursor: not-allowed;
     }
 
-.switch-box .switch-name {
-        width: 100%;
-        font-family: open sans,"Hiragino Sans GB","Microsoft Yahei","\5b8b\4f53";
+    .switch-box .switch-name {
+        left: 100px;
+        width: calc(100% - 100px);
         font-size: 18px;
         text-transform: uppercase;
         text-align: center;
-        padding-top: 30px;
+        line-height: 100px;
+        position: absolute;
     }
 
 
@@ -77,6 +79,7 @@
     position: absolute;
     right: 0;
     width: 50px;
+    z-index: 1;
 }
 
     .switch-box .switch-btn-container .switch-btn {
@@ -93,3 +96,11 @@
         .switch-box .switch-btn-container .switch-btn:hover, .switch-box .drag-handle:hover {
             opacity: 0.8;
         }
+
+.switch-icon {
+    position: absolute;
+    height: 100px;
+    width: 100px;
+    left: 20px;
+    padding: 18px;
+}

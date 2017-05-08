@@ -65,7 +65,7 @@ export class ScheduleComponent {
 
         this.isBusy = true;
 
-        this.switchService.updateSchedule(theSchedule).then(response => {
+        this.switchService.updateSchedule(theSchedule, this.selectedSwitch.siteId).then(response => {
             if (theSchedule.id === 0 || theSchedule.id === undefined) {
                 this.schedules.push(response);
                 
@@ -124,6 +124,22 @@ export class ScheduleComponent {
             return input.toString();
         }
         return "00";
+    }
+
+    updateSwitchActive(schedule: Schedule, event: Event) {
+        if (!schedule.isBusy) {
+            schedule.isBusy = true;
+            this.switchService.updateScheduleActive(schedule.id, schedule.switchId, this.selectedSwitch.siteId, !schedule.active).then(response => {
+                for (let i = 0; i < this.schedules.length; i++) {
+                    if (this.schedules[i].id === response.id) {
+                        this.schedules[i] = response;
+                        schedule.isBusy = false;
+                        break;
+                    }
+                }
+            });
+        }
+        event.stopPropagation();
     }
 
     getTime(schedule: Schedule): string {

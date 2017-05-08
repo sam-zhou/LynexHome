@@ -50,6 +50,17 @@ export class SwitchService {
         return this.apiService.postData("switch", "updateOrder", updateOrder);
     }
 
+    updateScheduleActive(scheduleId: number, switchId: string, siteId: string, active: boolean): Promise<Schedule>{
+        let schedule = {
+            Id: scheduleId,
+            SwitchId: switchId,
+            Active: active,
+            SiteId: siteId
+        };
+
+        return this.apiService.postData("switch", "updateScheduleActive", schedule).then(response => response.results);
+    }
+
 
     getSchedules(switchId: string): Promise<Schedule[]> {
         let scheduleEnquire = {
@@ -58,7 +69,20 @@ export class SwitchService {
         return this.apiService.postData("switch", "getSchedules", scheduleEnquire).then(response => response.results);
     }
 
-    updateSchedule(schedule: Schedule): Promise<Schedule> {
+    updateSwitch(theSwitch: Switch): Promise<Switch>{
+        let switchModel = {
+            Id: theSwitch.id,
+            Name: theSwitch.name,
+            Type: theSwitch.type,
+            IconId: theSwitch.iconId,
+            ChipId: theSwitch.chipId,
+            SiteId: theSwitch.siteId
+        };
+
+        return this.apiService.postData("switch", "updateSwitch", switchModel).then(response => response.results);
+    }
+
+    updateSchedule(schedule: Schedule, siteId: string): Promise<Schedule> {
         let scheduleModel = {
             Id: schedule.id,
             Name: schedule.name,
@@ -80,7 +104,8 @@ export class SwitchService {
             ETime: {
                 Hour: schedule.eTime.hour,
                 Minute: schedule.eTime.minute
-            }
+            },
+            SiteId: siteId
         }
         return this.apiService.postData("switch", "updateSchedule", scheduleModel).then(response => response.results);
     }

@@ -27,7 +27,13 @@ namespace LynexHome.NewWeb.WebScokets.MessageHandler
                     var switches = new List<SimplifiedSwitchModel>();
                     foreach (var @switch in site.Switches.OrderBy(q => q.Order))
                     {
-                        switches.Add(new SimplifiedSwitchModel(@switch));
+                        var switchModel = new SimplifiedSwitchModel(@switch);
+                        foreach (var schedule in @switch.Schedules)
+                        {
+                            switchModel.ScheduleViewModels.Add(new ScheduleViewModel(schedule));
+                        }
+
+                        switches.Add(switchModel);
                     }
                     model.Message = switches;
                     model.BroadcastType = WebSocketBroadcastType.All;

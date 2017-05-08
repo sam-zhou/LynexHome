@@ -22,7 +22,7 @@ namespace LynexHome.ApiModel.WebScoket
         WebSwitchOrderUpdate = 203,
         WebSwitchTimerUpdate = 204,
         WebSwitchSettingUpdate = 205,
-
+        WebSwitchScheduleUpdated = 210,
 
 
 

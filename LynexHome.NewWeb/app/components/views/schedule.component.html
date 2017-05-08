@@ -1,21 +1,24 @@
-﻿<div class="schedule-container" *ngIf="currentSwitch">
-    <div class="schedule-header">
+﻿<div class="dialog-container" *ngIf="currentSwitch">
+    <div class="dialog-header">
+        <a class="dialog-back pull-left" aria-label="Back" (click)="selectedSchedule = null" [ngClass]="{'back-button':selectedSchedule}">
+            <i class="fa fa-caret-left" aria-hidden="true"></i>
+        </a>
         Schedule
-        <a class="schedule-close pull-right" aria-label="Close" (click)="closeDialog()">
+        <a class="dialog-close pull-right" aria-label="Close" (click)="closeDialog()">
             <i class="fa fa-times" aria-hidden="true"></i>
         </a>
     </div>
-    <div class="schedule-content">
-        <div class="col-md-12 schedule-detail" *ngIf="!schedules || isBusy">
+    <div class="dialog-content">
+        <div class="col-md-12 dialog-detail" *ngIf="!schedules || isBusy">
             <div class="loader"></div>
         </div>
-        <div class="col-md-4 schedule-list" *ngIf="schedules && !isBusy">
+        <div class="col-md-4 schedule-list" *ngIf="schedules && !isBusy" [ngClass]="{'schedule-selected':selectedSchedule }">
             <ul>
                 <li *ngFor="let schedule of schedules" [ngClass]="{'active':selectedSchedule && schedule.id === selectedSchedule.id}" (click)="selectSchedule(schedule)" class="schedule-item">
                     <div class="schedule-name">{{schedule.name}}</div>
                     <div class="schedule-time">{{getTime(schedule)}}</div>
                     <div class="schedule-day">{{getDay(schedule)}}</div>
-                    <div [(ngModel)]="schedule.active" ngbRadioGroup name="schedule-toggle" (click)="$event.stopPropagation()">
+                    <div [(ngModel)]="schedule.active" ngbRadioGroup name="schedule-toggle" (click)="updateSwitchActive(schedule, $event);" [ngClass]="{'busy':schedule.isBusy}">
                         <label class="btn btn-sm btn-default">
                             <input type="radio" [value]="true"> On
                         </label>
@@ -29,7 +32,7 @@
                 </li>
             </ul>
         </div>
-        <div class="col-md-8 schedule-detail" *ngIf="schedules && !isBusy">
+        <div class="col-md-8 dialog-detail" *ngIf="schedules && !isBusy">
             <div *ngIf="selectedSchedule">
                 <div class="col-md-12">
                     <div class="form-group">

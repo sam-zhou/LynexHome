@@ -1,0 +1,52 @@
+﻿.switch-type-btns {
+    padding-left:0;
+    padding-right:0;
+    width: 100%;
+}
+
+.switch-type-btn {
+    width:25%;
+    float:left;
+    display:block;
+}
+
+.switch-setting-icon {
+    float: left;
+    margin-right: 2px;
+    margin-bottom: 2px;
+    padding: 3px;
+    border: 1px solid #ffffff;
+    opacity: 0.2;
+    cursor:pointer;
+}
+
+    .switch-setting-icon:hover {
+        opacity:0.6;
+    }
+
+    .switch-setting-icon.selected-icon {
+        opacity: 1;
+        border: 1px solid #000000;
+        border-radius: 2px;
+    }
+
+        .switch-setting-icon.selected-icon:hover {
+            opacity: 1;
+        }
+
+.form-group, small.form-text {
+    clear: both;
+}
+
+
+
+@media screen and (max-width: 1199px) {
+    .switch-type-btn {
+        width:33.3333333333333333%;
+    }
+}
+
+
+@media screen and (max-width: 991px) {
+    
+}

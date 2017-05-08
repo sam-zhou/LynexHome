@@ -17,12 +17,21 @@
     margin: 0 auto;
 }
 
+#nav-toggle-btn {
+    width: 60px;
+    left: 0;
+    height: 50px;
+    top: 0;
+    border-right: 1px solid #cccccc;
+    -ms-border-radius: 0;
+    border-radius: 0;
+}
+
 
 .navbar {
     font-size: 20px;
     font-weight: 100;
     border: none;
-    background-color: rgba(255,255,255,1);
     -webkit-box-shadow: 0 2px 3px rgba(0,0,0,.15);
     -moz-box-shadow: 0 2px 3px rgba(0,0,0,.15);
     box-shadow: 0 2px 3px rgba(0,0,0,.15);
@@ -37,6 +46,36 @@
     border-bottom: #60C325 solid 3px;
 }
 
+.navbar-toggler {
+    color: #808080;
+}
+
 @media screen and (max-width: 991px) {
 
+    .navbar {
+        height: 50px;
+        width: 100%;
+    }
+
+    .navbar-brand {
+        width: 120px;
+        padding-top: 0;
+        height: 50px;
+        position: absolute;
+        left: 60px;
+    }
+
+    .img-container {
+        width:100%;
+        height:100%;
+    }
+
+    .navbar-brand .img-container {
+        width: 120px;
+        height: 50px;
+    }
+
+    .img-container img {
+        height:45px;
+    }
 }

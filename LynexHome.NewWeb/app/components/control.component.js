@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var switch_service_1 = require("../services/switch.service");
 var site_service_1 = require("../services/site.service");
+var switch_model_1 = require("../models/switch.model");
 var websocketmessage_model_1 = require("../models/websocketmessage.model");
 var websocket_service_1 = require("../services/websocket.service");
 var CHAT_URL = 'wss://home.lynex.com.au/api/site/websocket?siteId=';
@@ -22,6 +23,7 @@ var ControlComponent = (function () {
         this.sites = [];
         this.selectedSite = null;
         this.selectedSwitch = null;
+        this.selectedSetting = null;
         this.disableOrder = false;
         this.webSocketService = null;
         this.isBusy = true;
@@ -64,6 +66,14 @@ var ControlComponent = (function () {
                     if (this.switches[i].id === webSocketMessage.Message.id) {
                         this.switches[i].isBusy = false;
                         this.switches[i].status = webSocketMessage.Message.status;
+                        break;
+                    }
+                }
+                break;
+            case websocketmessage_model_1.WebSocketMessageType.PiSwitchStatusUpdate:
+                for (var i = 0; i < this.switches.length; i++) {
+                    if (this.switches[i].id === webSocketMessage.Message.Id) {
+                        this.switches[i].status = webSocketMessage.Message.Status;
                         break;
                     }
                 }
@@ -147,14 +157,20 @@ var ControlComponent = (function () {
     ControlComponent.prototype.switchSchedule = function (event, theSwitch) {
         event.stopPropagation();
         this.selectedSwitch = theSwitch;
-        console.log(this.selectedSwitch);
     };
     ControlComponent.prototype.onCloseSchedule = function (event) {
         this.selectedSwitch = null;
     };
+    ControlComponent.prototype.onCloseSetting = function (event) {
+        if (event.toString() == "saved") {
+            this.isBusy = true;
+            this.loadSelectedSite();
+        }
+        this.selectedSetting = null;
+    };
     ControlComponent.prototype.switchSetting = function (event, theSwitch) {
         event.stopPropagation();
-        console.log(theSwitch);
+        this.selectedSetting = theSwitch;
     };
     ControlComponent.prototype.loadSelectedSite = function () {
         var _this = this;
@@ -202,6 +218,10 @@ var ControlComponent = (function () {
     };
     return ControlComponent;
 }());
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", switch_model_1.Switch)
+], ControlComponent.prototype, "selectedSetting", void 0);
 ControlComponent = __decorate([
     core_1.Component({
         selector: 'control',

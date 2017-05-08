@@ -12,6 +12,7 @@ namespace LynexHome.ViewModel
         public SimplifiedSwitchModel(Switch data)
             : base(data)
         {
+            ScheduleViewModels = new List<ScheduleViewModel>();
         }
         public string Name { get; set; }
 
@@ -28,5 +29,7 @@ namespace LynexHome.ViewModel
         public string SiteId { get; set; }
 
         public int IconId { get; set; }
+
+        public List<ScheduleViewModel> ScheduleViewModels { get; set; }
     }
 }

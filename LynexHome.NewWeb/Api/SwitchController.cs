@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Web.Http;
@@ -125,9 +126,33 @@ namespace LynexHome.NewWeb.Api
         }
 
         [HttpPost]
+        public IHttpActionResult UpdateScheduleActive(ScheduleViewModel model)
+        {
+            var result = _switchService.UpdateScheduleActive(User.Identity.GetUserId(), model);
+
+            var client = LynexWebSocketHandler.GetWebSocketSession(model.SiteId);
+            if (client != null)
+            {
+                var list = _switchService.GetSwitchesAndSchedule(User.Identity.GetUserId(), model.SiteId);
+                var webSocketMessage = new WebSocketMessage(WebSocketMessageType.PiSiteStatus);
+                webSocketMessage.BroadcastType = WebSocketBroadcastType.Pi;
+                webSocketMessage.Message = list;
+                client.SendToPi(JsonConvert.SerializeObject(webSocketMessage));
+            }
+
+            var obj = new
+            {
+                Success = true,
+                Message = "",
+                Results = result,
+            };
+
+            return Ok(obj);
+        }
+
+        [HttpPost]
         public IHttpActionResult UpdateSchedule(ScheduleViewModel model)
         {
-            Thread.Sleep(1000);
 
             ScheduleViewModel result;
             if (model.Monday && model.Tuesday && model.Wednesday && model.Thursday && model.Friday && model.Saturday && model.Sunday)
@@ -155,7 +180,7 @@ namespace LynexHome.NewWeb.Api
 
             model.StartTime = new TimeSpan(model.STime.Hour, model.STime.Minute, 0);
             var endTime = new TimeSpan(model.ETime.Hour, model.ETime.Minute, 0);
-
+            model.Active = true;
             model.Length = (int)(endTime.Subtract(model.StartTime).Ticks / TimeSpan.TicksPerMinute);
 
             if (model.Id == 0)
@@ -167,7 +192,16 @@ namespace LynexHome.NewWeb.Api
                 result = _switchService.UpdateSchedule(User.Identity.GetUserId(), model);
             }
 
-            
+            var client = LynexWebSocketHandler.GetWebSocketSession(model.SiteId);
+            if (client != null)
+            {
+                var list = _switchService.GetSwitchesAndSchedule(User.Identity.GetUserId(), model.SiteId);
+                var webSocketMessage = new WebSocketMessage(WebSocketMessageType.PiSiteStatus);
+                webSocketMessage.BroadcastType = WebSocketBroadcastType.Pi;
+                webSocketMessage.Message = list;
+                client.SendToPi(JsonConvert.SerializeObject(webSocketMessage));
+            }
+
             var obj = new
             {
                 Success = true,
@@ -181,13 +215,39 @@ namespace LynexHome.NewWeb.Api
         [HttpPost]
         public IHttpActionResult DeleteSchedule(ScheduleViewModel model)
         {
-            Thread.Sleep(1000);
+
             _switchService.DeleteSchedule(User.Identity.GetUserId(), model);
 
             var obj = new
             {
                 Success = true,
                 Message = "",
+            };
+
+            return Ok(obj);
+        }
+
+        [HttpPost]
+        public IHttpActionResult UpdateSwitch(SwitchViewModel model)
+        {
+
+            var result = _switchService.UpdateSwitch(User.Identity.GetUserId(), model);
+
+            var client = LynexWebSocketHandler.GetWebSocketSession(model.SiteId);
+            if (client != null)
+            {
+                var list = _switchService.GetSwitchesAndSchedule(User.Identity.GetUserId(), model.SiteId);
+                var webSocketMessage = new WebSocketMessage(WebSocketMessageType.PiSiteStatus);
+                webSocketMessage.BroadcastType = WebSocketBroadcastType.Pi;
+                webSocketMessage.Message = list;
+                client.SendToPi(JsonConvert.SerializeObject(webSocketMessage));
+            }
+
+            var obj = new
+            {
+                Success = true,
+                Message = "",
+                Results = result,
             };
 
             return Ok(obj);

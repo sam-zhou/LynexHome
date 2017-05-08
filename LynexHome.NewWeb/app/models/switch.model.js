@@ -13,4 +13,18 @@ var Switch = (function (_super) {
     return Switch;
 }(deserializable_model_1.Deserializable));
 exports.Switch = Switch;
+var SwitchType;
+(function (SwitchType) {
+    SwitchType[SwitchType["Unknown"] = 0] = "Unknown";
+    SwitchType[SwitchType["Normal"] = 1] = "Normal";
+    SwitchType[SwitchType["PowerMonitoring"] = 2] = "PowerMonitoring";
+    SwitchType[SwitchType["TempHumMonitoring"] = 3] = "TempHumMonitoring";
+    SwitchType[SwitchType["SafeValtage"] = 4] = "SafeValtage";
+})(SwitchType = exports.SwitchType || (exports.SwitchType = {}));
+var Icon = (function () {
+    function Icon() {
+    }
+    return Icon;
+}());
+exports.Icon = Icon;
 //# sourceMappingURL=switch.model.js.map

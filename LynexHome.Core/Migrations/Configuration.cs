@@ -179,7 +179,7 @@ namespace LynexHome.Core.Migrations
                     {
                         Id = i,
                         Name = i.ToString(),
-                        Url = "/Images/Icons/" + i + ".png"
+                        Url = "/Images/Icons/white_64x64/" + i + ".png"
                     };
                     dbContext.Set<Icon>().Add(icon);
                 }
@@ -293,7 +293,7 @@ namespace LynexHome.Core.Migrations
                     CreatedDateTime = DateTime.UtcNow,
                     Name = "Feature Water",
                     Status = false,
-                    Type = SwitchType.PowerMonitoring,
+                    Type = SwitchType.SafeValtage,
                     UpdatedDateTime = DateTime.UtcNow,
                     X = 0,
                     Y = 0,
@@ -309,7 +309,7 @@ namespace LynexHome.Core.Migrations
                     CreatedDateTime = DateTime.UtcNow,
                     Name = "Pond Water",
                     Status = false,
-                    Type = SwitchType.PowerMonitoring,
+                    Type = SwitchType.SafeValtage,
                     UpdatedDateTime = DateTime.UtcNow,
                     X = 0,
                     Y = 0,
@@ -325,13 +325,13 @@ namespace LynexHome.Core.Migrations
                     CreatedDateTime = DateTime.UtcNow,
                     Name = "SV 3",
                     Status = false,
-                    Type = SwitchType.PowerMonitoring,
+                    Type = SwitchType.SafeValtage,
                     UpdatedDateTime = DateTime.UtcNow,
                     X = 0,
                     Y = 0,
                     Order = 8,
                     IconId = 1,
-                    ChipId = "ESP10488107"//StringExtension.GenerateMACAddress(),
+                    ChipId = "ESP104881071"//StringExtension.GenerateMACAddress(),
                 };
                 dbContext.Set<Switch>().Add(switch9);
 
@@ -341,13 +341,13 @@ namespace LynexHome.Core.Migrations
                     CreatedDateTime = DateTime.UtcNow,
                     Name = "SV 4",
                     Status = false,
-                    Type = SwitchType.PowerMonitoring,
+                    Type = SwitchType.SafeValtage,
                     UpdatedDateTime = DateTime.UtcNow,
                     X = 0,
                     Y = 0,
                     Order = 9,
                     IconId = 1,
-                    ChipId = "ESP10488107"//StringExtension.GenerateMACAddress(),
+                    ChipId = "ESP104881072"//StringExtension.GenerateMACAddress(),
                 };
                 dbContext.Set<Switch>().Add(switch10);
 
@@ -588,8 +588,8 @@ namespace LynexHome.Core.Migrations
 
                 var schedule = new Schedule();
                 schedule.Active = true;
-                schedule.StartTime = new TimeSpan(18, 0, 0);
-                schedule.Length = 60;
+                schedule.StartTime = new TimeSpan(6, 00, 0);
+                schedule.Length = 20;
                 schedule.Name = "Daily Irrigation";
                 schedule.Frequency = ScheduleFrequency.Daily;
                 schedule.SwitchId = switch1.Id;
@@ -601,6 +601,55 @@ namespace LynexHome.Core.Migrations
                 schedule.Saturday = true;
                 schedule.Sunday = true;
                 dbContext.Set<Schedule>().Add(schedule);
+                
+
+                var schedule2 = new Schedule();
+                schedule.Active = true;
+                schedule.StartTime = new TimeSpan(20, 0, 0);
+                schedule.Length = 20;
+                schedule.Name = "Night Irrigation";
+                schedule.Frequency = ScheduleFrequency.Daily;
+                schedule.SwitchId = switch1.Id;
+                schedule.Monday = true;
+                schedule.Tuesday = true;
+                schedule.Wednesday = true;
+                schedule.Thursday = true;
+                schedule.Friday = true;
+                schedule.Saturday = true;
+                schedule.Sunday = true;
+                dbContext.Set<Schedule>().Add(schedule2);
+
+                var schedule3 = new Schedule();
+                schedule.Active = true;
+                schedule.StartTime = new TimeSpan(18, 0, 0);
+                schedule.Length = 359;
+                schedule.Name = "Night Garden Light";
+                schedule.Frequency = ScheduleFrequency.Daily;
+                schedule.SwitchId = switch3.Id;
+                schedule.Monday = true;
+                schedule.Tuesday = true;
+                schedule.Wednesday = true;
+                schedule.Thursday = true;
+                schedule.Friday = true;
+                schedule.Saturday = true;
+                schedule.Sunday = true;
+                dbContext.Set<Schedule>().Add(schedule3);
+
+                var schedule4 = new Schedule();
+                schedule.Active = true;
+                schedule.StartTime = new TimeSpan(20, 0, 0);
+                schedule.Length = 20;
+                schedule.Name = "Pond Refill";
+                schedule.Frequency = ScheduleFrequency.Daily;
+                schedule.SwitchId = switch8.Id;
+                schedule.Monday = true;
+                schedule.Tuesday = true;
+                schedule.Wednesday = true;
+                schedule.Thursday = true;
+                schedule.Friday = true;
+                schedule.Saturday = true;
+                schedule.Sunday = true;
+                dbContext.Set<Schedule>().Add(schedule4);
                 dbContext.SaveChanges();
             }
 

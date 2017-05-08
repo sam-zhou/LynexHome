@@ -32,6 +32,7 @@ var WebSocketMessageType;
     WebSocketMessageType[WebSocketMessageType["WebSwitchOrderUpdate"] = 203] = "WebSwitchOrderUpdate";
     WebSocketMessageType[WebSocketMessageType["WebSwitchTimerUpdate"] = 204] = "WebSwitchTimerUpdate";
     WebSocketMessageType[WebSocketMessageType["WebSwitchSettingUpdate"] = 205] = "WebSwitchSettingUpdate";
+    WebSocketMessageType[WebSocketMessageType["WebSwitchScheduleUpdated"] = 210] = "WebSwitchScheduleUpdated";
     WebSocketMessageType[WebSocketMessageType["Error"] = 400] = "Error";
 })(WebSocketMessageType = exports.WebSocketMessageType || (exports.WebSocketMessageType = {}));
 //# sourceMappingURL=websocketmessage.model.js.map

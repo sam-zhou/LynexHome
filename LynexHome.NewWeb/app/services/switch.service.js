@@ -47,13 +47,33 @@ var SwitchService = (function () {
         };
         return this.apiService.postData("switch", "updateOrder", updateOrder);
     };
+    SwitchService.prototype.updateScheduleActive = function (scheduleId, switchId, siteId, active) {
+        var schedule = {
+            Id: scheduleId,
+            SwitchId: switchId,
+            Active: active,
+            SiteId: siteId
+        };
+        return this.apiService.postData("switch", "updateScheduleActive", schedule).then(function (response) { return response.results; });
+    };
     SwitchService.prototype.getSchedules = function (switchId) {
         var scheduleEnquire = {
             SwitchId: switchId
         };
         return this.apiService.postData("switch", "getSchedules", scheduleEnquire).then(function (response) { return response.results; });
     };
-    SwitchService.prototype.updateSchedule = function (schedule) {
+    SwitchService.prototype.updateSwitch = function (theSwitch) {
+        var switchModel = {
+            Id: theSwitch.id,
+            Name: theSwitch.name,
+            Type: theSwitch.type,
+            IconId: theSwitch.iconId,
+            ChipId: theSwitch.chipId,
+            SiteId: theSwitch.siteId
+        };
+        return this.apiService.postData("switch", "updateSwitch", switchModel).then(function (response) { return response.results; });
+    };
+    SwitchService.prototype.updateSchedule = function (schedule, siteId) {
         var scheduleModel = {
             Id: schedule.id,
             Name: schedule.name,
@@ -75,7 +95,8 @@ var SwitchService = (function () {
             ETime: {
                 Hour: schedule.eTime.hour,
                 Minute: schedule.eTime.minute
-            }
+            },
+            SiteId: siteId
         };
         return this.apiService.postData("switch", "updateSchedule", scheduleModel).then(function (response) { return response.results; });
     };

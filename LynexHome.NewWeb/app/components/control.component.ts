@@ -26,6 +26,8 @@ export class ControlComponent implements OnInit {
 
     selectedSwitch: Switch = null;
 
+    @Input() selectedSetting: Switch = null;
+
     disableOrder = false;
 
     private webSocketService: WebSocketService = null;
@@ -92,6 +94,14 @@ export class ControlComponent implements OnInit {
                     if (this.switches[i].id === webSocketMessage.Message.id) {
                         this.switches[i].isBusy = false;
                         this.switches[i].status = webSocketMessage.Message.status;
+                        break;
+                    }
+                }
+                break;
+            case WebSocketMessageType.PiSwitchStatusUpdate:
+                for (let i = 0; i < this.switches.length; i++) {
+                    if (this.switches[i].id === webSocketMessage.Message.Id) {
+                        this.switches[i].status = webSocketMessage.Message.Status;
                         break;
                     }
                 }
@@ -180,17 +190,27 @@ export class ControlComponent implements OnInit {
     switchSchedule(event: Event, theSwitch: Switch): void {
         event.stopPropagation();
         this.selectedSwitch = theSwitch;
-        console.log(this.selectedSwitch);
     }
 
     onCloseSchedule(event: Event): void {
         this.selectedSwitch = null;
     }
 
+    
+    onCloseSetting(event: Event): void {
+
+        if (event.toString() == "saved") {
+            this.isBusy = true;
+            this.loadSelectedSite();
+        }
+        
+
+        this.selectedSetting = null;
+    }
 
     switchSetting(event: Event, theSwitch: Switch): void {
         event.stopPropagation();
-        console.log(theSwitch);
+        this.selectedSetting = theSwitch;
     }
 
     private loadSelectedSite(): void {

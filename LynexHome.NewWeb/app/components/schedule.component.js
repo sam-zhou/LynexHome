@@ -58,7 +58,7 @@ var ScheduleComponent = (function () {
     ScheduleComponent.prototype.save = function (theSchedule) {
         var _this = this;
         this.isBusy = true;
-        this.switchService.updateSchedule(theSchedule).then(function (response) {
+        this.switchService.updateSchedule(theSchedule, this.selectedSwitch.siteId).then(function (response) {
             if (theSchedule.id === 0 || theSchedule.id === undefined) {
                 _this.schedules.push(response);
             }
@@ -112,6 +112,22 @@ var ScheduleComponent = (function () {
             return input.toString();
         }
         return "00";
+    };
+    ScheduleComponent.prototype.updateSwitchActive = function (schedule, event) {
+        var _this = this;
+        if (!schedule.isBusy) {
+            schedule.isBusy = true;
+            this.switchService.updateScheduleActive(schedule.id, schedule.switchId, this.selectedSwitch.siteId, !schedule.active).then(function (response) {
+                for (var i = 0; i < _this.schedules.length; i++) {
+                    if (_this.schedules[i].id === response.id) {
+                        _this.schedules[i] = response;
+                        schedule.isBusy = false;
+                        break;
+                    }
+                }
+            });
+        }
+        event.stopPropagation();
     };
     ScheduleComponent.prototype.getTime = function (schedule) {
         return this.getNumberTimeString(schedule.sTime.hour) + ":" + this.getNumberTimeString(schedule.sTime.minute) + " - " + this.getNumberTimeString(schedule.eTime.hour) + ":" + this.getNumberTimeString(schedule.eTime.minute);

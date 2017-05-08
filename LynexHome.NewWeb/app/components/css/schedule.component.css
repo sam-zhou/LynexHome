@@ -1,54 +1,4 @@
-﻿.schedule-container {
-    height: 100%;
-    position: absolute;
-    width: 100%;
-    background: #ffffff;
-    z-index: 20;
-    -webkit-box-shadow: 3px 3px 19px 1px rgba(0,0,0,0.75);
-    -moz-box-shadow: 3px 3px 19px 1px rgba(0,0,0,0.75);
-    box-shadow: 3px 3px 19px 1px rgba(0,0,0,0.75);
-    
-
-}
-.schedule-close {
-    padding: 0 15px;
-    cursor: pointer;
-}
-.schedule-close:hover {
-    -ms-opacity: 0.5;
-    opacity: 0.5;
-}
-
-.schedule-header {
-    width: 100%;
-    text-align: center;
-    background: #2F7D00;
-    color: #ffffff;
-    line-height: 50px;
-    font-weight: 100;
-}
-
-.schedule-content {
-    height: calc(100% - 50px);
-}
-
-.schedule-detail {
-    height: 100%;
-    padding: 15px;
-    float: right;
-    position: relative;
-}
-
-.schedule-detail .loader {
-    margin: auto;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-}
-
-.schedule-list {
+﻿.schedule-list {
     border-right: solid #808080 1px;
     padding: 0;
     float: left;
@@ -131,10 +81,10 @@
     }
 
 .schedule-repeat-item {
-    width: 100px;
-    height: 100px;
-    border-radius: 50px;
-    -ms-border-radius: 50px;
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+    -ms-border-radius: 40px;
     margin-right: 10px;
     margin-bottom: 10px;
 }
@@ -152,9 +102,19 @@
 }
 
 .schedule-repeat-text{
-    line-height: 100px;
+    line-height: 80px;
 }
 
 #scheduleRepeatHelp {
     clear:both;
+}
+
+.schedule-back {
+    display: none;
+}
+
+@media screen and (max-width: 767px) {
+    .schedule-list.schedule-selected {
+        display: none;
+    }
 }

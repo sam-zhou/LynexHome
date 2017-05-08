@@ -47,6 +47,8 @@ namespace LynexHome.ViewModel
 
         public string SwitchId { get; set; }
 
+        public string SiteId { get; set; }
+
         public TimeViewModel STime { get; set; }
 
 

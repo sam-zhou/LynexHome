@@ -12,7 +12,10 @@ namespace LynexHome.ViewModel
     {
         public SwitchViewModel(Switch data) : base(data)
         {
-            HasSchedule = data.Schedules.Any();
+            if (data != null) {
+                HasSchedule = data.Schedules.Any();
+            }
+            
         }
 
         public string Id { get; set; }

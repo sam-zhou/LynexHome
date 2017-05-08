@@ -17,3 +17,20 @@ export class Switch extends Deserializable{
     hasSchedule: boolean;
     chipId: string;
 }
+
+
+
+export enum SwitchType {
+    Unknown = 0,
+    Normal = 1,
+    PowerMonitoring = 2,
+    TempHumMonitoring = 3,
+    SafeValtage = 4
+}
+
+
+export class Icon {
+    id: number;
+    bigImage: string;
+    smallImage: string;
+}

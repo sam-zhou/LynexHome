@@ -2,6 +2,7 @@
     <div class="loader"></div>
 </div>
 <schedule [currentSwitch]="selectedSwitch" (close)='onCloseSchedule($event)'></schedule>
+<switchsetting [currentSwitch]="selectedSetting" (close)='onCloseSetting($event)'></switchsetting>
 <div class="row site-selector" [hidden]="isBusy">
     <div class="col-md-12 home-select">
         <div ngbDropdown class="d-inline-block">
@@ -28,7 +29,7 @@
                 <div class="switch-btn" [ngClass]="{'activated': switch.hasSchedule}" (click)="switchSchedule($event, switch)"><i class="fa fa-clock-o" aria-hidden="true"></i></div>
                 <div class="switch-btn activated" (click)="switchSetting($event, switch)"><i class="fa fa-cog" aria-hidden="true"></i></div>
             </div>
-
+            <div class="switch-icon"><img [src]="switch.iconUrl"></div>
             <div class="switch-name">{{switch.name}}</div>
             <div class="switch-box-busy-wrapper" [hidden]="!switch.isBusy">
                 <div class="loader">

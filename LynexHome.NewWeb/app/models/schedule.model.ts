@@ -15,6 +15,8 @@
     switchId: string;
     sTime: ScheduleTime = new ScheduleTime();
     eTime: ScheduleTime = new ScheduleTime();
+
+    isBusy: boolean;
 }
 
 export class ScheduleTime {

@@ -16,6 +16,8 @@ namespace LynexHome.Service
     {
         List<SwitchViewModel> GetSwitches(string userId, string siteId);
 
+        List<SimplifiedSwitchModel> GetSwitchesAndSchedule(string userId, string siteId);
+
         SwitchViewModel GetSwitch(string userId, string switchId);
 
         SimplifiedSwitchModel GetSimplifiedSwitch(string userId, string switchId);
@@ -29,9 +31,12 @@ namespace LynexHome.Service
         List<ScheduleViewModel> GetSchedules(string userId, string switchId);
 
         ScheduleViewModel AddSchedule(string userId, ScheduleViewModel model);
+
+        ScheduleViewModel UpdateScheduleActive(string userId, ScheduleViewModel model);
         ScheduleViewModel UpdateSchedule(string userId, ScheduleViewModel model);
 
         void DeleteSchedule(string userId, ScheduleViewModel model);
+        SwitchViewModel UpdateSwitch(string userId, SwitchViewModel model);
     }
 
     public class SwitchService : ISwitchService
@@ -86,6 +91,27 @@ namespace LynexHome.Service
 
             throw new LynexException(string.Format("User does not have permission on Switch {0}", switchId));
 
+        }
+
+
+        public List<SimplifiedSwitchModel> GetSwitchesAndSchedule(string userId, string siteId)
+        {
+            var results = _switchRepository.GetSwitches(userId, siteId);
+
+            var output = new List<SimplifiedSwitchModel>();
+
+            foreach (var @switch in results)
+            {
+                var switchViewModel = new SimplifiedSwitchModel(@switch);
+                foreach (var schedule in @switch.Schedules)
+                {
+                    switchViewModel.ScheduleViewModels.Add(new ScheduleViewModel(schedule));
+                }
+
+                output.Add(switchViewModel);
+            }
+
+            return output;
         }
 
         public bool UpdateStatus(string userId, string switchId, bool status)
@@ -181,9 +207,40 @@ namespace LynexHome.Service
             schedule.Saturday = model.Saturday;
             schedule.Sunday = model.Sunday;
             schedule.Frequency = model.Frequency;
+            schedule.Active = true;
 
             _scheduleRepository.Add(schedule);
             _scheduleRepository.Save();
+
+            return new ScheduleViewModel(schedule);
+        }
+
+        public ScheduleViewModel UpdateScheduleActive(string userId, ScheduleViewModel model)
+        {
+            Schedule schedule = null;
+            if (model.Id != 0)
+            {
+                schedule = _scheduleRepository.Get(model.Id);
+            }
+
+            if (schedule == null)
+            {
+                throw new LynexException(string.Format("Schedule {0} does not exist", model.Id));
+            }
+
+
+            if (schedule.Switch.Site.UserId != userId)
+            {
+                throw new LynexException(string.Format("User {0} does not have permission on Schedule {1}", userId,
+                    model.Id));
+            }
+
+            schedule.Active = model.Active;
+            
+
+            _scheduleRepository.Update(schedule);
+            _scheduleRepository.Save();
+
 
             return new ScheduleViewModel(schedule);
         }
@@ -219,7 +276,9 @@ namespace LynexHome.Service
             schedule.Saturday = model.Saturday;
             schedule.Sunday = model.Sunday;
             schedule.Frequency = model.Frequency;
+            schedule.Active = true;
 
+            schedule.UpdatedDateTime = DateTime.UtcNow;
             _scheduleRepository.Update(schedule);
             _scheduleRepository.Save();
 
@@ -235,7 +294,7 @@ namespace LynexHome.Service
             {
                 schedule = _scheduleRepository.Get(model.Id);
             }
-
+            
             if (schedule == null)
             {
                 throw new LynexException(string.Format("Schedule {0} does not exist", model.Id));
@@ -253,6 +312,32 @@ namespace LynexHome.Service
             _scheduleRepository.Delete(schedule);
             _scheduleRepository.Save();
 
+        }
+
+        public SwitchViewModel UpdateSwitch(string userId, SwitchViewModel model)
+        {
+            if (model.Id == null) {
+                throw new LynexException("Switch id is null");
+            }
+
+            var @switch = _switchRepository.Get(model.Id);
+
+            if (@switch == null)
+            {
+                throw new LynexException(string.Format("Switch {0} does not exist", model.Id));
+            }
+
+            @switch.Name = model.Name;
+            @switch.Type = model.Type;
+            @switch.IconId = model.IconId;
+            @switch.ChipId = model.ChipId;
+            @switch.UpdatedDateTime = DateTime.UtcNow;
+            _switchRepository.Update(@switch);
+            _switchRepository.Save();
+
+            model = new SwitchViewModel(@switch);
+
+            return model;
         }
     }
 }
