@@ -82,7 +82,6 @@ var SwitchSettingComponent = (function () {
         this.switchSettingForm.valueChanges
             .subscribe(function (data) { return _this.onValueChanged(data); });
         this.onValueChanged(); // (re)set validation messages now
-        console.log("switchSettingForm", this.switchSettingForm);
     };
     SwitchSettingComponent.prototype.onValueChanged = function (data) {
         if (!this.switchSettingForm) {

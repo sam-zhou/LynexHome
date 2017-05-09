@@ -73,7 +73,6 @@ export class SwitchSettingComponent implements OnInit {
             .subscribe(data => this.onValueChanged(data));
 
         this.onValueChanged(); // (re)set validation messages now
-        console.log("switchSettingForm", this.switchSettingForm);
     }
 
     onValueChanged(data?: any) {

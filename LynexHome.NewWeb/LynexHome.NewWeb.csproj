@@ -359,6 +359,7 @@
     <TypeScriptCompile Include="app\components\login.component.ts" />
     <TypeScriptCompile Include="app\components\control.component.ts" />
     <TypeScriptCompile Include="app\components\schedule.component.ts" />
+    <TypeScriptCompile Include="app\extension\validators.ts" />
     <TypeScriptCompile Include="app\models\deserializable.model.ts" />
     <TypeScriptCompile Include="app\models\webconfig.model.ts" />
     <TypeScriptCompile Include="app\models\site.model.ts" />

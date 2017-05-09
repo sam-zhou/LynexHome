@@ -116,7 +116,17 @@
 .time-input-block {
     float:left;
     width:50%;
+}
 
+ngb-timepicker.ng-valid, ngb-timepicker.ng-invalid {
+    border-left: none !important;
+}
+
+
+
+.col-md-12 {
+    padding-left: 0;
+    padding-right: 0;
 }
 
 @media screen and (max-width: 767px) {
@@ -125,10 +135,7 @@
     }
 
 
-    .col-md-12 {
-        padding-left:0;
-        padding-right:0;
-    }
+    
 
     .schedule-repeat-item {
         width: 70px;

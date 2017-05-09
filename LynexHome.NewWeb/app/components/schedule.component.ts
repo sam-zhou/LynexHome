@@ -2,8 +2,9 @@ import { Component, Input, Output, EventEmitter  } from '@angular/core';
 import { SwitchService } from '../services/switch.service';
 import { Switch } from '../models/switch.model';
 import { Schedule, ScheduleFrequency } from '../models/schedule.model';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import swal from 'sweetalert2';
+import { greaterThan } from '../extension/validators';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class ScheduleComponent {
 
     scheduleForm: FormGroup;
 
-    constructor(private switchService: SwitchService) {
+    constructor(private switchService: SwitchService, private formBuilder: FormBuilder) {
     }
 
     @Output() close: EventEmitter<string> = new EventEmitter<string>();
@@ -41,16 +42,110 @@ export class ScheduleComponent {
         return this.selectedSwitch;
     }
 
+    buildForm(): void {
+        this.scheduleForm = this.formBuilder.group({
+            'name': [this.selectedSchedule.name, [
+                Validators.required,
+                Validators.maxLength(20),
+            ]
+            ],
+            'sTime': [this.selectedSchedule.sTime, [
+                Validators.required
+            ]],
+            'eTime': [this.selectedSchedule.eTime, [
+                Validators.required
+            ]],
+            'monday': [this.selectedSchedule.monday],
+            'tuesday': [this.selectedSchedule.tuesday],
+            'wednesday': [this.selectedSchedule.wednesday],
+            'thursday': [this.selectedSchedule.thursday],
+            'friday': [this.selectedSchedule.friday],
+            'saturday': [this.selectedSchedule.saturday],
+            'sunday': [this.selectedSchedule.sunday],
+        }, { Validator: greaterThan("sTime","eTime")});
+
+        //this.scheduleForm.valueChanges
+        //    .subscribe(data => this.onValueChanged(data));
+
+        //this.onValueChanged(); // (re)set validation messages now
+        //console.log(this.selectedSchedule);
+    }
+
+
+
+    onValueChanged(data?: any) {
+        if (!this.scheduleForm) { return; }
+        const form = this.scheduleForm;
+
+        for (const field in this.formErrors) {
+            // clear previous error message (if any)
+            this.formErrors[field] = '';
+
+            if (field == "form") {
+                if (!form.valid) {
+                    const messages = this.validationMessages[field];
+                    for (const key in form.errors) {
+                        this.formErrors[field] += messages[key] + ' ';
+                    }
+                }
+            } else {
+                const control = form.get(field);
+
+                if (control && control.dirty && !control.valid) {
+                    const messages = this.validationMessages[field];
+                    for (const key in control.errors) {
+                        this.formErrors[field] += messages[key] + ' ';
+                    }
+                }
+            }
+        }
+
+        if (!form.valid) {
+
+
+        }
+    }
+
+    formErrors = {
+        name: '',
+        form:'',
+        sTime: '',
+        eTime: ''
+    };
+
+    validationMessages = {
+        'name': {
+            'required': 'Schedule title is required.',
+            'maxlength': 'Schedule title cannot be more than 30 characters long.',
+        },
+        'sTime': {
+            'required': 'You\'ll need to set up a start time',
+        },
+        'eTime': {
+            'required': 'You\'ll need to set up an end time',
+            
+        },
+        'form': {
+            'notGreateThan': 'End time must greater than start time',
+        }
+    };
+
+    toggleRepeat(date: string) {
+     
+        let oringal: boolean = this.scheduleForm.controls[date].value
+        this.scheduleForm.controls[date].setValue(!oringal);
+    }
+
     private init(): void {
         this.switchService.getSchedules(this.selectedSwitch.id).then(response => {
             this.schedules = response;
-            console.log(this.schedules);
+            
         });
     }
 
     selectSchedule(schedule: Schedule): void {
         this.selectedSchedule = Object.assign({}, schedule);
-        console.log(this.selectedSchedule);
+        this.buildForm();
     }
 
     closeDialog(): void {
@@ -62,14 +157,27 @@ export class ScheduleComponent {
     addNew(): void {
         this.selectedSchedule = new Schedule();
         this.selectedSchedule.switchId = this.currentSwitch.id;
+        this.buildForm();
     }
 
-    save(theSchedule: Schedule): void {
+    save(): void {
 
         this.isBusy = true;
 
-        this.switchService.updateSchedule(theSchedule, this.selectedSwitch.siteId).then(response => {
-            if (theSchedule.id === 0 || theSchedule.id === undefined) {
+        this.selectedSchedule.name = this.scheduleForm.controls["name"].value;
+        this.selectedSchedule.sTime = (this.scheduleForm.controls["time"] as FormGroup).controls["sTime"].value;
+        this.selectedSchedule.eTime = (this.scheduleForm.controls["time"] as FormGroup).controls["eTime"].value;
+        this.selectedSchedule.monday = this.scheduleForm.controls["monday"].value;
+        this.selectedSchedule.tuesday = this.scheduleForm.controls["tuesday"].value;
+        this.selectedSchedule.wednesday = this.scheduleForm.controls["wednesday"].value;
+        this.selectedSchedule.thursday = this.scheduleForm.controls["thursday"].value;
+        this.selectedSchedule.friday = this.scheduleForm.controls["friday"].value;
+        this.selectedSchedule.saturday = this.scheduleForm.controls["saturday"].value;
+        this.selectedSchedule.sunday = this.scheduleForm.controls["sunday"].value;
+
+
+        this.switchService.updateSchedule(this.selectedSchedule, this.selectedSwitch.siteId).then(response => {
+            if (this.selectedSchedule.id === 0 || this.selectedSchedule.id === undefined) {
                 this.schedules.push(response);
                 
             } else {
@@ -84,7 +192,7 @@ export class ScheduleComponent {
         });
     }
 
-    delete(theSchedule: Schedule): void {
+    delete(): void {
         swal({
             title: 'Are you sure?',
             text: 'You will not be able to recover this schedule!',
@@ -93,13 +201,13 @@ export class ScheduleComponent {
             confirmButtonText: 'Yes, delete it!',
             cancelButtonText: 'No, keep it'
         }).then(() => {
-                console.log("delete", theSchedule);
-                if (theSchedule.id !== 0 && theSchedule.id !== undefined) {
+            console.log("delete", this.selectedSchedule);
+            if (this.selectedSchedule.id !== 0 && this.selectedSchedule.id !== undefined) {
                     this.isBusy = true;
-                    this.switchService.deleteSchedule(theSchedule).then(response => {
+                    this.switchService.deleteSchedule(this.selectedSchedule).then(response => {
 
                         for (let i = 0; i < this.schedules.length; i++) {
-                            if (this.schedules[i].id === theSchedule.id) {
+                            if (this.schedules[i].id === this.selectedSchedule.id) {
                                 this.schedules.splice(i, 1);
                                 this.isBusy = false;
                                 break;
@@ -150,42 +258,37 @@ export class ScheduleComponent {
         return this.getNumberTimeString(schedule.sTime.hour) + ":" + this.getNumberTimeString(schedule.sTime.minute) + " - " + this.getNumberTimeString(schedule.eTime.hour) + ":" + this.getNumberTimeString(schedule.eTime.minute);
     }
 
-    getDay(schedule: Schedule): string {
+    getDay(): string {
+        if (this.scheduleForm && this.scheduleForm !== null && this.scheduleForm.controls) {
+            
+            let monday = this.scheduleForm.controls["monday"].value;
+            let tuesday = this.scheduleForm.controls["tuesday"].value;
+            let wednesday = this.scheduleForm.controls["wednesday"].value;
+            let thursday = this.scheduleForm.controls["thursday"].value;
+            let friday = this.scheduleForm.controls["friday"].value;
+            let saturday = this.scheduleForm.controls["saturday"].value;
+            let sunday = this.scheduleForm.controls["sunday"].value;
 
-        switch (schedule.frequency) {
-            case ScheduleFrequency.Once:
+            if (!monday && !tuesday && !wednesday && !thursday && !friday && !saturday && !sunday) {
                 return "Once";
-            case ScheduleFrequency.Daily:
+            }
+
+            if (monday && tuesday && wednesday && thursday && friday && saturday && sunday) {
                 return "Everyday";
-            case ScheduleFrequency.Workdays:
-                return "Workdays";
-            case ScheduleFrequency.Weekends:
+            }
+
+            if (monday && tuesday && wednesday && thursday && friday && !saturday && !sunday) {
+                return "Weekdays";
+            }
+
+            if (!monday && !tuesday && !wednesday && !thursday && !friday && saturday && sunday) {
                 return "Weekends";
-            case ScheduleFrequency.Weekly:
-                let output = "";
-                if (schedule.monday) {
-                    output += ",Mon";
-                }
-                if (schedule.tuesday) {
-                    output += ",Tue";
-                }
-                if (schedule.wednesday) {
-                    output += ",Wed";
-                }
-                if (schedule.thursday) {
-                    output += ",Thu";
-                }
-                if (schedule.friday) {
-                    output += ",Fri";
-                }
-                if (schedule.saturday) {
-                    output += ",Sat";
-                }
-                if (schedule.sunday) {
-                    output += ",Sun";
-                }
-                return output.substring(1);
+            }
+
+            return "Weekly";
         }
-        return "Unknown";
+        
+        return "";
+        
     }
 }

@@ -9,6 +9,6 @@
     }
 
     .ngb-tp-spacer {
-        width: auto;
+        width: auto !important;
     }
 }

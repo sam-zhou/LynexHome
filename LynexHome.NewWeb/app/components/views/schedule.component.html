@@ -12,7 +12,7 @@
         <div class="col-md-12 dialog-detail" *ngIf="!schedules || isBusy">
             <div class="loader"></div>
         </div>
-        <div class="col-md-4 schedule-list" *ngIf="schedules && !isBusy" [ngClass]="{'schedule-selected':selectedSchedule }">
+        <div class="col-md-4 schedule-list" *ngIf="schedules && !isBusy" [ngClass]="{'schedule-selected': selectedSchedule }">
             <ul>
                 <li *ngFor="let schedule of schedules" [ngClass]="{'active':selectedSchedule && schedule.id === selectedSchedule.id}" (click)="selectSchedule(schedule)" class="schedule-item">
                     <div class="schedule-name">{{schedule.name}}</div>
@@ -34,55 +34,69 @@
         </div>
         <div class="col-md-8 dialog-detail" *ngIf="schedules && !isBusy">
             <div *ngIf="selectedSchedule">
-                <form  [formGroup]="scheduleForm" (ngSubmit)="save()"></form>
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="scheduleTitle">SCHEDULE TITLE</label>
-                        <input type="text" [(ngModel)]="selectedSchedule.name" class="form-control" id="scheduleTitle" aria-describedby="scheduleTitleHelp" placeholder="Enter Schedule Title">
-
-                    </div>
-                </div>
-                
-
-                <div class="time-input-block">
-                    <div class="form-group">
-                        <label for="scheduleTitle">START TIME</label>
-                        <ngb-timepicker [(ngModel)]="selectedSchedule.sTime"></ngb-timepicker>
-
-                    </div>
-                </div>
-
-                <div class="time-input-block">
-                    <div class="form-group">
-                        <label for="scheduleTitle">END TIME</label>
-                        <ngb-timepicker [(ngModel)]="selectedSchedule.eTime"></ngb-timepicker>
-
-                    </div>
-                </div>
-                
-                <div class="col-md-12 schedule-repeat-row">
-                    <div class="form-group">
-                        <label for="scheduleTitle">REPEAT</label>
-                        <div class="schedule-repeat-container">
-                            <div class="schedule-repeat-item" [ngClass]="{'active':selectedSchedule.monday}" (click)="selectedSchedule.monday=!selectedSchedule.monday"><span class="schedule-repeat-text">MON</span></div>
-                            <div class="schedule-repeat-item" [ngClass]="{'active':selectedSchedule.tuesday}" (click)="selectedSchedule.tuesday=!selectedSchedule.tuesday"><span class="schedule-repeat-text">TUE</span></div>
-                            <div class="schedule-repeat-item" [ngClass]="{'active':selectedSchedule.wednesday}" (click)="selectedSchedule.wednesday=!selectedSchedule.wednesday"><span class="schedule-repeat-text">WED</span></div>
-                            <div class="schedule-repeat-item" [ngClass]="{'active':selectedSchedule.thursday}" (click)="selectedSchedule.thursday=!selectedSchedule.thursday"><span class="schedule-repeat-text">THU</span></div>
-                            <div class="schedule-repeat-item" [ngClass]="{'active':selectedSchedule.friday}" (click)="selectedSchedule.friday=!selectedSchedule.friday"><span class="schedule-repeat-text">FRI</span></div>
+                <form [formGroup]="scheduleForm" (ngSubmit)="scheduleForm.valid && save()" novalidate>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="scheduleTitle">SCHEDULE TITLE</label>
+                            <input type="text" required formControlName="name" class="form-control" id="scheduleTitle" aria-describedby="scheduleTitleHelp" placeholder="Enter Schedule Title">
                             
+                            <div class="alert alert-danger" *ngIf="scheduleForm.controls.name.touched && scheduleForm.controls.name.hasError('required')">
+                                Schedule title is required
+                            </div>
                         </div>
-                        <div class="schedule-repeat-container">
-
-                            <div class="schedule-repeat-item" [ngClass]="{'active':selectedSchedule.saturday}" (click)="selectedSchedule.saturday=!selectedSchedule.saturday"><span class="schedule-repeat-text">SAT</span></div>
-                            <div class="schedule-repeat-item" [ngClass]="{'active':selectedSchedule.sunday}" (click)="selectedSchedule.sunday=!selectedSchedule.sunday"><span class="schedule-repeat-text">SUN</span></div>
-                        </div>
-                        <small id="scheduleRepeatHelp" class="form-text text-muted">Your repeat preference: {{getDay(selectedSchedule)}}</small>
                     </div>
-                </div>
-                <div class="col-md-12">
-                    <span class="btn btn-default pull-right" (click)="save(selectedSchedule)"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;SAVE</span>
-                    <span class="btn btn-danger pull-left" (click)="delete(selectedSchedule)"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;DELETE</span>
-                </div>
+
+
+                        <div class="time-input-block">
+                            <div class="form-group">
+                                <label for="scheduleTitle">START TIME</label>
+                                <ngb-timepicker required formControlName="sTime"></ngb-timepicker>
+                                <div class="alert alert-danger" *ngIf="scheduleForm.controls.sTime.touched && scheduleForm.controls.sTime.hasError('required')">
+                                    Start time is required
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="time-input-block">
+                            <div class="form-group">
+                                <label for="scheduleTitle">END TIME</label>
+                                <ngb-timepicker required formControlName="eTime"></ngb-timepicker>
+                                <div class="alert alert-danger" *ngIf="scheduleForm.controls.eTime.touched && scheduleForm.controls.eTime.hasError('required')">
+                                    End time is required
+                                    
+                                </div>
+                                <div class="alert alert-danger" *ngIf="scheduleForm.controls.eTime.touched && scheduleForm.controls.eTime.hasError('greaterThan')">
+                                    End time must greater than start time
+                                </div>
+                            </div>
+                        </div>
+
+                    
+
+                    <div class="col-md-12 schedule-repeat-row">
+                        <div class="form-group">
+                            <label for="scheduleTitle">REPEAT</label>
+                            <div class="schedule-repeat-container">
+                                <div class="schedule-repeat-item" [ngClass]="{'active':scheduleForm.controls.monday.value}" (click)="toggleRepeat('monday')"><span class="schedule-repeat-text">MON</span></div>
+                                <div class="schedule-repeat-item" [ngClass]="{'active':scheduleForm.controls.tuesday.value}" (click)="toggleRepeat('tuesday')"><span class="schedule-repeat-text">TUE</span></div>
+                                <div class="schedule-repeat-item" [ngClass]="{'active':scheduleForm.controls.wednesday.value}" (click)="toggleRepeat('wednesday')"><span class="schedule-repeat-text">WED</span></div>
+                                <div class="schedule-repeat-item" [ngClass]="{'active':scheduleForm.controls.thursday.value}" (click)="toggleRepeat('thursday')"><span class="schedule-repeat-text">THU</span></div>
+                                <div class="schedule-repeat-item" [ngClass]="{'active':scheduleForm.controls.friday.value}" (click)="toggleRepeat('friday')"><span class="schedule-repeat-text">FRI</span></div>
+
+                            </div>
+                            <div class="schedule-repeat-container">
+
+                                <div class="schedule-repeat-item" [ngClass]="{'active':scheduleForm.controls.saturday.value}" (click)="toggleRepeat('saturday')"><span class="schedule-repeat-text">SAT</span></div>
+                                <div class="schedule-repeat-item" [ngClass]="{'active':scheduleForm.controls.sunday.value}" (click)="toggleRepeat('sunday')"><span class="schedule-repeat-text">SUN</span></div>
+                            </div>
+                            <small id="scheduleRepeatHelp" class="form-text text-muted">Your repeat preference: {{getDay()}}</small>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-default pull-right" [disabled]="!scheduleForm.valid" ><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;SAVE</button>
+                        <button type="button" class="btn btn-danger pull-left" (click)="delete()"><i class="fa fa-trash-o" aria-hidden="true"></i>&nbsp;DELETE</button>
+                    </div>
+                </form>
             </div>
             <div *ngIf="!selectedSchedule">
                 <div>SELECT SCHEDULE TO EDIT</div>
