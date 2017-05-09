@@ -20,8 +20,8 @@
     }
 
     .switch-box.not-live {
-        -ms-opacity:0.8;
-        opacity:0.8;
+        -ms-opacity:0.5;
+        opacity:0.5;
         cursor: not-allowed;
     }
 

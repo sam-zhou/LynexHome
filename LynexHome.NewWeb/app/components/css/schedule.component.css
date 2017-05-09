@@ -113,8 +113,34 @@
     display: none;
 }
 
+.time-input-block {
+    float:left;
+    width:50%;
+
+}
+
 @media screen and (max-width: 767px) {
     .schedule-list.schedule-selected {
         display: none;
     }
+
+
+    .col-md-12 {
+        padding-left:0;
+        padding-right:0;
+    }
+
+    .schedule-repeat-item {
+        width: 70px;
+        height: 70px;
+        border-radius: 35px;
+        -ms-border-radius: 35px;
+        margin-right: 5px;
+        margin-bottom: 5px;
+    }
+
+    .schedule-repeat-text {
+        line-height: 70px;
+    }
+
 }

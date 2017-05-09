@@ -12,6 +12,7 @@
 
 @media screen and (max-width: 991px) {
     .main-container {
-        height: calc(100% - 100px);
+        height: calc(100% - 50px);
+        bottom: 0;
     }
 }

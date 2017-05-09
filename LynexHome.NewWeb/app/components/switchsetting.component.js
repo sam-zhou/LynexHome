@@ -11,12 +11,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var switch_service_1 = require("../services/switch.service");
 var switch_model_1 = require("../models/switch.model");
+var forms_1 = require("@angular/forms");
 var SwitchSettingComponent = (function () {
-    function SwitchSettingComponent(switchService) {
+    function SwitchSettingComponent(switchService, formBuilder) {
         this.switchService = switchService;
+        this.formBuilder = formBuilder;
         this.isBusy = false;
+        this.isDirty = false;
         this.icons = [];
         this.close = new core_1.EventEmitter();
+        this.formErrors = {
+            'name': '',
+            'type': '',
+            'iconId': '',
+            'chipId': ''
+        };
+        this.validationMessages = {
+            'name': {
+                'required': 'Name is required.',
+                'maxlength': 'Name cannot be more than 20 characters long.',
+            },
+            'chipId': {
+                'required': 'ChipId is required.',
+                'minlength': 'ChipId must be at least 10 characters long.',
+                'maxlength': 'ChipId cannot be more than 12 characters long.',
+            }
+        };
         for (var i = 1; i <= 40; i++) {
             var icon = new switch_model_1.Icon();
             icon.id = i;
@@ -31,19 +51,60 @@ var SwitchSettingComponent = (function () {
         },
         set: function (theSwitch) {
             this.selectedSwitch = theSwitch;
-            if (theSwitch == null) {
-                this.updatingSwitch = null;
-            }
-            else {
-                this.updatingSwitch = Object.assign({}, this.selectedSwitch);
-            }
-            this.isBusy = false;
             this.ngOnInit();
+            this.isBusy = false;
+            this.isDirty = false;
         },
         enumerable: true,
         configurable: true
     });
+    SwitchSettingComponent.prototype.setIcon = function (iconId) {
+        this.switchSettingForm.patchValue({
+            iconId: iconId
+        });
+    };
+    SwitchSettingComponent.prototype.buildForm = function () {
+        var _this = this;
+        this.switchSettingForm = this.formBuilder.group({
+            'name': [this.selectedSwitch.name, [
+                    forms_1.Validators.required,
+                    forms_1.Validators.maxLength(20),
+                ]
+            ],
+            'type': [this.selectedSwitch.type],
+            'iconId': [this.selectedSwitch.iconId],
+            'chipId': [this.selectedSwitch.chipId, [
+                    forms_1.Validators.required,
+                    forms_1.Validators.minLength(10),
+                    forms_1.Validators.maxLength(12),
+                ]],
+        });
+        this.switchSettingForm.valueChanges
+            .subscribe(function (data) { return _this.onValueChanged(data); });
+        this.onValueChanged(); // (re)set validation messages now
+        console.log("switchSettingForm", this.switchSettingForm);
+    };
+    SwitchSettingComponent.prototype.onValueChanged = function (data) {
+        if (!this.switchSettingForm) {
+            return;
+        }
+        var form = this.switchSettingForm;
+        for (var field in this.formErrors) {
+            // clear previous error message (if any)
+            this.formErrors[field] = '';
+            var control = form.get(field);
+            if (control && control.dirty && !control.valid) {
+                var messages = this.validationMessages[field];
+                for (var key in control.errors) {
+                    this.formErrors[field] += messages[key] + ' ';
+                }
+            }
+        }
+    };
     SwitchSettingComponent.prototype.ngOnInit = function () {
+        if (this.selectedSwitch) {
+            this.buildForm();
+        }
     };
     SwitchSettingComponent.prototype.closeDialog = function () {
         this.close.emit('closed');
@@ -51,8 +112,11 @@ var SwitchSettingComponent = (function () {
     SwitchSettingComponent.prototype.save = function () {
         var _this = this;
         this.isBusy = true;
-        this.switchService.updateSwitch(this.updatingSwitch).then(function (result) {
-            _this.updatingSwitch = result;
+        this.selectedSwitch.name = this.switchSettingForm.controls["name"].value;
+        this.selectedSwitch.type = this.switchSettingForm.controls["type"].value;
+        this.selectedSwitch.iconId = this.switchSettingForm.controls["iconId"].value;
+        this.selectedSwitch.chipId = this.switchSettingForm.controls["chipId"].value;
+        this.switchService.updateSwitch(this.selectedSwitch).then(function (result) {
             _this.currentSwitch = result;
             _this.close.emit('saved');
         });
@@ -75,7 +139,7 @@ SwitchSettingComponent = __decorate([
         styleUrls: ['css/switchsetting.component.css'],
         moduleId: module.id
     }),
-    __metadata("design:paramtypes", [switch_service_1.SwitchService])
+    __metadata("design:paramtypes", [switch_service_1.SwitchService, forms_1.FormBuilder])
 ], SwitchSettingComponent);
 exports.SwitchSettingComponent = SwitchSettingComponent;
 //# sourceMappingURL=switchsetting.component.js.map

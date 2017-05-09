@@ -2,4 +2,13 @@
     .dialog-back.back-button {
         display: inline;
     }
+
+    .time-input-block input {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .ngb-tp-spacer {
+        width: auto;
+    }
 }

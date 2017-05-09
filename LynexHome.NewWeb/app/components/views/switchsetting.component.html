@@ -11,52 +11,64 @@
                 <div class="loader"></div>
             </div>
             <div class="col-md-12 dialog-detail" *ngIf="!isBusy">
-                <div class="form-group">
-                    <label for="scheduleTitle">SWTICH NAME</label>
-                    <input type="text" [(ngModel)]="updatingSwitch.name" class="form-control" id="switchName" aria-describedby="switchNameHelp" placeholder="Enter Switch Name">
-                    <small id="switchNameHelp" class="form-text text-muted">Please set a name for the switch</small>
-                </div>
+                <form  [formGroup]="switchSettingForm" (ngSubmit)="save()">
 
-
-                <div class="form-group">
-                    <label for="scheduleTitle">SWITCH TYPE</label>
-                    <div ngbRadioGroup name="radioBasic" [(ngModel)]="updatingSwitch.type" class="switch-type-btns">
-                        <label class="btn btn-default switch-type-btn">
-                            <input type="radio" [value]="1"> NORMAL
-                        </label>
-                        <label class="btn btn-default switch-type-btn">
-                            <input type="radio" [value]="2"> Pow
-                        </label>
-                        <label class="btn btn-default switch-type-btn">
-                            <input type="radio" [value]="3"> TH
-                        </label>
-                        <label class="btn btn-default switch-type-btn">
-                            <input type="radio" [value]="4"> SV
-                        </label>
-                    </div>
-                    <small id="switchNameHelp" class="form-text text-muted">Select the type of your switch</small>
-                </div>
-
-
-
-                <div class="form-group">
-                    <label for="scheduleTitle">Icon</label>
-                    <div class="switch-setting-icon-container">
-                        <div *ngFor="let icon of icons" class="switch-setting-icon" [ngClass]="{'selected-icon':updatingSwitch.iconId == icon.id}" (click)="updatingSwitch.iconId = icon.id">
-                            <img [src]="icon.smallImage" />
+                    <div class="form-group">
+                        <label for="scheduleTitle">SWTICH NAME</label>
+                        <input type="text" required formControlName="name" class="form-control" id="switchName" aria-describedby="switchNameHelp" placeholder="Enter Switch Name">
+                        <small id="switchNameHelp" class="form-text text-muted">Please set a name for the switch</small>
+                        <div *ngIf="formErrors.name" class="alert alert-danger">
+                            {{ formErrors.name }}
                         </div>
                     </div>
 
 
-                    <small id="switchNameHelp" class="form-text text-muted">Select the icon for your switch</small>
-                </div>
+                    <div class="form-group">
+                        <label for="scheduleTitle">SWITCH TYPE</label>
+                        <div ngbRadioGroup name="radioBasic" formControlName="type" class="switch-type-btns" >
+                            <label class="btn btn-default switch-type-btn">
+                                <input type="radio" [value]="1"> NORMAL
+                            </label>
+                            <label class="btn btn-default switch-type-btn">
+                                <input type="radio" [value]="2"> Pow
+                            </label>
+                            <label class="btn btn-default switch-type-btn">
+                                <input type="radio" [value]="3"> TH
+                            </label>
+                            <label class="btn btn-default switch-type-btn">
+                                <input type="radio" [value]="4"> SV
+                            </label>
+                        </div>
+                        <small id="switchNameHelp" class="form-text text-muted">Select the type of your switch</small>
+                    </div>
 
-                <div class="form-group">
-                    <label for="scheduleTitle">Chip Id</label>
-                    <input type="text" [(ngModel)]="updatingSwitch.chipId" class="form-control" id="switchChipId" aria-describedby="switchChipIdHelp" placeholder="Enter Chip Id">
-                    <small id="switchChipIdHelp" class="form-text text-danger">The chip identity of the switch, do not change this value if you don't know what are you doing</small>
-                </div>
-                <span class="btn btn-default pull-right" (click)="save()"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;SAVE</span>
+
+
+                    <div class="form-group">
+                        <label for="scheduleTitle">Icon</label>
+                        <div class="switch-setting-icon-container">
+                            <div *ngFor="let icon of icons" class="switch-setting-icon" [ngClass]="{'selected-icon':switchSettingForm.controls.iconId.value == icon.id}" (click)="setIcon(icon.id)">
+                                <img [src]="icon.smallImage" />
+                            </div>
+                        </div>
+                        <input type="hidden" required formControlName="iconId" class="form-control" id="switchIcon" aria-describedby="switchIconHelp">
+
+                        <small id="switchIconHelp" class="form-text text-muted">Select the icon for your switch</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="scheduleTitle">Chip Id</label>
+                        <input type="text" required formControlName="chipId" class="form-control" id="switchChipId" aria-describedby="switchChipIdHelp" placeholder="Enter Chip Id">
+                        <small id="switchChipIdHelp" class="form-text text-danger">Chip Id is identity of a switch, do not change this value if you don't know what are you doing</small>
+                        <div *ngIf="formErrors.chipId" class="alert alert-danger">
+                            {{ formErrors.chipId }}
+                        </div>
+                    </div>
+                    <button type="submit" [disabled]="!switchSettingForm.valid" class="btn btn-default pull-right"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;SAVE</button>
+
+
+                </form>
+                
             </div>
             
         </div>

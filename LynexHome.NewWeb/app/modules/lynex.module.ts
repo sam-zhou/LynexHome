@@ -2,7 +2,7 @@ import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule, FormBuilder } from '@angular/forms';
+import { FormsModule, FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { DndModule } from 'ng2-dnd';
 import { LynexRoutingModule } from './lynex.routing.module';
 import { MomentModule } from 'angular2-moment';
@@ -25,7 +25,7 @@ import { WebConfig } from '../models/webconfig.model';
 
 
 @NgModule({
-    imports: [BrowserModule, NgbModule.forRoot(), HttpModule, FormsModule, LynexRoutingModule, DndModule.forRoot(), MomentModule],
+    imports: [BrowserModule, NgbModule.forRoot(), HttpModule, FormsModule, LynexRoutingModule, DndModule.forRoot(), MomentModule, ReactiveFormsModule],
     declarations: [LynexComponent, DialogComponent, NavigationComponent, LoginComponent, FooterComponent, ControlComponent, ScheduleComponent, SwitchSettingComponent],
     providers: [ApiService, SwitchService, UserService, SiteService, SettingsService, FormBuilder],
     bootstrap: [LynexComponent]

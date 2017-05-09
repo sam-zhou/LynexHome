@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter  } from '@angular/core';
 import { SwitchService } from '../services/switch.service';
 import { Switch } from '../models/switch.model';
 import { Schedule, ScheduleFrequency } from '../models/schedule.model';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import swal from 'sweetalert2';
 
 
@@ -20,6 +21,8 @@ export class ScheduleComponent {
     schedules: Schedule[] = null;
 
     isBusy: boolean = false;
+
+    scheduleForm: FormGroup;
 
     constructor(private switchService: SwitchService) {
     }

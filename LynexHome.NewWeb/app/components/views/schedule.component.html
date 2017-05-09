@@ -34,6 +34,7 @@
         </div>
         <div class="col-md-8 dialog-detail" *ngIf="schedules && !isBusy">
             <div *ngIf="selectedSchedule">
+                <form  [formGroup]="scheduleForm" (ngSubmit)="save()"></form>
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="scheduleTitle">SCHEDULE TITLE</label>
@@ -43,7 +44,7 @@
                 </div>
                 
 
-                <div class="pull-left col-md-6">
+                <div class="time-input-block">
                     <div class="form-group">
                         <label for="scheduleTitle">START TIME</label>
                         <ngb-timepicker [(ngModel)]="selectedSchedule.sTime"></ngb-timepicker>
@@ -51,7 +52,7 @@
                     </div>
                 </div>
 
-                <div class="pull-left col-md-6">
+                <div class="time-input-block">
                     <div class="form-group">
                         <label for="scheduleTitle">END TIME</label>
                         <ngb-timepicker [(ngModel)]="selectedSchedule.eTime"></ngb-timepicker>
