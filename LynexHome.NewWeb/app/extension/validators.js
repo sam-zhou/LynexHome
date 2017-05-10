@@ -1,11 +1,11 @@
 "use strict";
-function greaterThan(firstControlName, secondControlName) {
+function greaterThan() {
     return function (group) {
         console.log("checking");
-        var sH = group.controls[firstControlName].value.hour;
-        var sM = group.controls[firstControlName].value.minute;
-        var eH = group.controls[secondControlName].value.hour;
-        var eM = group.controls[secondControlName].value.minute;
+        var sH = group.get("sTime").value.hour;
+        var sM = group.get("sTime").value.minute;
+        var eH = group.get("eTime").value.hour;
+        var eM = group.get("eTime").value.minute;
         if (eH < sH || (eH == sH && eM <= sM)) {
             console.log("failed");
             return {

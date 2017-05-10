@@ -14,7 +14,6 @@ var switch_model_1 = require("../models/switch.model");
 var schedule_model_1 = require("../models/schedule.model");
 var forms_1 = require("@angular/forms");
 var sweetalert2_1 = require("sweetalert2");
-var validators_1 = require("../extension/validators");
 var ScheduleComponent = (function () {
     function ScheduleComponent(switchService, formBuilder) {
         this.switchService = switchService;
@@ -24,27 +23,6 @@ var ScheduleComponent = (function () {
         this.schedules = null;
         this.isBusy = false;
         this.close = new core_1.EventEmitter();
-        this.formErrors = {
-            name: '',
-            form: '',
-            sTime: '',
-            eTime: ''
-        };
-        this.validationMessages = {
-            'name': {
-                'required': 'Schedule title is required.',
-                'maxlength': 'Schedule title cannot be more than 30 characters long.',
-            },
-            'sTime': {
-                'required': 'You\'ll need to set up a start time',
-            },
-            'eTime': {
-                'required': 'You\'ll need to set up an end time',
-            },
-            'form': {
-                'notGreateThan': 'End time must greater than start time',
-            }
-        };
     }
     Object.defineProperty(ScheduleComponent.prototype, "currentSwitch", {
         get: function () {
@@ -70,7 +48,8 @@ var ScheduleComponent = (function () {
                     forms_1.Validators.required
                 ]],
             'eTime': [this.selectedSchedule.eTime, [
-                    forms_1.Validators.required
+                    forms_1.Validators.required,
+                    this.greaterThan
                 ]],
             'monday': [this.selectedSchedule.monday],
             'tuesday': [this.selectedSchedule.tuesday],
@@ -79,40 +58,27 @@ var ScheduleComponent = (function () {
             'friday': [this.selectedSchedule.friday],
             'saturday': [this.selectedSchedule.saturday],
             'sunday': [this.selectedSchedule.sunday],
-        }, { Validator: validators_1.greaterThan("sTime", "eTime") });
+        });
         //this.scheduleForm.valueChanges
         //    .subscribe(data => this.onValueChanged(data));
         //this.onValueChanged(); // (re)set validation messages now
         //console.log(this.selectedSchedule);
     };
-    ScheduleComponent.prototype.onValueChanged = function (data) {
-        if (!this.scheduleForm) {
-            return;
-        }
-        var form = this.scheduleForm;
-        for (var field in this.formErrors) {
-            // clear previous error message (if any)
-            this.formErrors[field] = '';
-            if (field == "form") {
-                if (!form.valid) {
-                    var messages = this.validationMessages[field];
-                    for (var key in form.errors) {
-                        this.formErrors[field] += messages[key] + ' ';
-                    }
-                }
-            }
-            else {
-                var control = form.get(field);
-                if (control && control.dirty && !control.valid) {
-                    var messages = this.validationMessages[field];
-                    for (var key in control.errors) {
-                        this.formErrors[field] += messages[key] + ' ';
-                    }
+    ScheduleComponent.prototype.greaterThan = function (control) {
+        if (control && control.parent) {
+            if (control.value && control.parent.get("sTime").value) {
+                var sH = control.parent.get("sTime").value.hour;
+                var sM = control.parent.get("sTime").value.minute;
+                var eH = control.value.hour;
+                var eM = control.value.minute;
+                if (eH < sH || (eH == sH && eM <= sM)) {
+                    return {
+                        greaterThan: true
+                    };
                 }
             }
         }
-        if (!form.valid) {
-        }
+        return null;
     };
     ScheduleComponent.prototype.toggleRepeat = function (date) {
         var oringal = this.scheduleForm.controls[date].value;
@@ -140,31 +106,33 @@ var ScheduleComponent = (function () {
     };
     ScheduleComponent.prototype.save = function () {
         var _this = this;
-        this.isBusy = true;
-        this.selectedSchedule.name = this.scheduleForm.controls["name"].value;
-        this.selectedSchedule.sTime = this.scheduleForm.controls["time"].controls["sTime"].value;
-        this.selectedSchedule.eTime = this.scheduleForm.controls["time"].controls["eTime"].value;
-        this.selectedSchedule.monday = this.scheduleForm.controls["monday"].value;
-        this.selectedSchedule.tuesday = this.scheduleForm.controls["tuesday"].value;
-        this.selectedSchedule.wednesday = this.scheduleForm.controls["wednesday"].value;
-        this.selectedSchedule.thursday = this.scheduleForm.controls["thursday"].value;
-        this.selectedSchedule.friday = this.scheduleForm.controls["friday"].value;
-        this.selectedSchedule.saturday = this.scheduleForm.controls["saturday"].value;
-        this.selectedSchedule.sunday = this.scheduleForm.controls["sunday"].value;
-        this.switchService.updateSchedule(this.selectedSchedule, this.selectedSwitch.siteId).then(function (response) {
-            if (_this.selectedSchedule.id === 0 || _this.selectedSchedule.id === undefined) {
-                _this.schedules.push(response);
-            }
-            else {
-                for (var i = 0; i < _this.schedules.length; i++) {
-                    if (_this.schedules[i].id === response.id) {
-                        _this.schedules[i] = response;
-                        break;
+        if (this.scheduleForm.valid) {
+            this.isBusy = true;
+            this.selectedSchedule.name = this.scheduleForm.get("name").value;
+            this.selectedSchedule.sTime = this.scheduleForm.get("sTime").value;
+            this.selectedSchedule.eTime = this.scheduleForm.get("eTime").value;
+            this.selectedSchedule.monday = this.scheduleForm.get("monday").value;
+            this.selectedSchedule.tuesday = this.scheduleForm.get("tuesday").value;
+            this.selectedSchedule.wednesday = this.scheduleForm.get("wednesday").value;
+            this.selectedSchedule.thursday = this.scheduleForm.get("thursday").value;
+            this.selectedSchedule.friday = this.scheduleForm.get("friday").value;
+            this.selectedSchedule.saturday = this.scheduleForm.get("saturday").value;
+            this.selectedSchedule.sunday = this.scheduleForm.get("sunday").value;
+            this.switchService.updateSchedule(this.selectedSchedule, this.selectedSwitch.siteId).then(function (response) {
+                if (_this.selectedSchedule.id === 0 || _this.selectedSchedule.id === undefined) {
+                    _this.schedules.push(response);
+                }
+                else {
+                    for (var i = 0; i < _this.schedules.length; i++) {
+                        if (_this.schedules[i].id === response.id) {
+                            _this.schedules[i] = response;
+                            break;
+                        }
                     }
                 }
-            }
-            _this.isBusy = false;
-        });
+                _this.isBusy = false;
+            });
+        }
     };
     ScheduleComponent.prototype.delete = function () {
         var _this = this;
@@ -225,7 +193,25 @@ var ScheduleComponent = (function () {
     ScheduleComponent.prototype.getTime = function (schedule) {
         return this.getNumberTimeString(schedule.sTime.hour) + ":" + this.getNumberTimeString(schedule.sTime.minute) + " - " + this.getNumberTimeString(schedule.eTime.hour) + ":" + this.getNumberTimeString(schedule.eTime.minute);
     };
-    ScheduleComponent.prototype.getDay = function () {
+    ScheduleComponent.prototype.getDayFromBoolean = function (monday, tuesday, wednesday, thursday, friday, saturday, sunday) {
+        if (!monday && !tuesday && !wednesday && !thursday && !friday && !saturday && !sunday) {
+            return "Once";
+        }
+        if (monday && tuesday && wednesday && thursday && friday && saturday && sunday) {
+            return "Everyday";
+        }
+        if (monday && tuesday && wednesday && thursday && friday && !saturday && !sunday) {
+            return "Weekdays";
+        }
+        if (!monday && !tuesday && !wednesday && !thursday && !friday && saturday && sunday) {
+            return "Weekends";
+        }
+        return "Weekly";
+    };
+    ScheduleComponent.prototype.getDayFromSchedule = function (schedule) {
+        return this.getDayFromBoolean(schedule.monday, schedule.tuesday, schedule.wednesday, schedule.thursday, schedule.friday, schedule.saturday, schedule.sunday);
+    };
+    ScheduleComponent.prototype.getDayFromForm = function () {
         if (this.scheduleForm && this.scheduleForm !== null && this.scheduleForm.controls) {
             var monday = this.scheduleForm.controls["monday"].value;
             var tuesday = this.scheduleForm.controls["tuesday"].value;
@@ -234,19 +220,7 @@ var ScheduleComponent = (function () {
             var friday = this.scheduleForm.controls["friday"].value;
             var saturday = this.scheduleForm.controls["saturday"].value;
             var sunday = this.scheduleForm.controls["sunday"].value;
-            if (!monday && !tuesday && !wednesday && !thursday && !friday && !saturday && !sunday) {
-                return "Once";
-            }
-            if (monday && tuesday && wednesday && thursday && friday && saturday && sunday) {
-                return "Everyday";
-            }
-            if (monday && tuesday && wednesday && thursday && friday && !saturday && !sunday) {
-                return "Weekdays";
-            }
-            if (!monday && !tuesday && !wednesday && !thursday && !friday && saturday && sunday) {
-                return "Weekends";
-            }
-            return "Weekly";
+            return this.getDayFromBoolean(monday, tuesday, wednesday, thursday, friday, saturday, sunday);
         }
         return "";
     };

@@ -457,6 +457,7 @@
     <Content Include="fonts\OpenSans-Semibold.ttf" />
     <Content Include="fonts\OpenSans-SemiboldItalic.ttf" />
     <None Include="Properties\PublishProfiles\lynexapi.pubxml" />
+    <None Include="Properties\PublishProfiles\shome2017 - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\shome2017.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\event.js" />
@@ -1314,7 +1315,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>63906</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://api.mylynex.com.au</IISUrl>
+          <IISUrl>http://home.mylynex.com.au/admin</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

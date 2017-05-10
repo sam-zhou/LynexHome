@@ -1,14 +1,14 @@
 import { FormGroup } from '@angular/forms';
 
-export function greaterThan(firstControlName: string, secondControlName: string) {
+export function greaterThan() {
     return (group: FormGroup): { [key: string]: any } => {
 
         console.log("checking");
 
-        let sH = group.controls[firstControlName].value.hour;
-        let sM = group.controls[firstControlName].value.minute;
-        let eH = group.controls[secondControlName].value.hour;
-        let eM = group.controls[secondControlName].value.minute;
+        let sH = group.get("sTime").value.hour;
+        let sM = group.get("sTime").value.minute;
+        let eH = group.get("eTime").value.hour;
+        let eM = group.get("eTime").value.minute;
 
         if (eH < sH || (eH == sH && eM <= sM)) {
             console.log("failed");

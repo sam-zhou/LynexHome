@@ -17,9 +17,9 @@
                         <label for="scheduleTitle">SWTICH NAME</label>
                         <input type="text" required formControlName="name" class="form-control" id="switchName" aria-describedby="switchNameHelp" placeholder="Enter Switch Name">
                         <small id="switchNameHelp" class="form-text text-muted">Please set a name for the switch</small>
-                        <div *ngIf="formErrors.name" class="alert alert-danger">
+                        <small *ngIf="formErrors.name" class="form-text text-danger">
                             {{ formErrors.name }}
-                        </div>
+                        </small>
                     </div>
 
 
@@ -59,10 +59,10 @@
                     <div class="form-group">
                         <label for="scheduleTitle">Chip Id</label>
                         <input type="text" required formControlName="chipId" class="form-control" id="switchChipId" aria-describedby="switchChipIdHelp" placeholder="Enter Chip Id">
-                        <small id="switchChipIdHelp" class="form-text text-danger">Chip Id is identity of a switch, do not change this value if you don't know what are you doing</small>
-                        <div *ngIf="formErrors.chipId" class="alert alert-danger">
+                        <small id="switchChipIdHelp" class="form-text text-warning">Chip Id is the identity of a switch, do not change this value if you don't know what are you doing</small>
+                        <small *ngIf="formErrors.chipId" class="form-text text-danger">
                             {{ formErrors.chipId }}
-                        </div>
+                        </small>
                     </div>
                     <button type="submit" [disabled]="!switchSettingForm.valid" class="btn btn-default pull-right"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;SAVE</button>
 
