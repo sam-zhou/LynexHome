@@ -15,6 +15,8 @@ import { FooterComponent } from '../components/footer.component';
 import { ControlComponent } from '../components/control.component';
 import { ScheduleComponent } from '../components/schedule.component';
 import { SwitchSettingComponent } from '../components/switchsetting.component';
+import { SiteManagerComponent } from '../components/sitemanager.component';
+import { AccountComponent } from '../components/account.component';
 
 import { ApiService } from '../services/api.service';
 import { SwitchService } from '../services/switch.service';
@@ -26,7 +28,7 @@ import { WebConfig } from '../models/webconfig.model';
 
 @NgModule({
     imports: [BrowserModule, NgbModule.forRoot(), HttpModule, FormsModule, LynexRoutingModule, DndModule.forRoot(), MomentModule, ReactiveFormsModule],
-    declarations: [LynexComponent, DialogComponent, NavigationComponent, LoginComponent, FooterComponent, ControlComponent, ScheduleComponent, SwitchSettingComponent],
+    declarations: [LynexComponent, DialogComponent, NavigationComponent, LoginComponent, FooterComponent, ControlComponent, ScheduleComponent, SwitchSettingComponent, SiteManagerComponent, AccountComponent],
     providers: [ApiService, SwitchService, UserService, SiteService, SettingsService, FormBuilder],
     bootstrap: [LynexComponent]
 })

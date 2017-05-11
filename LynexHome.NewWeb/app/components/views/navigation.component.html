@@ -1,4 +1,4 @@
-﻿<div class="navbar-brand">
+﻿<div class="navbar-brand" [ngClass]="{'side-menu-open':!isCollapsed}">
     <div class="img-container">
         <a href="/" class="logo">
             <img alt="Lynex Smart Home" src="/Images/logo.png">
@@ -17,10 +17,10 @@
         <div class="navbar-nav">
             <a class="nav-item nav-link nav-collapse-btn" href="javascript:void(0)" (click) ="isCollapsed=true"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
 
-            <a class="nav-item nav-link active" href="#">Smart Home</a>
-            <a class="nav-item nav-link" href="#">Map</a>
-            <a class="nav-item nav-link" href="#">Products</a>
-            <a class="nav-item nav-link" href="#">Sale</a>
+            <a class="nav-item nav-link lynex-nav-link active" href="/control"><i class="fa fa-home" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Smart Home</a>
+            <a class="nav-item nav-link lynex-nav-link" href="#"><i class="fa fa-map-o" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Map</a>
+            <a class="nav-item nav-link lynex-nav-link" href="#"><i class="fa fa-microchip" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Products</a>
+            <a class="nav-item nav-link lynex-nav-link" href="#"><i class="fa fa-flag-o" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Sale</a>
             
         </div>
     </div>

@@ -165,7 +165,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\components\css\account.component.css" />
+    <Content Include="app\components\css\sitemanager.component.css" />
     <Content Include="app\components\css\switchsetting.component.css" />
+    <Content Include="app\components\views\account.component.html" />
+    <Content Include="app\components\views\sitemanager.component.html" />
     <Content Include="app\components\views\switchsetting.component.html" />
     <Content Include="css\767.css" />
     <Content Include="css\991.css" />
@@ -339,6 +343,7 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Views\Shared\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -356,8 +361,10 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="app\apimodels\querysitemodel.apimodels.ts" />
+    <TypeScriptCompile Include="app\components\sitemanager.component.ts" />
     <TypeScriptCompile Include="app\components\dialog.component.ts" />
     <TypeScriptCompile Include="app\components\footer.component.ts" />
+    <TypeScriptCompile Include="app\components\account.component.ts" />
     <TypeScriptCompile Include="app\components\switchsetting.component.ts" />
     <TypeScriptCompile Include="app\components\login.component.ts" />
     <TypeScriptCompile Include="app\components\control.component.ts" />
@@ -429,7 +436,6 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\ControlController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

@@ -8,9 +8,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var control_component_1 = require("../components/control.component");
+var sitemanager_component_1 = require("../components/sitemanager.component");
+var account_component_1 = require("../components/account.component");
 var routes = [
     { path: '', redirectTo: '/control', pathMatch: 'full' },
-    { path: 'control', component: control_component_1.ControlComponent }
+    { path: 'control', component: control_component_1.ControlComponent },
+    { path: 'sitemanager', component: sitemanager_component_1.SiteManagerComponent },
+    { path: 'account', component: account_component_1.AccountComponent }
 ];
 var LynexRoutingModule = (function () {
     function LynexRoutingModule() {
@@ -19,7 +23,7 @@ var LynexRoutingModule = (function () {
 }());
 LynexRoutingModule = __decorate([
     core_1.NgModule({
-        imports: [router_1.RouterModule.forRoot(routes)],
+        imports: [router_1.RouterModule.forRoot(routes, { useHash: true })],
         exports: [router_1.RouterModule]
     })
 ], LynexRoutingModule);

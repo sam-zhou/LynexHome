@@ -8,12 +8,11 @@
             </span>
             <div class="dropdown-menu dropdown-menu-right">
                 <a class="dropdown-header">{{user.email}}</a>
-                <a class="dropdown-item" href="javascript:void(0)"><span title="Logout" class="glyphicon glyphicon-home" aria-hidden="true"></span>&nbsp;My Smart Home</a>
-                <a class="dropdown-item" href="javascript:void(0)"><span title="Logout" class="glyphicon glyphicon-saved" aria-hidden="true"></span>&nbsp;Site Manager</a>
-
+                <a class="dropdown-item" routerLink="/control" routerLinkActive="active"><i class="fa fa-home" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;My Smart Home</a>
+                <a class="dropdown-item" routerLink="/sitemanager" routerLinkActive="active"><i class="fa fa-cogs" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Site Manager</a>
                 <div role="separator" class="dropdown-divider"></div>
-                <a class="dropdown-item" href="javascript:void(0)"><span title="Logout" class="glyphicon glyphicon-wrench" aria-hidden="true"></span>&nbsp;Account Settings</a>
-                <a class="dropdown-item" href="javascript:void(0)" ng-click="logout()"><span title="Logout" class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Logout</a>
+                <a class="dropdown-item" routerLink="/account" routerLinkActive="active"><i class="fa fa-id-card-o" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Account Settings</a>
+                <a class="dropdown-item" href="javascript:void(0)" ng-click="logout()"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Logout</a>
 
             </div>
         </div>
