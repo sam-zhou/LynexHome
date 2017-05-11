@@ -10,7 +10,8 @@ import { User } from '../models/user.model';
     moduleId: module.id
 })
 export class NavigationComponent implements OnInit {
-    
+
+    isCollapsed: boolean = true;
 
     ngOnInit(): void {
         
