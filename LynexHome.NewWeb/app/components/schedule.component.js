@@ -101,6 +101,13 @@ var ScheduleComponent = (function () {
     };
     ScheduleComponent.prototype.addNew = function () {
         this.selectedSchedule = new schedule_model_1.Schedule();
+        this.selectedSchedule.monday = false;
+        this.selectedSchedule.tuesday = false;
+        this.selectedSchedule.wednesday = false;
+        this.selectedSchedule.thursday = false;
+        this.selectedSchedule.friday = false;
+        this.selectedSchedule.saturday = false;
+        this.selectedSchedule.sunday = false;
         this.selectedSchedule.switchId = this.currentSwitch.id;
         this.buildForm();
     };
@@ -146,10 +153,11 @@ var ScheduleComponent = (function () {
         }).then(function () {
             console.log("delete", _this.selectedSchedule);
             if (_this.selectedSchedule.id !== 0 && _this.selectedSchedule.id !== undefined) {
+                var deletingSwitch = _this.selectedSchedule;
                 _this.isBusy = true;
                 _this.switchService.deleteSchedule(_this.selectedSchedule).then(function (response) {
                     for (var i = 0; i < _this.schedules.length; i++) {
-                        if (_this.schedules[i].id === _this.selectedSchedule.id) {
+                        if (_this.schedules[i].id === deletingSwitch.id) {
                             _this.schedules.splice(i, 1);
                             _this.isBusy = false;
                             break;

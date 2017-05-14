@@ -121,6 +121,13 @@ export class ScheduleComponent {
 
     addNew(): void {
         this.selectedSchedule = new Schedule();
+        this.selectedSchedule.monday = false;
+        this.selectedSchedule.tuesday = false;
+        this.selectedSchedule.wednesday = false;
+        this.selectedSchedule.thursday = false;
+        this.selectedSchedule.friday = false;
+        this.selectedSchedule.saturday = false;
+        this.selectedSchedule.sunday = false;
         this.selectedSchedule.switchId = this.currentSwitch.id;
         this.buildForm();
     }
@@ -132,7 +139,7 @@ export class ScheduleComponent {
             this.selectedSchedule.name = this.scheduleForm.get("name").value;
             this.selectedSchedule.sTime = this.scheduleForm.get("sTime").value;
             this.selectedSchedule.eTime = this.scheduleForm.get("eTime").value;
-            this.selectedSchedule.monday = this.scheduleForm.get("monday").value;
+            this.selectedSchedule.monday = this.scheduleForm.get("monday").value ;
             this.selectedSchedule.tuesday = this.scheduleForm.get("tuesday").value;
             this.selectedSchedule.wednesday = this.scheduleForm.get("wednesday").value;
             this.selectedSchedule.thursday = this.scheduleForm.get("thursday").value;
@@ -170,12 +177,15 @@ export class ScheduleComponent {
             cancelButtonText: 'No, keep it'
         }).then(() => {
             console.log("delete", this.selectedSchedule);
+
+            
             if (this.selectedSchedule.id !== 0 && this.selectedSchedule.id !== undefined) {
+                    var deletingSwitch = this.selectedSchedule;
                     this.isBusy = true;
                     this.switchService.deleteSchedule(this.selectedSchedule).then(response => {
 
                         for (let i = 0; i < this.schedules.length; i++) {
-                            if (this.schedules[i].id === this.selectedSchedule.id) {
+                            if (this.schedules[i].id === deletingSwitch.id) {
                                 this.schedules.splice(i, 1);
                                 this.isBusy = false;
                                 break;
