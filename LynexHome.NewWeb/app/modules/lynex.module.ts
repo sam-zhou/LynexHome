@@ -29,7 +29,7 @@ import { WebConfig } from '../models/webconfig.model';
 @NgModule({
     imports: [BrowserModule, NgbModule.forRoot(), HttpModule, FormsModule, LynexRoutingModule, DndModule.forRoot(), MomentModule, ReactiveFormsModule],
     declarations: [LynexComponent, DialogComponent, NavigationComponent, LoginComponent, FooterComponent, ControlComponent, ScheduleComponent, SwitchSettingComponent, SiteManagerComponent, AccountComponent],
-    providers: [ApiService, SwitchService, UserService, SiteService, SettingsService, FormBuilder],
+    providers: [UserService, ApiService, SwitchService, , SiteService, SettingsService, FormBuilder],
     bootstrap: [LynexComponent]
 })
 export class LynexModule { }

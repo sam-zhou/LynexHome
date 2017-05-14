@@ -104,3 +104,11 @@
     left: 20px;
     padding: 18px;
 }
+
+.switch-box:hover .drag-handle, .switch-box:hover .switch-btn-container {
+    display: block;
+}
+
+.drag-handle, .switch-btn-container {
+    display: none;
+}

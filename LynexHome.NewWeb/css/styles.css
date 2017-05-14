@@ -209,3 +209,51 @@ ngb-timepicker.ng-valid input {
 ngb-timepicker.ng-invalid input {
     border-left: 5px solid #a94442 !important;
 }
+
+.back-button{
+    display:none;
+}
+
+.only-show-767{
+    display:none;
+    position:relative;
+}
+
+.item-detail, .item-list {
+    padding-top:20px;
+}
+
+.left-menu-item {
+    height: 50px;
+    line-height: 40px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 20px;
+    border-bottom: #c8c8c8 1px dashed;
+    cursor: pointer;
+    position: relative;
+}
+
+.left-menu-item:hover {
+    background:#F5F5F5;
+}
+
+.left-menu-item.active {
+            
+}
+
+    .left-menu-item.active .selected-item-indicator {
+        display: block;
+        position: absolute;
+        right: 20px;
+        top: 0;
+        line-height: 50px;
+    }
+
+.selected-item-indicator{
+    display:none;
+}
+
+.btn.btn-default{
+    margin-bottom:20px;
+}

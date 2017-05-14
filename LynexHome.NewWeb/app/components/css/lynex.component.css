@@ -9,8 +9,15 @@
     overflow-y:auto;
 }
 
-
 @media screen and (max-width: 991px) {
+    .main-container {
+        height: calc(100% - 100px);
+        bottom: 50px;
+    }
+}
+
+
+@media screen and (max-width: 767px) {
     .main-container {
         height: calc(100% - 50px);
         bottom: 0;

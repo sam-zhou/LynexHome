@@ -37,7 +37,7 @@ LynexModule = __decorate([
     core_1.NgModule({
         imports: [platform_browser_1.BrowserModule, ng_bootstrap_1.NgbModule.forRoot(), http_1.HttpModule, forms_1.FormsModule, lynex_routing_module_1.LynexRoutingModule, ng2_dnd_1.DndModule.forRoot(), angular2_moment_1.MomentModule, forms_1.ReactiveFormsModule],
         declarations: [lynex_component_1.LynexComponent, dialog_component_1.DialogComponent, navigation_component_1.NavigationComponent, login_component_1.LoginComponent, footer_component_1.FooterComponent, control_component_1.ControlComponent, schedule_component_1.ScheduleComponent, switchsetting_component_1.SwitchSettingComponent, sitemanager_component_1.SiteManagerComponent, account_component_1.AccountComponent],
-        providers: [api_service_1.ApiService, switch_service_1.SwitchService, user_service_1.UserService, site_service_1.SiteService, settings_service_1.SettingsService, forms_1.FormBuilder],
+        providers: [user_service_1.UserService, api_service_1.ApiService, switch_service_1.SwitchService, , site_service_1.SiteService, settings_service_1.SettingsService, forms_1.FormBuilder],
         bootstrap: [lynex_component_1.LynexComponent]
     })
 ], LynexModule);

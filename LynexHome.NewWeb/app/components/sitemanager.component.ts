@@ -1,11 +1,8 @@
 import { Component, Directive, OnInit, Input } from '@angular/core';
 import { ScheduleComponent } from './schedule.component';
-import { SwitchService } from '../services/switch.service';
 import { SiteService } from '../services/site.service';
-import { Switch } from '../models/switch.model';
 import { Site } from '../models/site.model';
-import { WebSocketMessage, WebSocketMessageType } from '../models/websocketmessage.model';
-import { WebSocketService, WebSocketSendMode, WebSocketConfig } from '../services/websocket.service';
+import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Subject } from 'rxjs/Rx';
 
 @Component({
@@ -21,26 +18,71 @@ export class SiteManagerComponent implements OnInit {
 
     selectedSite: Site = null;
 
-    constructor(private switchService: SwitchService, private siteService: SiteService) {
+    isMenuSelected: boolean = false;
+
+    siteForm: FormGroup;
+
+    constructor(private siteService: SiteService, private formBuilder: FormBuilder) {
         
     }
 
-
-    getSiteName(): string {
-        if (this.selectedSite) {
-            var suffix = this.selectedSite.isDefault ? "(Default)" : "";
-            return this.selectedSite.name + suffix;
+    save(): void {
+        this.isBusy = true;
+        let siteModel = {
+            Name: this.siteForm.get("name").value,
+            Address: this.siteForm.get("address").value,
+            Suburb: this.siteForm.get("suburb").value,
+            State: this.siteForm.get("state").value,
+            Postcode: this.siteForm.get("postcode").value,
+            Country: this.siteForm.get("country").value
         }
-        return "Please Select";
+
+        this.siteService.updateSite(siteModel).then(results => {
+            this.isBusy = true;
+        });
     }
 
     selectSite(site: Site): void {
         this.isBusy = true;
         this.selectedSite = site;
         this.loadSelectedSite();
+        this.isMenuSelected = true;
     }
 
     loadSelectedSite(): void {
+        
+        this.siteForm = this.formBuilder.group({
+            'name': [this.selectedSite.name, [
+                Validators.required,
+                Validators.maxLength(20),
+            ]
+            ],
+            'address': [this.selectedSite.address, [
+                Validators.required,
+                Validators.maxLength(50),
+            ]
+            ],
+            'suburb': [this.selectedSite.suburb, [
+                Validators.required,
+                Validators.maxLength(20),
+            ]
+            ],
+            'state': [this.selectedSite.state, [
+                Validators.required,
+                Validators.maxLength(20),
+            ]
+            ],
+            'postcode': [this.selectedSite.postcode, [
+                Validators.required,
+                Validators.maxLength(4),
+            ]
+            ],
+            'country': [this.selectedSite.country, [
+                Validators.required,
+                Validators.maxLength(20),
+            ]
+            ],
+        });
         this.isBusy = false;
     }
 

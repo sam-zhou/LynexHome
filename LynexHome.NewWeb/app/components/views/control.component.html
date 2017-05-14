@@ -6,13 +6,13 @@
 <div class="row site-selector" [hidden]="isBusy">
     <div class="col-md-12 home-select">
         <div ngbDropdown class="d-inline-block">
-            <button class="btn btn-secondary" id="dropdownBasic1" ngbDropdownToggle>{{getSiteName()}}</button>
+            <button class="btn btn-sm btn-secondary" id="dropdownBasic1" ngbDropdownToggle>{{getSiteName()}}</button>
             <div class="dropdown-menu" aria-labelledby="dropdownBasic1">
                 <button class="dropdown-item" *ngFor="let site of sites" (click)="selectSite(site)">{{site.name}}</button>
             </div>
         </div>
 
-        <button class="btn btn-secondary" *ngIf="selectedSite && !selectedSite.isDefault" (click)="setDefault()">Set As Default</button>
+        <button class="btn btn-sm btn-secondary" *ngIf="selectedSite && !selectedSite.isDefault" (click)="setDefault()">Set As Default</button>
     </div>
 </div>
 <div class="row"  [hidden]="isBusy" dnd-sortable-container [sortableData]="switches">

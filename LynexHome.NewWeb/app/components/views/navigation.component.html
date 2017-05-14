@@ -10,17 +10,17 @@
     <button id="nav-toggle-btn" class="navbar-toggler navbar-toggler-left" 
             type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" 
             aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" (click)="isCollapsed = !isCollapsed">
-        <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+        <i class="fa fa-bars" aria-hidden="true"></i>
     </button>
 
     <div class="navbar-collapse" [ngClass]="{'collapse':isCollapsed}" id="navbarNavAltMarkup" >
         <div class="navbar-nav">
             <a class="nav-item nav-link nav-collapse-btn" href="javascript:void(0)" (click) ="isCollapsed=true"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
 
-            <a class="nav-item nav-link lynex-nav-link active" href="/control"><i class="fa fa-home" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Smart Home</a>
-            <a class="nav-item nav-link lynex-nav-link" href="#"><i class="fa fa-map-o" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Map</a>
-            <a class="nav-item nav-link lynex-nav-link" href="#"><i class="fa fa-microchip" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Products</a>
-            <a class="nav-item nav-link lynex-nav-link" href="#"><i class="fa fa-flag-o" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Sale</a>
+            <a class="nav-item nav-link lynex-nav-link" routerLink="/control" routerLinkActive="active"><i class="fa fa-home" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Smart Home</a>
+            <a class="nav-item nav-link lynex-nav-link" routerLink="/map" routerLinkActive="active"><i class="fa fa-map-o" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Map</a>
+            <a class="nav-item nav-link lynex-nav-link" routerLink="/product" routerLinkActive="active"><i class="fa fa-microchip" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Products</a>
+            <a class="nav-item nav-link lynex-nav-link" routerLink="/sale" routerLinkActive="active"><i class="fa fa-flag-o" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Sale</a>
             
         </div>
     </div>

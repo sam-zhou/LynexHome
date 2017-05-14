@@ -18,18 +18,19 @@ var SiteService = (function () {
     }
     SiteService.prototype.getSites = function () {
         var _this = this;
-        var promise = this.apiService.getData("site", "get")
+        return this.apiService.getData("site", "get")
             .then(function (response) {
             var results = response.results;
             _this.sites = results;
             return results;
         });
-        return promise;
     };
     ;
     SiteService.prototype.setDefault = function (siteId) {
-        var promise = this.apiService.postData("site", "SetAsDefault", { SiteId: siteId });
-        return promise;
+        return this.apiService.postData("site", "SetAsDefault", { SiteId: siteId });
+    };
+    SiteService.prototype.updateSite = function (site) {
+        return this.apiService.postData("site", "updateSite", site).then(function (response) { return response.results; });
     };
     return SiteService;
 }());

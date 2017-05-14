@@ -4,18 +4,33 @@
     bottom: 0;
     height: 50px;
     line-height: 50px;
+    z-index: -1;
+    font-weight: 100;
 }
 
     footer ul {
-        width: auto;
+        width: 500px;
+        margin: 0 auto;
     }
 
-footer ul li {
-    display: inline-block;
-    padding-right: 15px;
-}
+        footer ul li {
+            display: inline-block;
+            padding-right: 15px;
+            padding-left: 15px;
+            cursor:pointer;
+        }
 
-@media screen and (max-width: 991px) {
+    footer ul li:hover {
+        background: #60C325;
+
+    }
+
+            footer ul li:hover a {
+
+                color: #ffffff;
+            }
+
+@media screen and (max-width: 767px) {
     footer {
         display: none;
     }

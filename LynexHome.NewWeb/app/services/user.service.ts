@@ -6,9 +6,7 @@ import { User } from '../models/user.model';
 
 @Injectable()
 export class UserService {
-    user: User;
-
-    getUserPromise: Promise<User> = null;
+    user: User = null;
 
     constructor(private apiService: ApiService) {
 
@@ -32,13 +30,8 @@ export class UserService {
         );
     }
 
-    getUser(authorizeCheck?: boolean): Promise<User> {
-
-        if (authorizeCheck !== undefined && !authorizeCheck) {
-            return this.apiService.resolve(null);
-        }
-
-        if (this.user && this.user.id) {
+    getUser(): Promise<User> {
+        if (this.user !== null && this.user.id) {
             return this.apiService.resolve(this.user);
         };
 

@@ -9,29 +9,71 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
-var switch_service_1 = require("../services/switch.service");
 var site_service_1 = require("../services/site.service");
+var forms_1 = require("@angular/forms");
 var SiteManagerComponent = (function () {
-    function SiteManagerComponent(switchService, siteService) {
-        this.switchService = switchService;
+    function SiteManagerComponent(siteService, formBuilder) {
         this.siteService = siteService;
+        this.formBuilder = formBuilder;
         this.sites = [];
         this.isBusy = true;
         this.selectedSite = null;
+        this.isMenuSelected = false;
     }
-    SiteManagerComponent.prototype.getSiteName = function () {
-        if (this.selectedSite) {
-            var suffix = this.selectedSite.isDefault ? "(Default)" : "";
-            return this.selectedSite.name + suffix;
-        }
-        return "Please Select";
+    SiteManagerComponent.prototype.save = function () {
+        var _this = this;
+        this.isBusy = true;
+        var siteModel = {
+            Name: this.siteForm.get("name").value,
+            Address: this.siteForm.get("address").value,
+            Suburb: this.siteForm.get("suburb").value,
+            State: this.siteForm.get("state").value,
+            Postcode: this.siteForm.get("postcode").value,
+            Country: this.siteForm.get("country").value
+        };
+        this.siteService.updateSite(siteModel).then(function (results) {
+            _this.isBusy = true;
+        });
     };
     SiteManagerComponent.prototype.selectSite = function (site) {
         this.isBusy = true;
         this.selectedSite = site;
         this.loadSelectedSite();
+        this.isMenuSelected = true;
     };
     SiteManagerComponent.prototype.loadSelectedSite = function () {
+        this.siteForm = this.formBuilder.group({
+            'name': [this.selectedSite.name, [
+                    forms_1.Validators.required,
+                    forms_1.Validators.maxLength(20),
+                ]
+            ],
+            'address': [this.selectedSite.address, [
+                    forms_1.Validators.required,
+                    forms_1.Validators.maxLength(50),
+                ]
+            ],
+            'suburb': [this.selectedSite.suburb, [
+                    forms_1.Validators.required,
+                    forms_1.Validators.maxLength(20),
+                ]
+            ],
+            'state': [this.selectedSite.state, [
+                    forms_1.Validators.required,
+                    forms_1.Validators.maxLength(20),
+                ]
+            ],
+            'postcode': [this.selectedSite.postcode, [
+                    forms_1.Validators.required,
+                    forms_1.Validators.maxLength(4),
+                ]
+            ],
+            'country': [this.selectedSite.country, [
+                    forms_1.Validators.required,
+                    forms_1.Validators.maxLength(20),
+                ]
+            ],
+        });
         this.isBusy = false;
     };
     SiteManagerComponent.prototype.setDefault = function () {
@@ -77,7 +119,7 @@ SiteManagerComponent = __decorate([
         styleUrls: ['css/sitemanager.component.css'],
         moduleId: module.id
     }),
-    __metadata("design:paramtypes", [switch_service_1.SwitchService, site_service_1.SiteService])
+    __metadata("design:paramtypes", [site_service_1.SiteService, forms_1.FormBuilder])
 ], SiteManagerComponent);
 exports.SiteManagerComponent = SiteManagerComponent;
 //# sourceMappingURL=sitemanager.component.js.map

@@ -16,8 +16,7 @@ export class SiteService {
     }
 
     getSites(): Promise<Site[]> {
-
-        var promise = this.apiService.getData("site", "get")
+        return  this.apiService.getData("site", "get")
             .then(response => {
                 var results = response.results as Site[];
                 this.sites = results;
@@ -26,11 +25,13 @@ export class SiteService {
 
                 return results;
             });
-        return promise;
     };
 
     setDefault(siteId: string): Promise<ApiResponse> {
-        var promise = this.apiService.postData("site", "SetAsDefault", { SiteId: siteId })
-        return promise;
+        return this.apiService.postData("site", "SetAsDefault", { SiteId: siteId });
+    }
+
+    updateSite(site: any): Promise<Site> {
+        return this.apiService.postData("site", "updateSite", site).then(response => response.results);
     }
 }

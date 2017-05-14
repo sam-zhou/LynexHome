@@ -15,7 +15,7 @@ var user_model_1 = require("../models/user.model");
 var UserService = (function () {
     function UserService(apiService) {
         this.apiService = apiService;
-        this.getUserPromise = null;
+        this.user = null;
     }
     UserService.prototype.getUserFromServer = function () {
         var _this = this;
@@ -32,11 +32,8 @@ var UserService = (function () {
             return _this.user;
         });
     };
-    UserService.prototype.getUser = function (authorizeCheck) {
-        if (authorizeCheck !== undefined && !authorizeCheck) {
-            return this.apiService.resolve(null);
-        }
-        if (this.user && this.user.id) {
+    UserService.prototype.getUser = function () {
+        if (this.user !== null && this.user.id) {
             return this.apiService.resolve(this.user);
         }
         ;

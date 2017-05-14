@@ -1,6 +1,8 @@
 ﻿@media screen and (max-width: 767px) {
     .dialog-back.back-button {
         display: inline;
+        position:absolute;
+        left:0;
     }
 
     .time-input-block input {
@@ -10,5 +12,44 @@
 
     .ngb-tp-spacer {
         width: auto !important;
+    }
+
+    .item-list {
+        padding-left:0;
+        padding-right:0;
+        padding-top:0;
+    }
+
+    .item-list.item-selected {
+        display: none;
+    }
+
+    .item-detail {
+        display: none;
+    }
+
+        .item-detail.item-selected {
+            display: block;
+        }
+
+    .item-selected .back-button {
+        display: inline;
+    }
+
+    .only-show-767 {
+        display: inherit;
+    }
+
+    .item-dialog {
+        width: 100%;
+        position: fixed;
+        left: 0;
+        top: 50px;
+        height: calc(100% - 50px);
+        overflow-y:auto;
+    }
+
+    .left-menu-item.active .selected-item-indicator {
+        display:none;
     }
 }

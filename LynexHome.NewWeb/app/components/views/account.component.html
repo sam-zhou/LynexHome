@@ -1,11 +1,113 @@
-﻿<div class="loader-container" [hidden]="!isBusy">
+﻿<div class="loader-container" *ngIf="isBusy">
     <div class="loader"></div>
 </div>
-<div class="row" [hidden]="isBusy">
-    <div class="col-md-12">
-        
+<div class="item-dialog" *ngIf="!isBusy">
+    <div class="dialog-header only-show-767">
+        <a class="dialog-back pull-left" aria-label="Back" (click)="isMenuSelected = false" [ngClass]="{'back-button':isMenuSelected}">
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        </a>
+        Account Settings
     </div>
-</div>
-<div class="row"  [hidden]="isBusy">
-    content
+    <div class="col-md-4 pull-left item-list" [ngClass]="{'item-selected':isMenuSelected}">
+        <ul>
+            <li (click)="goToForm('general')" class="left-menu-item" [ngClass]="{'active': selectedForm == 'general' }">
+                General<span class="selected-item-indicator">
+                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                </span>
+            </li>
+            <li (click)="goToForm('advanced')" class="left-menu-item" [ngClass]="{'active':selectedForm == 'advanced'  }">
+                Advanced Setting<span class="selected-item-indicator">
+                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                </span>
+            </li>
+            <li (click)="goToForm('privacy')" class="left-menu-item" [ngClass]="{'active':selectedForm == 'privacy'  }">
+                Privacy<span class="selected-item-indicator">
+                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                </span>
+            </li>
+            <li (click)="goToForm('password')" class="left-menu-item" [ngClass]="{'active':selectedForm == 'password'  }">
+                Password<span class="selected-item-indicator">
+                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-8 pull-right item-detail" [ngClass]="{'item-selected':isMenuSelected}">
+
+        <form [formGroup]="generalForm" (ngSubmit)="save()" *ngIf="selectedForm == 'general'">
+            <div class="form-group">
+                <label for="siteName">Email</label>
+                <input type="text" required formControlName="email" class="form-control" id="userEmail" placeholder="Email">
+                <small class="form-text text-danger" *ngIf="generalForm.get('email').touched && generalForm.get('email').hasError('required')">
+                    Email is required
+                </small>
+            </div>
+
+            <button type="submit" [disabled]="!generalForm.valid || !generalForm.dirty" class="btn btn-default pull-right"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;SAVE</button>
+        </form>
+
+        <form [formGroup]="advancedForm" (ngSubmit)="save()" *ngIf="selectedForm == 'advanced'">
+            <div class="form-group">
+                <label for="siteName">Phone</label>
+                <input type="text" required formControlName="phone" class="form-control" id="siteName" placeholder="Phone">
+                <small class="form-text text-danger" *ngIf="advancedForm.get('phone').touched && advancedForm.get('phone').hasError('required')">
+                    Phone is required
+                </small>
+            </div>
+
+            <button type="submit" [disabled]="!advancedForm.valid || !advancedForm.dirty" class="btn btn-default pull-right"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;SAVE</button>
+        </form>
+
+        <form [formGroup]="privacyForm" (ngSubmit)="save()" *ngIf="selectedForm == 'privacy'">
+            <div class="form-group">
+                <label for="siteName">Phone</label>
+                <input type="text" required formControlName="phone" class="form-control" id="siteName" placeholder="Phone">
+                <small class="form-text text-danger" *ngIf="privacyForm.get('phone').touched && privacyForm.get('phone').hasError('required')">
+                    Phone is required
+                </small>
+            </div>
+
+            <button type="submit" [disabled]="!privacyForm.valid || !privacyForm.dirty" class="btn btn-default pull-right"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;SAVE</button>
+        </form>
+
+        <form [formGroup]="passwordForm" (ngSubmit)="save()" *ngIf="selectedForm == 'password'">
+            <div class="form-group">
+                <label for="siteName">Current Password</label>
+                <input type="password" required formControlName="oldPassword" class="form-control" id="siteName" placeholder="Current Password">
+                <small class="form-text text-danger" *ngIf="passwordForm.get('oldPassword').touched && passwordForm.get('oldPassword').hasError('required')">
+                    Current password is required
+                </small>
+            </div>
+
+            <div class="form-group">
+                <label for="siteName">New Password</label>
+                <input type="password" required formControlName="password" class="form-control" id="siteName" placeholder="New Password">
+                <small class="form-text text-danger" *ngIf="passwordForm.get('password').touched && passwordForm.get('password').hasError('required')">
+                    Password is required
+                </small>
+                <small class="form-text text-danger" *ngIf="passwordForm.get('password').touched && passwordForm.get('password').hasError('minlength')">
+                    Minimum length for password is 6
+                </small>
+                <small class="form-text text-danger" *ngIf="passwordForm.get('password').touched && passwordForm.get('password').hasError('maxlength')">
+                    Maximum length for password is 20
+                </small>
+                <small class="form-text text-danger" *ngIf="passwordForm.get('password').touched && passwordForm.get('password').hasError('complexity')">
+                    Password needs to have uppercase letter, lowercase letter and number
+                </small>
+            </div>
+
+            <div class="form-group">
+                <label for="siteName">Confirm Password</label>
+                <input type="password" required formControlName="confirmPassword" class="form-control" id="siteName" placeholder="Confirm Password">
+                <small class="form-text text-danger" *ngIf="passwordForm.get('confirmPassword').touched && passwordForm.get('confirmPassword').hasError('required')">
+                    You'll need confirm your password
+                </small>
+                <small class="form-text text-danger" *ngIf="passwordForm.get('confirmPassword').touched && passwordForm.get('confirmPassword').hasError('equal')">
+                    Passwords do not match
+                </small>
+            </div>
+
+            <button type="submit" [disabled]="!passwordForm.valid || !passwordForm.dirty" class="btn btn-default pull-right"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;SAVE</button>
+        </form>
+    </div>
 </div>
